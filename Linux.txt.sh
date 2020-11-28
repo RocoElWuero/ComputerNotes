@@ -3,13 +3,13 @@
 ├-----------------------------------------------------------------------┤
 | Visualizar con el comando bat                                         |
 | (https://www.atareao.es/software/utilidades/bat-un-cat-con-alas/)     |
-| y con un tamaño adecuado para que este menseje no salga distorcionado.|
+| y con un tamaño adecuado para que este mensaje no salga distorsionado.|
 ├-----------------------------------------------------------------------┤
 |                     Desarrollado por: RocoElWuero                     |
 └-----------------------------------------------------------------------┘
 
 ┌────────────────────────────────────────────────────────────────────────────────────────────┐
-│ SIMBOLOGIA LINUX                                                                           │
+│ SIMBOLOGÍA LINUX                                                                           │
 ├────────────────────────────────────────────────────────────────────────────────────────────┤
 ├────────────────────────────────────────────────────────────────────────────────────────────┤
 │ <>     Obligado pero el nombre es variable por el usuario.                                 │
@@ -49,7 +49,7 @@ Entrada => [Procesamiento] => Salida
 
 
 
-INDICE
+ÍNDICE
 
 1. Introducción a Linux
 A). ¿Qué es Linux?
@@ -142,13 +142,13 @@ xxvii.  tgz
 xxviii. ebuild
 xxix.   pacman
 C). Instalación de paquetes desde código fuente
-D). Librerias
+D). Librerías
 i.   Estáticas
 ii.  Dinámicas o compartidas
 iii. Gestión de bibliotecas
      1. Localización de bibliotecas
      2. Resolución de problemas de librerías faltantes
-     3. Actualizar Librerias
+     3. Actualizar Librerías
 iv. ¿Como se compilan?
      1. Estáticas
      2. Dinámicas
@@ -201,7 +201,7 @@ iii. Configuración y Uso de SSH
      1. Configuración
      2. Conexión simple
      3. Ejecución remota de aplicaciones gráficas
-     4. Manejo de archivos en un tunel SSH, con SCP
+     4. Manejo de archivos en un túnel SSH, con SCP
      5. Ejecutar comandos remotos
 B). Domain Name System (DNS)
 i.   Zonas Primarias y Secundarias
@@ -291,7 +291,7 @@ Para una mejor visualización de una estructura de una computadora, lo puedes ve
 
 El núcleo es el corazón del sistema operativo, ya que tiene comunicación directa con el microprocesador para ejecutar los procesos críticos y la conexión de todos los componentes del sistema, además regula la operación de otros programas con el microprocesador.
 
-Funciona como intermediaro entre el software y el hardware, ya que recibe las órdenes de los elementos del S.O. para enviarlas al procesador u otros elementos del hardware y se ejecuten.
+Funciona como intermediario entre el software y el hardware, ya que recibe las órdenes de los elementos del S.O. para enviarlas al procesador u otros elementos del hardware y se ejecuten.
 
 El kernel es la primera capa de software donde tenemos los programas que controlan todos los componentes del hardware como: pantalla, cámara, bluetooth, memoria, USB, Wi-Fi, Audio, Carga, CPU, etc.
 
@@ -330,7 +330,7 @@ Debido a la proliferación de versiones de Unix en las décadas anteriores, el I
 
 En esa época, los estudiantes utilizaban un programa llamado Minix, que incorporaba diferentes características de Unix. Minix fue creado por el profesor Andrew Tannenbaum. Director del Departamento de Sistemas de la Universidad de Vrije, Amsterdam. Profesor de Arquitectura de Ordenadores y Sistemas Operativos. Licenciado en el MIT, y doctorado en la Universidad de Berkeley, California. En 1992 participó debate con Linus sobre la idea de este utilizar un núcleo monolítico en vez de los basados en un micro núcleo que Tanenbaum creía que serían la base de los sistemas operativos futuros.
 
-2. Era el año 1991 y Linus Torvalds ,que en aquel entonces era un estudiante de informática de la Universidad de Helsinki, empezó a programar las primeras líneas de código de un sistema operativ (finalmente llamado LINUX ) como una afición y sin poderse imaginar la gran repercusión que traería. Hubo una primera versión no oficial de Linux 0.01, pero esta solo incluía el comienzo del núcleo, estaba escrita en lenguaje ensamblador y asumía que uno tenía acceso a un sistema Minix para su compilación.
+2. Era el año 1991 y Linus Torvalds ,que en aquel entonces era un estudiante de informática de la Universidad de Helsinki, empezó a programar las primeras líneas de código de un sistema operativo (finalmente llamado LINUX ) como una afición y sin poderse imaginar la gran repercusión que traería. Hubo una primera versión no oficial de Linux 0.01, pero esta solo incluía el comienzo del núcleo, estaba escrita en lenguaje ensamblador y asumía que uno tenía acceso a un sistema Minix para su compilación.
 
 El 5 de octubre de 1991, Linus anuncio la primera versión oficial de Linux (versión 0.02). Con esta versión Linus pudo ejecutar Bash (GNU Bourne Again Shell) y gcc (El compilador GNU de C). Desde aquel entonces se han hecho muchísimas versiones con ayuda de programadores de todo el mundo.
 
@@ -505,10 +505,10 @@ Si el equipo va a ejecutar Linux, entonces es necesario instalar un cargador de 
 
 Los más conocidos son GRUB y LILO
 
-Aqui hay un enlace para más información:
+Aquí hay un enlace para más información:
 https://www.ibm.com/developerworks/ssa/linux/library/l-lpic1-v3-102-2/index.html
 
-En mi caso se instalo GRUB pero no me reconocia la partición de Windows, asi que tuve que tirar este comando para que me lo reconociera:
+En mi caso se instalo GRUB pero no me reconocía la partición de Windows, así que tuve que tirar este comando para que me lo reconociera:
 
 ~$ sudo update-grub2
 
@@ -534,7 +534,7 @@ A diferencia de Windows y Mac OS, Linux ofrece una variedad de entornos de escri
 
 3. KDE: KDE es uno de los entornos de escritorio Linux populares y también un competidor para GNOME. Se asemeja al escritorio de Windows por lo que si quieres experimentar un escritorio similar al sistema operativo Windows, esta es la mejor opción para ti. Mientras que KDE viene con una interfaz gráfica de usuario visualmente interesante y un montón de características de gran alcance, el combo hace que sea un entorno de escritorio lleno de recursos.
 
-	Un grave problema que ha tenido y hasta la fecha sigue teniendo, es el consumo de recursos de la maquina, asi que si lo que necesitas es usar y experimentar todo el potencial de este entorno, debes contar con un buen equipo con grandes recursos.
+	Un grave problema que ha tenido y hasta la fecha sigue teniendo, es el consumo de recursos de la maquina, así que si lo que necesitas es usar y experimentar todo el potencial de este entorno, debes contar con un buen equipo con grandes recursos.
 
 4. MATE: A pesar de su popularidad con las versiones anteriores, el diseño simplista de GNOME 3 no le sentó demasiado bien con muchos usuarios de GNOME. La comunidad Linux decidió continuar con el desarrollo de GNOME 2, de aquí nace  MATE. MATE ofrece un entorno GNOME 2 con nuevas y mejores características para garantizar a los usuarios una experiencia informática mejorada.
 
@@ -628,21 +628,21 @@ Si vas a compartir archivos de más de 4 GB entre equipos con sistemas operativo
 B). Jerarquía de sistema: 7.jpg
 
 .........................................................................................................
-Directorio raiz de toda la jerarquia de archivos del sistema.
+Directorio raíz de toda la jerarquía de archivos del sistema.
 /
-	bin: Contiene los archivos binarios o comandos escenciales del usuario.
+	bin: Contiene los archivos binarios o comandos esenciales del usuario.
 	boot: Contiene los archivos estáticos del selector de arranque.
 	dev: Archivos de los dispositivos conectados a nuestra computadora.
 	etc: Contiene los archivos de Configuración del Host específico. Directorios requeridos: opt, X11, sgml, xml.
 	home: Contiene los Home de cada usuario. El equivalente a la carpeta "Usuarios" de Windows.
-	lib: Librerias esenciales compartidas y módulos del Kernel o para el funcionamiento del sistema.
-	media: Punto de montaje para los medios de almacenamiento extrahibles. En otras palabras, donde el sistema monta medios extraíbles. Este directorio contiene subdirectorios utilizados para montar medios extraíbles como CD-ROM, disquetes, etc.
+	lib: Librerías esenciales compartidas y módulos del Kernel o para el funcionamiento del sistema.
+	media: Punto de montaje para los medios de almacenamiento extraíbles. En otras palabras, donde el sistema monta medios extraíbles. Este directorio contiene subdirectorios utilizados para montar medios extraíbles como CD-ROM, disquetes, etc.
 	mnt: Punto de montaje temporal para sistemas de archivos. En otras palabras, donde el usuario puede montar cosas. Este directorio generalmente se utiliza para montar archivos de manera temporal cuando sea necesario. También es el predecesor de media.
 	opt: Agregados de paquetes de Software y Aplicaciones.
 	sbin: Binarios de sistema o comandos que solo root puede ejecutar.
 	srv: Datos para los servicios provistos por este sistema.
 	tmp: Contiene los archivos temporales del Sistema Operativo.
-	usr: Contiene la mayoria de los archivos existentes en un sistema Linux, como documentación, ejecutables, (utilidades y aplicaciones Multiusuario). Jerarquía secundaria, directorios requeridos: bin, include, lib, local, sbin, share.
+	usr: Contiene la mayoría de los archivos existentes en un sistema Linux, como documentación, ejecutables, (utilidades y aplicaciones Multiusuario). Jerarquía secundaria, directorios requeridos: bin, include, lib, local, sbin, share.
 	var: Contiene información variable, como por ejemplo los logs del sistema (/var/log), correo local, etc.
 	root: Es el Home del Superusuario/root/administrador de la computadora.
 	proc: Documentación del sistema de archivos virtual de información (condiciones) de procesos (en archivos de texto) y del Kernel.
@@ -654,14 +654,14 @@ C). Ventajas y Desventajas (Diferencias con otros SO)
 .........................................................................................................
 1. Libertad: Podemos modificar todo, literalmente, desde lo visual hasta programas, al ser un S.O. libre (GNU), podemos modificar tanto el código fuente o las configuraciones de los programas y moldearlos a nuestra medida, de esta manera podemos ajustar el sistema exactamente a nuestras necesidades y dejarlo tal cual como queremos.
 2. Personalización: Linux es bello visualmente, no es solo una terminal de linea de comandos, podemos cambiar el tema de los iconos, las ventanas, agregar animaciones, barras de doc, cambiar el entorno de escritorio, etc. Y en algunos casos es más atractivo visualmente que Windows o Mac.
-3. Distribuciones: Existen un millar de distros para probar, para todom tipo de usuarios, desde programadores y seguridad hasta diseño y videojuegos, y sin tener la restricción de pagar por su uso, por ser gratuito.
+3. Distribuciones: Existen un millar de distros para probar, para todo tipo de usuarios, desde programadores y seguridad hasta diseño y videojuegos, y sin tener la restricción de pagar por su uso, por ser gratuito.
 4. Gratuito: GNU/Linux es gratis, no necesitas una licencia de uso, cosa que no sucede con Mac o Windows, legalmente.
-5. Seguridad: Aqui no dire que no existen Malwares, porque si lo hay, porque no existe un S.O. libre al 100% de ellos, (Ningun sistema es seguro) pero a nivel de usuario existen muy pocas amenazas, las que hay son descubiertas rapidamente por la comunidad para despues solo hacer una actualización a nuestro sistema y corregir dichos problemas de seguridad.
-6. Actualizaciones: Aqui a diferencia de Windows o Mac, las actualizaciones son cosa de todos los dias y esto es muy bueno, pues todos nuestros programas corrigen sus errores y siempre estamos actualizados. Esto se debe a que la mayoria del software es mantenido por la comunidad, es decir por desarrolladores que contribuyen al open source (software libre) y al software gratis.
+5. Seguridad: Aquí no diré que no existen Malwares, porque si lo hay, porque no existe un S.O. libre al 100% de ellos, (Ningún sistema es seguro) pero a nivel de usuario existen muy pocas amenazas, las que hay son descubiertas rápidamente por la comunidad para después solo hacer una actualización a nuestro sistema y corregir dichos problemas de seguridad.
+6. Actualizaciones: Aquí a diferencia de Windows o Mac, las actualizaciones son cosa de todos los días y esto es muy bueno, pues todos nuestros programas corrigen sus errores y siempre estamos actualizados. Esto se debe a que la mayoría del software es mantenido por la comunidad, es decir por desarrolladores que contribuyen al open source (software libre) y al software gratis.
 7. Performance: Uno de los puntos más fuertes es que este sistema no consume muchos recursos.
 8. Comunidad: Tiene una comunidad enorme, tanto en Español como Ingles y otros idiomas y esto es una ventaja, pues todos los usuarios nos apoyamos y resolvemos problemas sin la necesidad de consultar el soporte técnico o leer libros de unas 800 paginas (para los que no siempre cuentan con el suficiente tiempo para hacerlo).
-9. Terminal: Con Linux puedes hacer todo tipo de cosas y algunas unicas que no puedes hacer en otros sistemas, tiene un gran potencial, sobre todo cuando ya dominas la terminal, te daras cuenta de todo el potencial que tiene y lo que puedes hacer con ella, te dejara con la boca abierta.
-10. Se diferente: El hecho que todo el mundo utilice un S.O., no significa que debas usarlo, sientate libre de usar cosas nuevas y no te cases con una sola opción, en linux ya sea si eres un usuario final, normal o avanzado, tendrás todo lo necesario que en otros sistemas y hacer las mismas tareas, muchos programas de windows tambien funcionan en Linux y si no lo estan, existen alternativas muy buenas a estos.
+9. Terminal: Con Linux puedes hacer todo tipo de cosas y algunas únicas que no puedes hacer en otros sistemas, tiene un gran potencial, sobre todo cuando ya dominas la terminal, te darás cuenta de todo el potencial que tiene y lo que puedes hacer con ella, te dejara con la boca abierta.
+10. Se diferente: El hecho que todo el mundo utilice un S.O., no significa que debas usarlo, siéntate libre de usar cosas nuevas y no te cases con una sola opción, en linux ya sea si eres un usuario final, normal o avanzado, tendrás todo lo necesario que en otros sistemas y hacer las mismas tareas, muchos programas de windows también funcionan en Linux y si no lo están, existen alternativas muy buenas a estos.
 
 
 
@@ -740,7 +740,7 @@ aclarar que la disponibilidad de una cierta variable puede depender del uso actu
 ejemplo, SSH_CONNECTION no estará presente si no estamos conectados a un servidor SSH remoto.
 
 
-HISTSIZE		Máxima cantidad de comandos contenidos en el historial (aplica al usuario logueado
+HISTSIZE		Máxima cantidad de comandos contenidos en el historial (aplica al usuario "loggeado"
 				actualmente).
 DISPLAY			Donde aparecen la salidas de X-Windows.
 HOME			Directorio personal.
@@ -753,7 +753,7 @@ TERM			Tipo de terminal.
 USER			Nombre del usuario.
 EDITOR			Editor de texto por default.
 SSH_CONNECTION	Detalles sobre la conexión SSH iniciada desde el equipo actual. Presenta el siguiente
-				formato: <IpDelCliente> <PuertoDelCliente> <IpDelServidor> <PuertoDelServidor>.
+				formato: <ipDelCliente> <puertoDelCliente> <ipDelServidor> <puertoDelServidor>.
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -841,7 +841,7 @@ utilizado en casi cualquier servidor de la actualidad, gracias a su eficiencia, 
 utilidades para su administración, ya sea desde el entorno gráfico o desde la terminal. Pero su fuerte
 siempre será el uso de la Terminal.
 
-Asi que abrimos la terminal lo primero que veremos será algo como esto:
+Así que abrimos la terminal lo primero que veremos será algo como esto:
 
 usuario@linux-cliente:~$
 
@@ -879,10 +879,10 @@ These are labeled as:
 [@] ![COPYRIGHT]
 [@] SEE ALSO
 .........................................................................................................
-El comando "man" sirve para mostrar en terminal el Manual de un Comando/ProgramaGrafico.
+El comando "man" sirve para mostrar en terminal el Manual de un Comando/Programa Gráfico.
 
 "man" es el paginador del manual del sistema. Las páginas usadas como argumentos al ejecutar "man" suelen
-ser normalmente nombres de programas, útiles o funciones. La página de manual associada con cada uno de
+ser normalmente nombres de programas, útiles o funciones. La página de manual asociada con cada uno de
 esos argumentos es buscada y presentada. Si la llamada da también la sección, "man" buscará sólo en dicha
 sección del manual. Normalmente, la búsqueda se lleva a cabo en todas las secciones de manual
 disponibles según un orden predeterminado, y sólo se presenta la primera página encontrada, incluso si
@@ -900,7 +900,7 @@ La siguiente tabla muestra los números de sección del manual y los tipos de p�
 	5   Formato de ficheros y convenios p.ej. I/etc/passwd
 	6   Juegos
 	7   Paquetes de macros y convenios p.ej. man(7), groff(7).
-	8   Órdenes de admistración del sistema (generalmente solo son para root)
+	8   Órdenes de administración del sistema (generalmente solo son para root)
 	9   Rutinas del núcleo [No es estándar]
 	n   nuevo [obsoleto]
 	l   local [obsoleto]
@@ -931,7 +931,7 @@ Sintaxis:
 ~$ man <comando>
 
 #man man
-~$ man  [-c|-w|-tZT dispositivo] [-adhu7V] [-m sistema[,...]] [-L locale] [-p cadena] [-M ruta] [-P paginador] [-r prompt] [-S lista] [-e extension] [[sección] pagina ...] ...
+~$ man  [-c|-w|-tZT dispositivo] [-adhu7V] [-m sistema[,...]] [-L locale] [-p cadena] [-M ruta] [-P paginador] [-r prompt] [-S lista] [-e extensión] [[sección] pagina ...] ...
 ~$ man -l [-7] [-tZT dispositivo] [-p cadena] [-P paginador] [-r prompt] fichero ...
 ~$ man -k [-M ruta] palabra_clave ...
 ~$ man -f [-M ruta] pagina ...
@@ -947,7 +947,7 @@ q
 dvdf
 .........................................................................................................
 La duplicación de opciones sin argumento tanto en la línea de órdenes, en $MANOPT, o en ámbos, no tiene
-ningún efecto dañino. Para aquellas opciones que requieren un argumento, cada duplicado sobreescribe el
+ningún efecto dañino. Para aquellas opciones que requieren un argumento, cada duplicado sobrescribe el
 valor anterior del argumento.
 
 dvdf
@@ -964,7 +964,7 @@ Con la bandera "-L locales" o "--locale=locales"
 	"man" normalmente determina su estado de locales actual mediante una llamada a la función de la
 	biblioteca C setlocale(3) que interroga varias variables de entorno, entre otras $LC_MESSAGES y
 	$LANG.
-	Para sobreescribir temporalmente el valor determinado, puede usar esta opción y suplir la cadena de
+	Para sobrescribir temporalmente el valor determinado, puede usar esta opción y suplir la cadena de
 	locales directamente a "man". Es necesario notar que el cambio no tendrá lugar hasta que comience la
 	búsqueda propiamente dicha. Salidas como el mensaje de ayuda siempre aparecen según los locales
 	determinados inicialmente.
@@ -980,14 +980,14 @@ dvdf
 .........................................................................................................
 Con la bandera "-M <ruta>" o "--manpath=<ruta>"
 	Especifica una ruta de manual alternativa. De forma predeterminada, "man" utiliza código derivado de
-	manpath para determinar la ruta de búsqueda. Esta opción sobreescribe el valor de la variable de
+	manpath para determinar la ruta de búsqueda. Esta opción sobrescribe el valor de la variable de
 	entorno $MANPATH y hace que la opción "-m" sea ignorada.
 
 dvdf
 .........................................................................................................
 Con la bandera "-P <paginador>" o "--pager=<paginador>"
 	Especifica que paginador de salida se ha de usar. De forma predeterminada, "man" usa pager. Esta
-	opción sobreescribe el valor de la variable de entorno $PAGER y no se puede usar a la vez que "-f" o
+	opción sobrescribe el valor de la variable de entorno $PAGER y no se puede usar a la vez que "-f" o
 	"-k".
 dvdf
 .........................................................................................................
@@ -1002,7 +1002,7 @@ Con la bandera "-r <prompt>" o "--prompt=<prompt>"
               renglón  actual.   Esto  se consigue usando la variable de entorno
               $LESS.
 
-              Si se suministra una cadena mediante la opción -r se  sobreescribe
+              Si se suministra una cadena mediante la opción -r se  sobrescribe
               este  comportamiento  predeterminado.  La cadena puede contener el
               texto $MAN_PN que se convertirá en  el  nombre  de  la  página  de
               manual  presentada  y  su  sección  rodeada  de '(' y ')'. Así, la
@@ -1013,7 +1013,7 @@ Con la bandera "-r <prompt>" o "--prompt=<prompt>"
               \ byte\ %bB?s/%s..?\ (END):?pB %pB\\%.
 
               La  cadena  se  presenta  en  dos líneas para facilitar su lectura
-              sólamente.  Para entender su significado por favor vea  la  página
+              solamente.  Para entender su significado por favor vea  la  página
               de manual de less(1).  La cadena de prompt es evaluada primero por
               la shell. Todas las dobles comillas comillas invertidas  y  barras
               invertidas  del  prompt deben ser precedidas de '\'. Si se termina
@@ -1027,7 +1027,7 @@ Con la bandera "-7" o "--ascii"
 	Si está viendo una página de manual en código ascii(7) puro o en una terminal o emulador de
 	terminal de 7 bits, algunos caracteres puede que no se impriman correctamente si usa el descriptor
 	de dispositivo latin1(7) con GNU nroff. Esta opción permite que las páginas en puro ascii puedan
-	ser presentadas en ascii en un dispositivo latin1. No traducira ningún texto en latin1. La siguiente
+	ser presentadas en ascii en un dispositivo latin1. No traducirá ningún texto en latin1. La siguiente
 	tabla explica las traducciones que se realizan.
 
 	Descripción              Octal   latin1   ascii
@@ -1051,7 +1051,7 @@ dvdf
 Con la bandera "-S <lista>" o "--sections=<lista>"
               Lista es un compendio de secciones separadas por "dos puntos"  que
               determina  el  orden  en  el  que  se  consultan las secciones del
-              manual. Esta opción  sobreescribe  el  valor  de  la  variable  de
+              manual. Esta opción  sobrescribe  el  valor  de  la  variable  de
               entorno $MANSECT.
 
 dvdf
@@ -1076,7 +1076,7 @@ Con la bandera "-d" o "--debug"
 
 dvdf
 .........................................................................................................
-Con la bandera "-e <sub-extensión>" o "--extension=<sub-extensión>"
+Con la bandera "-e <sub-extensión>" o "--extensión=<sub-extensión>"
               Algunos sistemas  como  por  ejemplo  el  paquete  Tcl  incorporan
               grandes  paquetes  de  páginas de manual a la jerarquía principal.
               Para evitar tener dos páginas con un mismo nombre como por ejemplo
@@ -1086,8 +1086,8 @@ Con la bandera "-e <sub-extensión>" o "--extension=<sub-extensión>"
               'extensión' específica, en este caso, exit(3tcl).  En  condiciones
               normales,  man  preferirá  presentar  exit(3)  a exit(3tcl).  Para
               solventar esta situación y evitar tener que saber  a  que  sección
-              pertenece  la  páguina  requerida,  es  posible  darle  a  man una
-              extensión  sub-extension  indicando  a  que  paquete   tiene   que
+              pertenece  la  pagina  requerida,  es  posible  darle  a  man una
+              extensión  sub-extensión  indicando  a  que  paquete   tiene   que
               pertenecer  dicha  página.  Así  con  el  ejemplo  anterior, basta
               suministrar la opción -e tcl  a  man  para  que  se  restrinja  la
               búsqueda a páginas que tengan *tcl como extensión.
@@ -1107,7 +1107,7 @@ Con la bandera "-h" o "--help"
 dvdf
 .........................................................................................................
 Con la bandera "-k" o "--apropos"
-              Es  equivalente a apropos.  Realiza una busqueda de palabras clave
+              Es  equivalente a apropos.  Realiza una búsqueda de palabras clave
               entre las descripciones breves de las páginas de manual y presenta
               las páginas identificadas. Véase apropos(1) para más detalles.
 
@@ -1122,7 +1122,7 @@ Con la bandera -m sistema[,...], --systems=sistema[,...]
               sistema operativo nativo en la búsqueda  basta  incluir  man  como
               nombre de sistema en la lista de argumentos.
 
-              El  valor  de esta opción sobreescribe el contenido de la variable
+              El  valor  de esta opción sobrescribe el contenido de la variable
               del entorno $SYSTEM.
 
 dvdf
@@ -1133,14 +1133,14 @@ Con la bandera -p cadena, --preprocessor=cadena
               conjunto   completo   de   preprocesadores.    Algunos   de    los
               preprocesadores  y  de las letras usadas para designarlos son: eqn
               (e), grap (g), pic (p), tbl (t), vgrind (v), refer (r).  El  valor
-              de  esta  opción  sobreescribe  al  contenido  de  la variable del
+              de  esta  opción  sobrescribe  al  contenido  de  la variable del
               entorno $MANROFFSEQ.   zsoelim  es  ejecutado  siempre  en  primer
               lugar.
 
 dvdf
 .........................................................................................................
 Con la bandera -u, --update
-              Los  cachés  de los índices de las bases de datos son acutalizados
+              Los  cachés  de los índices de las bases de datos son actualizados
               'sobre la marcha', es decir, no es necesario que mandb se  ejecute
               periódicamente  para  mantener  la  consistencia. Si la página que
               busca no se encuentra en los cachés o si se emplea la opción -a  ,
@@ -1217,7 +1217,7 @@ VÉASE TAMBIÉN
        man(7), ascii(7), latin1(7), FSSTND.
 --------------------------------------
 --------------------------------------
-El comando "info" sirve para mostrar información de algun comando
+El comando "info" sirve para mostrar información de algún comando
 Es un visor de solo texto para archivos en la salida de formato de información de Textinfo (formato
 oficial de documentación del proyecto GNU).
 
@@ -1228,7 +1228,7 @@ Salida:
 q
 --------------------------------------
 --------------------------------------
-El comando "help" sirve para mostrar información de algun comando. Help es comando propio de Bash,
+El comando "help" sirve para mostrar información de algún comando. Help es comando propio de Bash,
 utiliza estructuras internas de bash para almacenar y recuperar información sobre los comando de bash.
 
 Sintaxis:
@@ -1241,14 +1241,14 @@ Sintaxis:
 ~$ <comando> --help
 --------------------------------------
 --------------------------------------
-El comando "which" sirve para mostrar en pantalla la Localización de un Comando/ArchivoBinario y se
+El comando "which" sirve para mostrar en pantalla la Localización de un Comando/archivo binario y se
 utiliza para saber si existe un comando determinado
 
 Sintaxis:
 ~$ which <comando>
 --------------------------------------
 --------------------------------------
-El comando "whoami" sirve para mostrar en pantalla el Identificador del User con el que estoy
+El comando "whoami" sirve para mostrar en pantalla el Identificador del usuario con el que estoy
 Loggeado
 
 Sintaxis:
@@ -1256,7 +1256,7 @@ Sintaxis:
 
 Ejemplo Y Pantalla:
 ~$ whoami
-wuero
+rocoelwuero
 --------------------------------------
 --------------------------------------
 El comando "echo" sirve para mostrar en la terminal un mensaje
@@ -1289,7 +1289,7 @@ terminal
 Sintaxis:
 ~$ clear
 
-El cual tambien tiene su atajo es presionando: <ctrl> + L
+El cual también tiene su atajo es presionando: <ctrl> + L
 --------------------------------------
 --------------------------------------
 El comando "exit" sirve para terminar o matar (salir) el proceso o aplicación (de la terminal)
@@ -1314,9 +1314,9 @@ Ejemplo Y Pantalla:
 
 En UNIX (en general) existen 2 conceptos básicos para el manejo de carpetas o directorios:
 ruta absoluta y ruta relativa
-[@] La absoluta o completa es desde la carpeta (directorio) raiz (madre u origen) hasta donde se
+[@] La absoluta o completa es desde la carpeta (directorio) raíz (madre u origen) hasta donde se
 	encuentra uno posicionado.
-[@] La relativa solamente puede ser la carpeta actual (un punto, .) o una atras (dos puntos, ..),
+[@] La relativa solamente puede ser la carpeta actual (un punto, .) o una atrás (dos puntos, ..),
 	en otras palabras es un directorio en especifico.
 
 A lo cual pasaremos al siguiente comando.
@@ -1453,7 +1453,7 @@ archivo1
 archivo2
 
 
-Y sera más util usarlo con alguna de las siguientes opciones.
+Y sera más útil usarlo con alguna de las siguientes opciones.
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -1486,7 +1486,7 @@ drwxr-xr-x 2 rocoelwuero rocoelwuero 4096 jun 15 09:57 Vídeos
 
 
 Primera columna:
-	Tipos de archivo (primer caracter):
+	Tipos de archivo (primer carácter):
 		-   Archivo común
 		d   Directorio
 		l   Enlace simbólico
@@ -1511,8 +1511,8 @@ Quinta columna:
 Sexta columna:
 	Mes de creación ¿O modificación?
 
-Septima columna:
-	Dia de creación ¿O modificación?
+Séptima columna:
+	Día de creación ¿O modificación?
 
 Octaba columna:
 	Hora de modificación
@@ -1560,7 +1560,7 @@ drwxr-xr-x  2 rocoelwuero rocoelwuero  4096 jun 15 09:57 Vídeos
 -~-~-~-~-	-~-~-~-~-
 
 Y finalmente con "-h" el peso de cada archivo lo muestra en un formato que podamos comprender
-facilmente, pero necesariamente tiene que venir acompañado con la bandera "-l".
+fácilmente, pero necesariamente tiene que venir acompañado con la bandera "-l".
 
 Ejemplo Y Pantalla:
 ~$ ls -lh
@@ -1578,7 +1578,7 @@ drwxr-xr-x 2 rocoelwuero rocoelwuero 4.0K jun 15 09:57 Vídeos
 
 # ls -F : ver los ficheros de un directorio.
 # ls -l : mostrar los detalles de ficheros y carpetas de un directorio.
-# ls -lh : Mostrar los detalles de archivos y directorios y el tamano en Kb, Mb, Gb o Tb.
+# ls -lh : Mostrar los detalles de archivos y directorios y el tamaño en Kb, Mb, Gb o Tb.
 # ls -a : Mostrar los ficheros ocultos.
 # ls *[0-9]* : mostrar los ficheros y carpetas que contienen números.
 # ls -ltr : Mostrar los archivos ordenados por fecha los mas recientes al final.
@@ -1725,7 +1725,7 @@ Sintaxis:
 # rm -rf dir1 dir2: borrar dos carpetas (directorios) con su contenido de forma recursiva.
 --------------------------------------
 --------------------------------------
-El comando "cd" sirve para cambiar o desplazarce entre directorios del sistema operativo
+El comando "cd" sirve para cambiar o desplazarse entre directorios del sistema operativo
 Es contracción de "change directory"
 
 Sintaxis:
@@ -1780,7 +1780,7 @@ Apagar, Reiniciar, Suspender e Hibernar
 El comando "shutdown" sirve para apagar el sistema en un tiempo especificado
 
 Sintaxis:
-~$ shutdown <opcion> <tiempo> <mensajeDeAviso>
+~$ shutdown <opción> <tiempo> <mensajeDeAviso>
 
 Opciones:
 -rkhncft
@@ -1928,20 +1928,20 @@ Sintaxis:
 
 -~-~-~-~-	-~-~-~-~-
 
-Para borrar Directorios de Manera Forzada y Recursirva es:
+Para borrar Directorios de Manera Forzada y Recursiva es:
 
 Sintaxis:
 ~$ rm -rf {<directorio>|<directorio>/ }
 --------------------------------------
 --------------------------------------
-El comando "seq" sirve para Genera una Secuencia de Numeros.
+El comando "seq" sirve para Genera una Secuencia de Números.
 
 Sintaxis:
-~$ seq <numeroDondeInicia> <numeroDondeTermina>
+~$ seq <númeroDondeInicia> <númeroDondeTermina>
 --------------------------------------
 --------------------------------------
 El comando "cat" sirve para Mostrar el Contenido de un Archivo o Concatena 1 o mas Archivos a la salida
-estandar.
+estándar.
 
 Sintaxis:
 ~$ cat <archivo>
@@ -1951,7 +1951,7 @@ Sintaxis:
 Con la Opción de ">" lo Redirecciona a un Nuevo Archivo a Crear o sea se va a Copiar Todo el Contenido
 del 1er Archivo al 2do Archivo.
 
-#ESTO_ES_LA_REDIRECCION_OUTPUT
+#ESTO_ES_LA_REDIRECCIÓN_OUTPUT
 
 Sintaxis:
 ~$ cat <archivo> > <nuevoArchivo>
@@ -1960,7 +1960,7 @@ Sintaxis:
 
 Con la Opción de "<" lo Redirecciona al Comando Escrito.
 
-#ESTO_ES_LA_REDIRECCION_INPUT
+#ESTO_ES_LA_REDIRECCIÓN_INPUT
 
 Sintaxis:
 ~$ cat < <archivo>
@@ -1974,7 +1974,7 @@ Esta es una Linea de Texto xD
 Con la Opción de ">>" lo Redirecciona a un Archivo Creado o sea se va a Duplicar Todo el Contenido del
 1er Archivo al Final del 2do Archivo.
 
-#ESTO_ES_LA_REDIRECCION_APPENDING
+#ESTO_ES_LA_REDIRECCIÓN_APPENDING
 
 Sintaxis:
 ~$ cat <1er.Archivo> >> <2do.Archivo>
@@ -1982,8 +1982,8 @@ Sintaxis:
 Ejemplo Y Pantalla:
 ~$ cat xD.txt >> xD_2.txt
 ~$ ls -l
--rw-r--r-- l wuero wuero 32 jun 13 18:57 xD_2.txt
--rw-r--r-- l wuero wuero 16 jun 13 18:57 xD.txt
+-rw-r--r-- l rocoelwuero rocoelwuero 32 jun 13 18:57 xD_2.txt
+-rw-r--r-- l rocoelwuero rocoelwuero 16 jun 13 18:57 xD.txt
 
 El Peso de "xD_2.txt" (32bits) es el Doble de "xD.txt" (16bits)
 --------------------------------------
@@ -2008,7 +2008,7 @@ Sintaxis:
 Para mostrar de la 1era a la Linea X de Texto del Archivo la Sintaxis es la Siguiente:
  
 Sintaxis:
-~$ head -n <numeroDeLinea> <archivo>
+~$ head -n <númeroDeLinea> <archivo>
 --------------------------------------
 --------------------------------------
 El comando "tail" sirve para Mostrar las 10 Ultimas Lineas del Contenido de un Archivo.
@@ -2026,10 +2026,10 @@ Sintaxis:
 ~$ wc <archivo>
 
 Pantalla:
-<numeroDeLineas> <numeroDePalabras> <numeroDeCaracteres> <archivo>
+<númeroDeLineas> <númeroDePalabras> <númeroDeCaracteres> <archivo>
 --------------------------------------
 --------------------------------------
-El comando "stat" sirve para Mostar Información detallada de un archivo.
+El comando "stat" sirve para mostrar información detallada de un archivo.
 
 Sintaxis:
 ~$ stat <archivo>
@@ -2042,7 +2042,7 @@ Acceso:       (<n>/<Permisos>)	Uid: ( <n>/<DueñoArchivo>)	Gid: (<n>/<DueñoArch
 Acceso:       <Fecha> <Hora>.<n> -<n>
 Modificación: <Fecha> <Hora>.<n> -<n>
 Cambio:       <Fecha> <Hora>.<n> -<n>
- Creacion: -
+ Creación: -
 
 Ejemplo Y Pantalla:
 ~ $  stat xd.txt 
@@ -2063,7 +2063,7 @@ Sintaxis:
 ~$ more <archivo>
 --------------------------------------
 --------------------------------------
-El comando "less" sirve para Mostrar Todo el Contenido de un Archivo de Texto, ademas Si se puede
+El comando "less" sirve para Mostrar Todo el Contenido de un Archivo de Texto, además Si se puede
 regresar al Contenido ya Visualizado.
 
 Sintaxis:
@@ -2085,8 +2085,8 @@ Sintaxis:
 ~$ file {<archivo>|<rutaAbsolutaDelArchivo>|<rutaRelativaDelArchivo>} ...
 
 Ejemplo Y Pantalla:
-~$ file Criptografia.rar
-Criptografia.rar: RAR archive data, v5
+~$ file Criptografía.rar
+Criptografía.rar: RAR archive data, v5
 --------------------------------------
 --------------------------------------
 El comando "cal" sirve para Mostrar el Calendario.
@@ -2109,14 +2109,14 @@ Sintaxis:
 ~$ cal <numeroMes> <año>
 --------------------------------------
 --------------------------------------
-El comando "date" sirve para Mostra la Fecha.
+El comando "date" sirve para Mostrar la Fecha.
 date 041217002011.00 : colocar (declarar, ajustar) fecha y hora.
 --------------------------------------
 --------------------------------------
 El comando "reset" sirve para Resetear el Buffer de la Terminal.
 --------------------------------------
 --------------------------------------
-El comando "find" sirve para Buscar archivos en una Jerarquia de Directorios
+El comando "find" sirve para Buscar archivos en una Jerarquía de Directorios
 
 Sintaxis:
 ~$ find <archivo>
@@ -2163,14 +2163,14 @@ Sintaxis:
 
 De tal manera que no se borrara el archivo original.
 
-A continuación se Muestra un Ejemplo del Como se Crearia el Archivo .gz Y se Mostrara la Diferencia del
-Peso en MegaBytes del Archivo ".gz".
+A continuación se Muestra un Ejemplo del Como se Crearía el Archivo .gz Y se Mostrara la Diferencia del
+Peso en Mega Bytes del Archivo ".gz".
 
 Ejemplo Y Pantalla:
 ~$ gzip -c 1_Millon.txt > 1_Millon.txt.gz && ls -lh
 total 8.7M
--rw-r--r-- 1 wuero wuero 6.6M Dec 2 04:47 1_Millon.txt
--rw-r--r-- 1 wuero wuero 2.1M Dec 2 04:47 1_Millon.txt.gz
+-rw-r--r-- 1 rocoelwuero rocoelwuero 6.6M Dec 2 04:47 1_Millon.txt
+-rw-r--r-- 1 rocoelwuero rocoelwuero 2.1M Dec 2 04:47 1_Millon.txt.gz
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -2198,7 +2198,7 @@ Sintaxis:
 ~$ gzip -l <archivo .gz>
 --------------------------------------
 --------------------------------------
-El comando "gunzip" sirve para Descomprimir Archivos ".gz", pero despues de la Descompresión, se
+El comando "gunzip" sirve para Descomprimir Archivos ".gz", pero después de la Descompresión, se
 eliminara el Archivo ".gz".
 
 Sintaxis:
@@ -2215,7 +2215,7 @@ Sintaxis:
 Ejemplo Y Pantalla:
 ~$ gunzip -S .bk 1_Millon.txt.bk && ls -lh
 total 6.6M
--rw-r--r-- 1 wuero wuero 6.6M Dec 2 04:47 1_Millon.txt
+-rw-r--r-- 1 rocoelwuero rocoelwuero 6.6M Dec 2 04:47 1_Millon.txt
 --------------------------------------
 --------------------------------------
 El comando "bzip2" sirve para Comprimir Archivos en un archivo ".bz2", y de igual forma que "gzip", se
@@ -2227,12 +2227,12 @@ Sintaxis:
 Ejemplo, Pantalla Y Comparación:
 ~$ bzip2 -c 1_Millon.txt > 1_Millon.txt.bz2 && ls -lh
 total 9.8M
--rw-r--r-- 1 wuero wuero 6.6M Dec 2 04:47 1_Millon.txt
--rw-r--r-- 1 wuero wuero 1.2M Dec 2 04:47 1_Millon.txt.bz2
--rw-r--r-- 1 wuero wuero 2.1M Dec 2 04:47 1_Millon.txt.gz
+-rw-r--r-- 1 rocoelwuero rocoelwuero 6.6M Dec 2 04:47 1_Millon.txt
+-rw-r--r-- 1 rocoelwuero rocoelwuero 1.2M Dec 2 04:47 1_Millon.txt.bz2
+-rw-r--r-- 1 rocoelwuero rocoelwuero 2.1M Dec 2 04:47 1_Millon.txt.gz
 --------------------------------------
 --------------------------------------
-El comando "bunzip2" sirve para Desomprimir Archivos ".bz2", pero se Eliminara el Archivo ".bz2".
+El comando "bunzip2" sirve para Descomprimir Archivos ".bz2", pero se Eliminara el Archivo ".bz2".
 
 Sintaxis:
 ~$ bunzip2 <archivo .bz2>
@@ -2247,10 +2247,10 @@ Ejemplo, Pantalla Y Comparación:
 ~$ zip 1_Millon.txt.zip 1_Millon.txt && ls -lh
  adding: 1_Millon.tx (deflated 69%)
 total 12M
--rw-r--r-- 1 wuero wuero 6.6M Dec 2 04:47 1_Millon.txt
--rw-r--r-- 1 wuero wuero 1.2M Dec 2 04:47 1_Millon.txt.bz2
--rw-r--r-- 1 wuero wuero 2.1M Dec 2 04:47 1_Millon.txt.gz
--rw-r--r-- 1 wuero wuero 2.1M Dec 2 04:47 1_Millon.txt.zip
+-rw-r--r-- 1 rocoelwuero rocoelwuero 6.6M Dec 2 04:47 1_Millon.txt
+-rw-r--r-- 1 rocoelwuero rocoelwuero 1.2M Dec 2 04:47 1_Millon.txt.bz2
+-rw-r--r-- 1 rocoelwuero rocoelwuero 2.1M Dec 2 04:47 1_Millon.txt.gz
+-rw-r--r-- 1 rocoelwuero rocoelwuero 2.1M Dec 2 04:47 1_Millon.txt.zip
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -2270,10 +2270,10 @@ Ejemplo, Pantalla Y Comparación:
 Archive: 1_Millon.txt.zip
  inflating: 1_Millon.txt
 total 12M
--rw-r--r-- 1 wuero wuero 6.6M Dec 2 04:47 1_Millon.txt
--rw-r--r-- 1 wuero wuero 1.2M Dec 2 04:47 1_Millon.txt.bz2
--rw-r--r-- 1 wuero wuero 2.1M Dec 2 04:47 1_Millon.txt.gz
--rw-r--r-- 1 wuero wuero 2.1M Dec 2 04:47 1_Millon.txt.zip
+-rw-r--r-- 1 rocoelwuero rocoelwuero 6.6M Dec 2 04:47 1_Millon.txt
+-rw-r--r-- 1 rocoelwuero rocoelwuero 1.2M Dec 2 04:47 1_Millon.txt.bz2
+-rw-r--r-- 1 rocoelwuero rocoelwuero 2.1M Dec 2 04:47 1_Millon.txt.gz
+-rw-r--r-- 1 rocoelwuero rocoelwuero 2.1M Dec 2 04:47 1_Millon.txt.zip
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -2297,7 +2297,7 @@ Directorios, pero esto no tiene Comprensión, aunque se le puede aplicar Compren
 Utilidades/Comandos/Programas/Archivos que Ya se mencionaron
 
 Sintaxis:
-~$ tar -cvf <IndentificadorArchivoACrear .tar> <Identificador(es)-SeparadosXEspacio-_Archivo(s)_Y/O_Directorio(s)>
+~$ tar -cvf <indentificadorArchivoACrear .tar> <Identificador(es)-SeparadosXEspacio-_Archivo(s)_Y/O_Directorio(s)>
 
 //La Opción "c" es para Crear
 //La Opción "v" es para Ver el Detalle del Proceso
@@ -2305,21 +2305,21 @@ Sintaxis:
 
 -~-~-~-~-	-~-~-~-~-
 
-Y con la Opción "t" es para Enlistar el Contenido de un Archivo .tar, con esta Opción NO se Extrae
+Y con la Opción "t" es para enlistar el Contenido de un Archivo .tar, con esta Opción NO se Extrae
 el Contenido, sino solo se ENLISTA
 
 Sintaxis:
 ~$ tar -tvf <Indentificador_Archivo .tar>
 
 /*
-	Aunque Tambien sirve para Archivos .tar.gz y
+	Aunque También sirve para Archivos .tar.gz y
 	su Demostración se ENCUENTRA en la Parte de Abajo,
 	en la SECCIÓN "S2"
 */
 
 -~-~-~-~-	-~-~-~-~-
 
-Con la Opción "x" es para Extraer el Contenido del Archivo .tar Y despues de la Extracción del
+Con la Opción "x" es para Extraer el Contenido del Archivo .tar Y después de la Extracción del
 Contenido, NO se Elimina el Archivo .tar
 
 Sintaxis:
@@ -2328,14 +2328,14 @@ Sintaxis:
 -~-~-~-~-	-~-~-~-~-
 
 Con la Opción "z" es para "Zipear" o Indicar que va a Trabajar con Archivos .gz, o sea va a Utilizar
-la Utileria de "gzip"
-NOTA: En la Sitaxis del Comando con sus Parametros, se puede especificar otra Extensión que No sea
-	la de .gz, pero en Realidad seguira Siendo un Archivo .tar.gz
+la Utilería de "gzip"
+NOTA: En la Sintaxis del Comando con sus Parámetros, se puede especificar otra Extensión que No sea
+	la de .gz, pero en Realidad seguirá Siendo un Archivo .tar.gz
 
 Sintaxis:
 ~$ tar -cvzf <Indentificador_Archivo .tar + .gz> <Indentificador_Archivo .tar>
 
-//Aunque Tambien sirve de la MANERA que se ENCUENTRA en la SECCIÓN "S1"
+//Aunque También sirve de la MANERA que se ENCUENTRA en la SECCIÓN "S1"
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -2365,7 +2365,7 @@ C). Comandos de linkeos
 -~-~-~-~-~-~-~-~-~-~-~-~-~-~-
 -----------------------------
 
-El comando "ln", es para Crear Links Simbolicos
+El comando "ln", es para Crear Links Simbólicos
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -2376,16 +2376,16 @@ Sintaxis:
 ~$ ln -s <Ubicación + Archivo>
 
 Ejemplo Y Pantalla:
-~$ ln -s /home/wuero/Desktop/Cien_A_Cien.txt && ls -li
+~$ ln -s /home/rocoelwuero/Desktop/Cien_A_Cien.txt && ls -li
 total 20
-1592099 lrwxrwxrwx 1 wuero wuero 35 jul 18 19:11 Cien_A_Cien.txt -> /home/wuero/Desktop/Cien_A_Cien.txt
+1592099 lrwxrwxrwx 1 rocoelwuero rocoelwuero 35 jul 18 19:11 Cien_A_Cien.txt -> /home/rocoelwuero/Desktop/Cien_A_Cien.txt
 
 NOTA: Este "Cien_A_Cien.txt" que esta en esta Sección, "(...) jul 18 19:11
-	Cien_A_Cien.txt -> (...)", debera aparecer de color Azul Claro, denotando
-	que es un Link Suave, ademas de que con la Flecha "->" se indica que
+	Cien_A_Cien.txt -> (...)", deberá aparecer de color Azul Claro, denotando
+	que es un Link Suave, además de que con la Flecha "->" se indica que
 	apunta al Siguiente Archivo.
 	Y por ultimo, Cuando se Lista el Contenido, en la Parte de los Permisos,
-	al Principio aparece una "l", indicando que es un Link Simbolico-Suave
+	al Principio aparece una "l", indicando que es un Link Simbólico-Suave
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -2398,18 +2398,18 @@ Sintaxis:
 ~$ ln <Ubicación + Archivo>
 
 Ejemplo Y Pantalla:
-~$ ln /home/wuero/Desktop/r.txt && ls -li && ls -li /home/wuero/Desktop
+~$ ln /home/rocoelwuero/Desktop/r.txt && ls -li && ls -li /home/rocoelwuero/Desktop
 total 20
-1589476 -rw-r--r-- 1 wuero wuero 12 jul  3 12:43 r.txt
+1589476 -rw-r--r-- 1 rocoelwuero rocoelwuero 12 jul  3 12:43 r.txt
 total 20
-1589476 -rw-r--r-- 1 wuero wuero 12 jul  3 12:43 r.txt
+1589476 -rw-r--r-- 1 rocoelwuero rocoelwuero 12 jul  3 12:43 r.txt
 
-NOTA: Este "Cien_A_Cien.txt" de la Carpeta Actual, YA NO debera aparecer de
+NOTA: Este "Cien_A_Cien.txt" de la Carpeta Actual, YA NO deberá aparecer de
 	color Azul Claro, denotando que seria un Link Suave, y tampoco tiene la
 	Flecha "->" se indica que apunta a un Archivo X.
 	Y por ultimo, Cuando se Lista el Contenido, en la Parte de los Permisos,
-	al Principio NO aparece la "l", indicando que sería un Link Simbolico-Suave,
-	y tambien en la parte de la Ubicación se Nota Claramente que tiene la
+	al Principio NO aparece la "l", indicando que sería un Link Simbólico-Suave,
+	y también en la parte de la Ubicación se Nota Claramente que tiene la
 	Misma Ubicación.
 --------------------------------------
 -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
@@ -2433,9 +2433,9 @@ El siguiente Comando es "sha512sum", es de 512 Bits
 El siguiente Comando es "shasum"
 
 
-Escribes el Comando Deseado, SIN PARAMETROS/ARGUMENTOS/Archivos/AlgunaRutaConArchivo, y aparecerá el
+Escribes el Comando Deseado, SIN PARÁMETROS/ARGUMENTOS/Archivos/alguna ruta de un archivo, y aparecerá el
 Cursor Parpadeando, estará Esperando a que le Ingresemos Caracteres para Comprobar su Integridad.
-Para Salir solamente Aprienta "Ctrl + D" y te arrojara el Resultado o la Función Alfanumérica de
+Para Salir solamente Aprieta "Ctrl + D" y te arrojara el Resultado o la Función Alfanumérica de
 Comprobación. #SuHashs
 
 
@@ -2487,14 +2487,14 @@ Lo instalamos como root: ~# aptitude install nano
 
 
 Sintaxis:
-~$ nano <NombreArchivoACrear/NombreArchivoCreado/"vacio">
+~$ nano <nombreArchivoACrear/NombreArchivoCreado/"vació">
 
 Ejemplos:
 ~$ nano archivoNuevo.txt
 ~$ nano reporte2015.txt
 ~$ nano
 
-Cuando ejecutamos este editor/comando, se nos abrira algo como esto
+Cuando ejecutamos este editor/comando, se nos abrirá algo como esto
 _____________________________________________________________________________________________________
 ██GNU█nano█2.9.3██████████████████████████████████New█Buffer█████████████████████████████████████████
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -2505,15 +2505,15 @@ ________________________________________________________________________________
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 New Buffer significa que todo se esta guardando en RAM pero aun no en un archivo en el disco duro
 nano inicia con un buffer vacío, normalmente ocupa menos de 1.5 MB de memoria
-Sino nos apareceria algo como esto: "File: <archivo>.txt"
+Sino nos aparecería algo como esto: "File: <archivo>.txt"
 
-Aqui no se mostrarán todas las opciones, pero si las principales y algunas secundarias
+Aquí no se mostrarán todas las opciones, pero si las principales y algunas secundarias
 
 
 Funciones especiales
 
-Los ^ es Sinonimo de la tecla "Ctrl" + la tecla del caracter que le siga
-O tambien se le pueden acceder a través de los F's: F1, F2, F3, etc.
+Los ^ es Sinónimo de la tecla "Ctrl" + la tecla del carácter que le siga
+O también se le pueden acceder a través de los F's: F1, F2, F3, etc.
 
 ^G Abrir la ayuda (F1)
 ^X Salir del editor nano (F2)
@@ -2527,14 +2527,14 @@ File█Name█to█Write:█<nombreDelArchivoACrear/ArchivoCreado>████�
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-^J Justifica, Alinea el texto acorde de la geometria de la ventana de consola (F4)
+^J Justifica, Alinea el texto acorde de la geometría de la ventana de consola (F4)
 ^R Leer Fichero, Inserta otro archivo dentro de la localización actual del cursor (F5)
-^W Busca una cadena de texto (reconoce mayusculas) o expresión, en el archivo (F6)
+^W Busca una cadena de texto (reconoce mayúsculas) o expresión, en el archivo (F6)
 ^Y Página Anterior, Muestra la pantalla anterior (F7)
 ^V Página Siguiente, Muestra la siguiente pantalla (F8)
 ^K Corta texto, Corta y almacena toda la linea actual desde el inicio hasta el final (F9)
 ^U Pega texto, Pega el contenido cortado a la posición actual del cursor (F10)
-^C Posición del cursor,	Muestra la informacion de linea, columna y caracter de la posisión actual de
+^C Posición del cursor,	Muestra la información de linea, columna y carácter de la posición actual de
 	cursor (F11)
 ^T Ortografía, Revisa la ortografía del contenido con el complemento spell, si está disponible (F12)
 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
@@ -2549,21 +2549,21 @@ ________________________________________________________________________________
 Search█(to█replace):█<cadenaABuscarEnElArchivo>██████████████████████████████████████████████████████
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 Ingresas la cadena y presiona ENTER
-Le mostrará la siguente opción
+Le mostrará la siguiente opción
 
 Sintaxis:
 _____________________________________________________________________________________________________
 Replace█with:█<cadenaQueReemplazará>█████████████████████████████████████████████████████████████████
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-Aqui solo escribe lo que quieras que lo reemplaze y ENTER
+Aquí solo escribe lo que quieras que lo reemplace y ENTER
 _____________________________________________________________________________________________________
 Replace█this█instance?███████████████████████████████████████████████████████████████████████████████
 -----------------------------------------------------------------------------------------------------
  Y Yes           A All
  N No           ^C Cancel
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-Yes: Para reemplazar la primera busqueda y pasa a la siguiente, si es que hay
-No: Para no reemplazar la primera busqueda y pasa a la siguiente, si es que hay
+Yes: Para reemplazar la primera búsqueda y pasa a la siguiente, si es que hay
+No: Para no reemplazar la primera búsqueda y pasa a la siguiente, si es que hay
 All: Reemplazará todas las opciones
 ^C: Cancela la operación
 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
@@ -2571,8 +2571,8 @@ All: Reemplazará todas las opciones
 
 Funciones secundarias
 
-Meta+c, Cambia de soporte a la información de linea, columna y posición del caracter (Esc+c)
-Meta+i, Cabia de soporte para la auto sangría de las lineas (Esc+i)
+Meta+c, Cambia de soporte a la información de linea, columna y posición del carácter (Esc+c)
+Meta+i, Cambia de soporte para la auto sangría de las lineas (Esc+i)
 Meta+k, Cambia de soporte para el cortado de la linea completa en la posición actual del cursor
 	(Esc+k)
 Meta+m, Cambia de soporte de mouse para posicionar el cursor, marcación y atajo (Esc+m)
@@ -2655,7 +2655,7 @@ En el modo insertar, podemos escribir texto nuevo en el punto de inserción de u
 Sintaxis:
 ~$ vi
 
-Y automaticamente nos enviará al editor de texto, para empezar a escribir solo basta con apretar cualquier tecla, para guardar se presiona la tecla "Shift" o "esc", se escribe ':', 'w' para escribir, y 'q' para salir.
+Y automáticamente nos enviará al editor de texto, para empezar a escribir solo basta con apretar cualquier tecla, para guardar se presiona la tecla "Shift" o "esc", se escribe ':', 'w' para escribir, y 'q' para salir.
 O sea ":wq", y le agregamos el nombre del archivo y presiona ENTER
 
 Ejemplo:
@@ -2670,7 +2670,7 @@ Para iniciar a insertar texto, presiona la tecla 'I'
 
 Y guardar es con: ":w"
 
-Para salir sin guardar los cambios es asi: ":q!"
+Para salir sin guardar los cambios es así: ":q!"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------------------------------------------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2689,11 +2689,11 @@ A). Expresiones regulares
 
 Las expresiones regulares, también conocidas como regex, o regexp (por su nombre en inglés, regular expressions) son secuencias de caracteres que forman un patrón de búsqueda (Es decir sirven para buscar).
 
-El término expresión regular surgió en el contexto histórico de la informática durante el desarrollo posterior a la Segunda Guerra Mundial de la teoría de autómatas, una subdisciplina de la informática que investiga y desarrolla modos matemáticos de computación, gracias a está disciplina tenemos compiladores.
+El término expresión regular surgió en el contexto histórico de la informática durante el desarrollo posterior a la Segunda Guerra Mundial de la teoría de autómatas, una sub-disciplina de la informática que investiga y desarrolla modos matemáticos de computación, gracias a está disciplina tenemos compiladores.
 
 Las expresiones regulares son sensitiveCase, es decir, distinguen entre mayúsculas y minúsculas.
 
-TOKEN : Compomene de una cadena de caracteres que tiene cierto significado por si solo.
+TOKEN : Compone de una cadena de caracteres que tiene cierto significado por si solo.
 
 
 Herramientas para usar expresiones regulares en Linux
@@ -2711,20 +2711,20 @@ Herramientas para usar expresiones regulares en Windows
 
 Caracteres especiales para expresiones regulares
 ┌───────────────────┬───────────────────────────────────────────────────────────┐
-│ Caracter especial │   Significa o representa                                  │
+│ Carácter especial │   Significa o representa                                  │
 ├-------------------┼-----------------------------------------------------------┤
 │ \t                │   Tabulador.                                              │
 │ \r                │   Retorno de carro (también conocido como "enter").       │
 │ \n                │   Nueva línea.                                            │
 │ \f                │   Un salto de página.                                     │
 │ \d                │   Un dígito del 0 al 9.                                   │
-│ \D                │   Cualquier caracter que NO sea un dígito del 0 al 9.     │
-│ \w                │   Cualquier caracter alfanúmerico.                        │
-│ \W                │   Cualquier caracter que NO sea alfanúmerico.             │
+│ \D                │   Cualquier carácter que NO sea un dígito del 0 al 9.     │
+│ \w                │   Cualquier carácter alfanumérico.                        │
+│ \W                │   Cualquier carácter que NO sea alfanumérico.             │
 │ \s                │   Un espacio en blanco.                                   │
-│ \S                │   Cualquier caracter que NO sea un espacio en blanco.     │
-│ \A                │   Inicio de cadena (No es un caracter sino una posición). │
-│ \Z                │   Final de cadena (No es un caracter sino una posición).  │
+│ \S                │   Cualquier carácter que NO sea un espacio en blanco.     │
+│ \A                │   Inicio de cadena (No es un carácter sino una posición). │
+│ \Z                │   Final de cadena (No es un carácter sino una posición).  │
 └───────────────────┴───────────────────────────────────────────────────────────┘
 
 ATENCIÓN, la herramienta que usaremos (grep y sus derivados, egrep, fgrep) no soporta los
@@ -2738,15 +2738,15 @@ Sintaxis:
 
 ¿Cómo usar grep o egrep?
 Comando		caracteres a buscar o expresión regular		Nombre del archivo donde se desea buscar
-gre | egrep	"GNU"										archivo1
+grep | egrep	"GNU"										archivo1
 
 
 --------------------------------------
 -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-|          PÁTRONES SIMPLES          |
+|          PATRONES SIMPLES          |
 -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 --------------------------------------
-Si se desea buscar un conjunto de caracteres en particulas (un palabra) entonces simplemente podemos
+Si se desea buscar un conjunto de caracteres en partículas (un palabra) entonces simplemente podemos
 escribir lo siguiente: ~$ grep "ever" archivo1
 
 Esto significa "buscar una e seguida de una v, seguida de una e, seguida de una r"
@@ -2756,7 +2756,7 @@ O sea, buscar todo lo que lleve un "ever"
 |        WILDCARDS (COMODINES)       |
 -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 --------------------------------------
-El punto ".", es un metacaracter que se interpreta como cualquier caracter SIN incluir los saltos de
+El punto ".", es un metacaracter que se interpreta como cualquier carácter SIN incluir los saltos de
 línea.
 
 Ejemplo:
@@ -2766,12 +2766,12 @@ Ejemplo:
 El signo de admiración "!", se utiliza para realizar una "búsqueda anticipada negativa".
 
 Ejemplos:
-Los ejemplos para este caracter van necesariamente en conjunto con otros, es decir, no se usa solo.
+Los ejemplos para este carácter van necesariamente en conjunto con otros, es decir, no se usa solo.
 --------------------------------------
 --------------------------------------
 El acento circunflejo "^", tiene una doble funcionalidad:
-1. Como caracter individual su función es representar el inicio de la cadena.
-2. Si se utiliza en conjunto complemento con otros simbolos entonces representará una negación.
+1. Como carácter individual su función es representar el inicio de la cadena.
+2. Si se utiliza en conjunto complemento con otros símbolos entonces representará una negación.
 
 Ejemplos:
 egrep '^P' texto
@@ -2793,7 +2793,7 @@ Ejemplo:
 --------------------------------------
 Los corchetes "[ ]"
 Tienen dos funciones:
-1) La primera función es que actuán de manera similar a la barra ( "|" ) si dentro de ellos hay una
+1) La primera función es que actúan de manera similar a la barra ( "|" ) si dentro de ellos hay una
 	simple secuencia de caracteres.
 2) Su segunda función es definir rangos mediante el signo de guión "-" a esto se le conoce como
 	grupos o clases de caracteres
@@ -2809,10 +2809,10 @@ Ejemplos:
 ~$ egrep '(este|oeste|norte|sur)' texto
 --------------------------------------
 -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
-|    CARACTERES DE CUÁNTIFICACIÓN    |
+|    CARACTERES DE CUANTIFICACIÓN    |
 -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
 --------------------------------------
-El signo de interrogación "?", su función es definir que el caracter que le precede es opcional, es
+El signo de interrogación "?", su función es definir que el carácter que le precede es opcional, es
 decir, puede o no estar en los resultados de la búsqueda.
 
 Ejemplos
@@ -2845,7 +2845,7 @@ Ejemplo:
 --------------------------------------
 --------------------------------------
 Más ejemplos
-Encontrar el patrón que tenga la palabra lines seguido de cualquier caracter:
+Encontrar el patrón que tenga la palabra "lines" seguido de cualquier carácter:
 ~$ grep "lines.*empty" demo_file
 
 Encontrar las líneas que tienen que ver con las fechas que van del 2002 al 2004
@@ -2854,7 +2854,7 @@ grep '200[2-4]' texto2
 Encontrar las líneas que tienen que ver con las fechas con el 2002 y el 2008
 grep '200[24]' texto2
 
-Encontrar dos puntos ('':'') y que seguido de ellos NO vaya una diagona
+Encontrar dos puntos ('':'') y que seguido de ellos NO vaya una diagonal
 egrep ':[^/]' texto2
 
 Encontrar todos los números de 4 cifras
@@ -2870,7 +2870,7 @@ Ejercicios en clase
 1. Mostrar todas las carpetas ocultas de su carpeta de usuarios
 ~$ ls -a | egrep '^\..*'
 
-2. Mostrar las carpetas ocultas del directorio del usuario que tengan la palabra conf
+2. Mostrar las carpetas ocultas del directorio del usuario que tengan la palabra "conf"
 ~$ ls -a | egrep '^\..*conf*'
 
 3. Encontrar todos los directorios que terminen en vocal
@@ -2899,7 +2899,7 @@ es donde entran las tuberías (pipe).
 Una tubería en Linux no es más que una forma práctica de redireccionar la salida estándar de un
 programa hacia la entrada estándar de otro.
 
-El Simbolo a Utilizar para Redireccionar es "|"
+El Símbolo a Utilizar para Redireccionar es "|"
 En otras palabras, el Resultado del Anterior Comando (texto), Sera el Valor del Siguiente Comando
 Las entradas y salidas son texto
 
@@ -2907,7 +2907,7 @@ Sintaxis:
 ~$ <comando> ... | <comando> ...
 
 
-Aqui solo se Mostro el No. de lineas del Archivo debug
+Aquí solo se Mostró el No. de lineas del Archivo debug
 
 Ejemplo Y Pantalla:
 ~$ cat debug | wc -l
@@ -3048,11 +3048,11 @@ Ejemplo:
 Tareas que un buen administrador del sistema debe de realizar:
 
 Automatizar todo La mayoría de los administradores de sistemas son superados en numero ó bien sea
-por sus usuarios, sus sistemas o ambos. En muchos casos, la automatización es la unica forma de
+por sus usuarios, sus sistemas o ambos. En muchos casos, la automatización es la única forma de
 mantenerse al día. En general, cualquier cosa realizada más de una vez se debería examinar como
 un posible candidato para automatización.
 
-He aqui algunas de las tareas comunmente automatizadas:
+He aquí algunas de las tareas comúnmente automatizadas:
 [@] Verificación e informes de espacio libre en disco
 [@] Respaldos
 [@] Recolección de datos de rendimiento del sistema
@@ -3103,7 +3103,7 @@ Aún cuando algunas personas se encrespan con el término "usuarios" (quizás de
 administradores de sistemas utilizan el término de forma despectiva), aquí no se utiliza con esa
 connotación. Los usuarios son aquellas personas que utilizan esos sistemas y recursos sobre los
 que usted tiene responsabilidad — ni más ni menos. Los usuarios son la clave en su habilidad de
-administrar exitósamente sus sistemas; sin entender a sus usuarios, cómo puede entender los
+administrar exitosamente sus sistemas; sin entender a sus usuarios, cómo puede entender los
 recursos que estos requieren?
 
 Por ejemplo, considera un cajero de banco. Un cajero utiliza un conjunto de aplicaciones
@@ -3117,7 +3117,7 @@ Asegúrese de aprender tanto como pueda de sus usuarios.
 Informe a sus usuarios sobre lo que va a hacer
 Asegúrese de advertir a sus usuarios con tiempo antes de hacer cualquier cosa. La cantidad de preaviso
 necesario varía de acuerdo al tipo de cambio (actualizar un sistema operativo requerir· mucho más tiempo
-de aviso que el cambio del color predeterminado de la pantalla de inicio de sesión), asÌ como también la
+de aviso que el cambio del color predeterminado de la pantalla de inicio de sesión), así como también la
 naturaleza de su comunidad de usuarios (los usuarios con más inclinación tecnológica tienden a manejar
 los cambios con mayor disposición que aquellos con habilidades mínimas.)
 
@@ -3143,7 +3143,7 @@ El punto clave aquí es entender el propósito de sus sistemas en un sentido má
 • Los tiempos durante los que se ha efectuado mantenimientos al sistema
 • Nuevas tecnologías que se podrían utilizar para resolver viejos problemas de negocios
 
-Al tomar en consideración la organización de su negocio, notará que sus decisiones diarias seran
+Al tomar en consideración la organización de su negocio, notará que sus decisiones diarias serán
 mejores para sus usuarios y para usted.
 
 
@@ -3551,7 +3551,7 @@ El comando "inxi" nos da información puntual del equipo que estamos usando. Con
 resumen del hardware para que sea fácil de entender.
 
 Inxi viene pre instalado en distribuciones como Ubuntu y Linux Mint por lo que no es necesario
-instalarlo. Pero aun asi como instalarlo, en Debian/Ubuntu y derivados:
+instalarlo. Pero aun así como instalarlo, en Debian/Ubuntu y derivados:
 ~# apt-get install inxi
 
 
@@ -3613,10 +3613,10 @@ La bandera "-v7"
 #~$ inxi -Gx
 --------------------------------------
 --------------------------------------
-El comando "dmidecode" nos reporta información sobre el hardware del sistema, analizando la informacion
+El comando "dmidecode" nos reporta información sobre el hardware del sistema, analizando la información
 de la tabla DMI (Desktop Management Interface), de la BIOS. Esta tabla contiene descripción de los
 componentes de hardware del sistema, así como información útil, tal como números de serie, la versión
-del BIOS, etc. Gracias a esta tabla, se puede acceder a informacion útil sin tener que abrir el maquina.
+del BIOS, etc. Gracias a esta tabla, se puede acceder a información útil sin tener que abrir el maquina.
 
 Esta tabla contiene una descripción de los componentes hardware del sistema, así como otra información
 útil cómo: el numero de serie, información del fabricante, fecha de lanzamiento, versión de la BIOS, etc.
@@ -3681,7 +3681,7 @@ slot 9
 
 -~-~-~-~-	-~-~-~-~-
 
-# dmidecode -t 16 Solo muestra parametrosrelasionados con la RAM, como por ejemplo el máximo de memoria RAxe es capaz de soportar nuestro equipo y determinar el número de slots (ranuras de expansión) disponibles, por si queremos ampliar la memoria.
+# dmidecode -t 16 Solo muestra parametros relacionados con la RAM, como por ejemplo el máximo de memoria RAxe es capaz de soportar nuestro equipo y determinar el número de slots (ranuras de expansión) disponibles, por si queremos ampliar la memoria.
 
 -~-~-~-~-	-~-~-~-~-
 
@@ -3902,7 +3902,7 @@ llegar a mostrarnos datos NO reales dependiendo de los periodos de actualizació
 
 A la hora de optimizar el uso de memoria en un servidor, debemos entender que la memoria RAM está
 pensada para ser utilizada, no para estar “vacía”. Por lo tanto, solo debemos preocuparnos si nuestro
-servidor Linux responde con errores por sobreuso de memoria RAM, pero en caso de que el servidor
+servidor Linux responde con errores por sobre uso de memoria RAM, pero en caso de que el servidor
 funcione bien y no tengamos caídas en los servicios (web, BD, correo, etc.), aunque se use el 100% de la
 memoria RAM no es algo preocupante (a menos que estemos esperando grandes picos de tráfico).
 --------------------------------------
@@ -3973,7 +3973,7 @@ Tests
 Sintaxis:
 ~$ memtester
 
-Escribir el comando sin banderas, devolveria algo como esto:
+Escribir el comando sin banderas, devolvería algo como esto:
 ┌───────────────────────────────────────────────────────────────────────┐
 │memtester version 4.3.0 (64-bit)                                       │
 │  Copyright (C) 2001-2012 Charles Cazabon.                             │
@@ -4147,7 +4147,7 @@ Son para mostrar información que sea de utilidad como usuarios para saber el pr
 sistema, estos solamente son comandos básicos
 --------------------------------------
 --------------------------------------
-El comando "top" sirve para ver Información del Sistema Que son los Procesos que se estan Ejecutando
+El comando "top" sirve para ver Información del Sistema Que son los Procesos que se están Ejecutando
 en el Sistema
 
 Sintaxis:
@@ -4159,17 +4159,17 @@ MiniEjemplo Y Pantalla:
 
 /*
 	Los Significados de esta Sección
-	top - <TiempoQueElSis.EstaEncendido> up <#> min,
+	top - <tiempoQueElSis.EstaEncendido> up <#> min,
 	<#> Usuarios,
 	(...)
-	KiB Mem: <TotalMemoria> total,
-		<CantidadMemoriaUsada> used,
-		<CantidadMemoriaDisponible> free,
-		<CantidadBuffers> buffers
+	KiB Mem: <totalMemoria> total,
+		<cantidadMemoriaUsada> used,
+		<cantidadMemoriaDisponible> free,
+		<cantidadBuffers> buffers
 	KiB Swap: <Total_$Memoria$_Swap> total,
 		<Cantidad_¿$Memoria$?_Usada> used,
 		<Cantidad_¿$Memoria$?_Disponible> free,
-		<CantidadCached> cached
+		<cantidadCached> cached
 */
 top - 04:51:44 up 19 min, 2 users, load average: 0.06, 0.05, 0.05
 Tasks: 119 total, 1 running, 118 sleeping, 0 stopped, 0 zombie
@@ -4183,8 +4183,8 @@ KiB Swap:    477180 total,	     0 used,     477180 free,  217164 cached
    3  root    20  0      0   2     0 S  0.0  0.0    0:01.25  ksoftirqd/0
 /*
 	Los Significados de Cada Columna
-	<ID> <Usuario> <> <s> <> <> <> <EstadoDelProceso> <%CPU_en_EscalaDe...>
-	<%Memoria_en_EscalaDe...> <ElTiempoQueTieneEnEjecución> <Nombre/Identificador>
+	<ID> <Usuario> <> <s> <> <> <> <estadoDelProceso> <%CPU_en_EscalaDe...>
+	<%Memoria_en_EscalaDe...> <elTiempoQueTieneEnEjecución> <Nombre/Identificador>
 */
 
 Y para Detener este Proceso, es con "q"
@@ -4269,7 +4269,7 @@ MiniEjemplo Y Pantalla:
  root    1  0.1  0.0    2280    732 ?      Ss    04:32   0:01  init [2]
  root    2  0.0  0.0       0      0 ?      S     04:32   0:00  [kthreadd]
 (...)
-wuero 4118  0.5  0.4  136100  14024 ?      Sl    04:56   0:00  gcalctool
+rocoelwuero 4118  0.5  0.4  136100  14024 ?      Sl    04:56   0:00  gcalctool
 ~$ kill 4118
 
 
@@ -4377,10 +4377,10 @@ Por ejemplo, si queremos realizar un find con prioridad sobre los demás proceso
 que el número de prioridad por defecto es 10, y que los valores oscilan entre –20 y 19, siendo –20
 la prioridad más alta y 19 la más baja, podemos ejecutar:
 
-~# nice -n 5 find -iname mifichero
+~# nice -n 5 find -iname <file>
 
-Cuando ejecutamos el comando ps, junto al estado del proceso, que ya se vió antes, aparece un
-segundo caracter, que se refiere a la prioridad siendo:
+Cuando ejecutamos el comando ps, junto al estado del proceso, que ya se vio antes, aparece un
+segundo carácter, que se refiere a la prioridad siendo:
 
 < – High priority 	La prioridad es menor que cero. Es decir, tiene una prioridad alta.
 N – Low priority 	La prioridad es positiva, prioridad normal o baja. 
@@ -4465,7 +4465,7 @@ Procesos en Segundo plano
 Procesos en primer y segundo plano
 
 Los procesos en Linux que se ejecutan en primer plano mantienen la terminal ocupada y eso a veces es
-un incoveniente. El proceso que se ejecuta en segundo plano libera la terminal para poder ejecutar
+un inconveniente. El proceso que se ejecuta en segundo plano libera la terminal para poder ejecutar
 otros procesos. Un ejemplo para ver esto:
 
 1. Escribir en la terminal "sleep 100" y para
@@ -4498,7 +4498,7 @@ Que equivale como he dicho anteriormente a pulsar CTRL+Z
 
 A). Introducción a los servicios en Linux
 
-Los servicios, mejor conocidos en Linux como daemons son procesos que se ejecutan en segundo plano,
+Los servicios, mejor conocidos en Linux como "daemons" son procesos que se ejecutan en segundo plano,
 esperando a que ocurran determinados eventos y ofreciendo servicios, así mismo también pueden ser usados
 para realizar tareas del sistema de manera automatizada.
 
@@ -4508,11 +4508,11 @@ ejecutarse) o “echarse a bajo” en la sesión actual llamando al script corre
 adecuado. Típicamente los scripts que levantan y echan abajo los demonios se localizan en el directorio
 /etc/init.d.
 
-Los daemons surgen en 1960 en los laboratorios del MIT en el proyecto CTSS (Compatible Time-Sharing
-System). La palabra daemon tiene la misma raíz que la palabra "demon", pero la primera es más antigua y
-con significado ligeramente distinto. Los demonios son critaturas de libre pensamiento y voluntad.
+Los "daemons" surgen en 1960 en los laboratorios del MIT en el proyecto CTSS (Compatible Time-Sharing
+System). La palabra "daemon" tiene la misma raíz que la palabra "demon", pero la primera es más antigua y
+con significado ligeramente distinto. Los demonios son criaturas de libre pensamiento y voluntad.
 
-Los daemons fueron implementados por primera vez en el CTSS, luego pasaron al MUltics, de allí a UNIX y
+Los "daemons" fueron implementados por primera vez en el CTSS, luego pasaron al MUltics, de allí a UNIX y
 finalmente a GNU/Linux.
 
 Básicamente hay dos tipos de demonios, los que inician en el boot up y aquellos que inician cuando el
@@ -4532,7 +4532,7 @@ una breve explicación.
 │ alsa              │ Guarda el estado de la tarjeta de sonido (alsa-store.service,                    │
 │                   │ alsa-restore.service).                                                           │
 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
-│ Autofs            │ Monta automáticamente medios extraibles o recursos compartidos de red cuando se  │
+│ Autofs            │ Monta automáticamente medios extraíbles o recursos compartidos de red cuando se  │
 │                   │ insertan o se accede a ellos.                                                    │
 ├───────────────────┼──────────────────────────────────────────────────────────────────────────────────┤
 │ Avahi             │ Permite a los programas encontrar automáticamente servicios de redes locales     │
@@ -4606,7 +4606,7 @@ Los servicios de linux pueden:
 [@] Habilitar (enable)
 [@] Deshabilitar (disable)
 [@] Enmascarar (mask)
-	᮰ [Si no queremos que se pueda iniciar el servicio automaticamente ni manualmente]
+	᮰ [Si no queremos que se pueda iniciar el servicio automáticamente ni manualmente]
 [@] Desenmascarar (umask)
 
 
@@ -4629,7 +4629,7 @@ Obteniendo información sobre los parámetros de ejecución del demonio X
 ~# /etc/init.d/X help
 
 
-Para conseguir que dichos demonios se ejecuten la próxima vez que reiniemos, deben de incluirse los
+Para conseguir que dichos demonios se ejecuten la próxima vez que reiniciemos, deben de incluirse los
 enlaces oportunos en los directorios que controlan la carga de dichos demonios. Estos directorios,
 desgraciadamente, pueden variar entre distribuciones, así como los comandos y utilidades “gráﬁcas” que
 los manipulan.
@@ -4746,7 +4746,7 @@ i.      deb
 	otras documentaciones, los paquetes Debian se colocan en archivos .deb.
 
 	El nombre del paquete debe de ser:
-	<NumeroDeVersión>-<VersiónDeDebian>-<ArquitecturaDeDebian>.deb
+	<númeroDeVersión>-<versiónDeDebian>-<arquitecturaDeDebian>.deb
 
 	Una desventaja de este tipo de paquetes, es su sistema de actualización, debido a que, se necesita
 	tener todos los archivos, como si se tratase una nueva instalación. Estos paquetes también son
@@ -4823,7 +4823,7 @@ ii.     dpkg
 	──────────────────────────────────────────────────────────────────────────────────────
 	En este caso, si piensa que reemplazar este archivo no es un riesgo significativo para la
 	estabilidad de su sistema (que es el caso frecuentemente), puede utilizar la opción
-	--force-overwrite que le indica a dpkg que ignore dicho error y sobreescriba el archivo.
+	--force-overwrite que le indica a dpkg que ignore dicho error y sobrescriba el archivo.
 
 	Si bien hay muchas opciones --force-* disponibles, probablemente sólo utilice regularmente
 	--force-overwrite. Estas opciones sólo existen para situaciones excepcionales y es mejor evitarlas
@@ -4897,7 +4897,7 @@ ii.     dpkg
 	(...)
 
 
-	Para mostrar todas las dependencias o archivos de configuración, etc., de algun programa.
+	Para mostrar todas las dependencias o archivos de configuración, etc., de algún programa.
 
 	Sintaxis:
 	~# dpkg -L <programa>
