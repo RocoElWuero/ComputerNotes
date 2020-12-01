@@ -536,9 +536,9 @@ A diferencia de Windows y Mac OS, Linux ofrece una variedad de entornos de escri
 
 	Un grave problema que ha tenido y hasta la fecha sigue teniendo, es el consumo de recursos de la maquina, así que si lo que necesitas es usar y experimentar todo el potencial de este entorno, debes contar con un buen equipo con grandes recursos.
 
-4. MATE: A pesar de su popularidad con las versiones anteriores, el diseño simplista de GNOME 3 no le sentó demasiado bien con muchos usuarios de GNOME. La comunidad Linux decidió continuar con el desarrollo de GNOME 2, de aquí nace  MATE. MATE ofrece un entorno GNOME 2 con nuevas y mejores características para garantizar a los usuarios una experiencia informática mejorada.
+4. MATE: A pesar de su popularidad con las versiones anteriores, el diseño simplista de GNOME 3 no le sentó demasiado bien con muchos usuarios de GNOME. La comunidad Linux decidió continuar con el desarrollo de GNOME 2, de aquí nace MATE. MATE ofrece un entorno GNOME 2 con nuevas y mejores características para garantizar a los usuarios una experiencia informática mejorada.
 
-5. LXDE: LXDE  es un entorno de escritorio rápido y de alto rendimiento. Está diseñado para los sistemas de bajos recursos de hardware (CPU y RAM).
+5. LXDE: LXDE es un entorno de escritorio rápido y de alto rendimiento. Está diseñado para los sistemas de bajos recursos de hardware (CPU y RAM).
 
 	Aunque se trata de un entorno de escritorio ligero, todavía tiene una interfaz de usuario simple y atractiva. También ofrece soporte multi-idioma y encima de que es compatible con los atajos de teclado estándar y permite la navegación de archivos con pestañas entre otras funciones interesantes.
 
@@ -552,7 +552,7 @@ A diferencia de Windows y Mac OS, Linux ofrece una variedad de entornos de escri
 
 9. Razor – Qt: Razor – Qt es un entorno de escritorio bastante fácil de usar y ligero para los usuarios de Linux. Puedes encontrar algunas similitudes con KDE, pero está diseñado para ofrecer simplicidad y velocidad. Debería funcionar sin problemas con los sistemas antiguos con configuraciones bajas de hardware.
 
-10. xmonad: Xmonad en realidad es un gestor de ventanas en mosaico, con esto verás ventanas superpuestas en el escritorio. No viene con demasiado de una interfaz de usuario, pero que hace que sea un ambiente de escritorio fácil de usar, rápido  y estable.
+10. xmonad: Xmonad en realidad es un gestor de ventanas en mosaico, con esto verás ventanas superpuestas en el escritorio. No viene con demasiado de una interfaz de usuario, pero que hace que sea un ambiente de escritorio fácil de usar, rápido y estable.
 
 
 
@@ -589,7 +589,7 @@ Yo estoy utilizando para Windows 7 NTFS
 
 Sistemas de archivos soportados por Linux Linux soporta una gran cantidad de tipos diferentes de sistemas de archivos. Para nuestros propósitos los más importantes son:
 
-[@] minix: El más antiguo y supuestamente el más fiable, pero muy limitado en características  algunas marcas de tiempo se pierden, 30 caracteres de longitud máxima para los nombres de los archivos) y restringido en capacidad (como mucho 64 MB de tamaño por sistema de archivos).
+[@] minix: El más antiguo y supuestamente el más fiable, pero muy limitado en características algunas marcas de tiempo se pierden, 30 caracteres de longitud máxima para los nombres de los archivos) y restringido en capacidad (como mucho 64 MB de tamaño por sistema de archivos).
 
 [@] xia: Una versión modificada del sistema de archivos minix que eleva los límites de nombres de archivos y tamaño del sistema de archivos, pero por otro lado no introduce características nuevas. No es muy popular, pero se ha verificado que funciona muy bien.
 
@@ -680,39 +680,20 @@ comandos (como una shell) o desde una llamada de programación.
 
 
 ¿Qué es una Shell?
-El nombre Shell puede sonar divertido, pero “Kernel” puede ser aún más divertido. La Shell es la pieza
-que envuelve al kernel. En las computadoras no hay diferencia. La shell es la interfaz de línea de
-comandos con la que interactúas. Los ejemplos de Shell son BASH, CSH, y ZSH. La cáscara toma comandos
-escritos a mano y le dice al sistema operativo que debe ejecutarlos, o puede tomar secuencias de
-comandos e interpretar la lógica dentro de ellos, además da instrucciones al sistema operativo para
-ejecutar los comandos contenidos en el script.
+El nombre Shell puede sonar divertido, pero “Kernel” puede ser aún más divertido. La Shell es la pieza que envuelve al kernel. En las computadoras no hay diferencia. La shell es la interfaz de línea de comandos con la que interactúas. Los ejemplos de Shell son BASH, CSH, y ZSH. La cáscara toma comandos escritos a mano y le dice al sistema operativo que debe ejecutarlos, o puede tomar secuencias de comandos e interpretar la lógica dentro de ellos, además da instrucciones al sistema operativo para ejecutar los comandos contenidos en el script.
 Shell es el interprete de comandos.
 
 
 ¿Qué es una terminal?
-Para entender lo que es un terminal, tenemos que volver a los días de los mainframe. Las computadoras
-centrales eran ordenadores con muchos usuarios. Eran comunes en las grandes empresas y en los campus
-universitarios. Pero cuando se tiene decenas de personas que desean utilizar un ordenador al mismo
-tiempo, ¿cómo hacer para compartirlo? En palabras actuales, queremos dar a cada usuario un monitor, un
-teclado y un mouse. En la era de las mainframe se utilizaron terminales. Un “terminal”, según la
-definición de los diccionarios, es o bien el final de algo o un punto de contacto, a veces ambos. Las
-computadoras centrales tenían estaciones terminales equipadas con una pantalla y un teclado. Esto para
-que los usuario pudieran acceder a las mainframe.
-Una Terminal es un dispositivo electrónico o electromecánico que se utiliza para interactuar con un(a)
-computador(a).
+Para entender lo que es un terminal, tenemos que volver a los días de los mainframe. Las computadoras centrales eran ordenadores con muchos usuarios. Eran comunes en las grandes empresas y en los campus universitarios. Pero cuando se tiene decenas de personas que desean utilizar un ordenador al mismo tiempo, ¿cómo hacer para compartirlo? En palabras actuales, queremos dar a cada usuario un monitor, un teclado y un mouse. En la era de las mainframe se utilizaron terminales. Un “terminal”, según la definición de los diccionarios, es o bien el final de algo o un punto de contacto, a veces ambos. Las computadoras centrales tenían estaciones terminales equipadas con una pantalla y un teclado. Esto para que los usuario pudieran acceder a las mainframe.
+Una Terminal es un dispositivo electrónico o electromecánico que se utiliza para interactuar con un(a) computador(a).
 En GNU/Linux es la aplicación (software) que toma el interprete de cada usuario y lo ejecuta.
 
 
 ¿Qué es una consola?
-Hoy en día, las consolas pueden ser completamente en software, pero no siempre fue el caso. Las consolas
-van de la mano con las terminales. Con respecto a un mainframe, una consola era a la vez el puerto y la
-conexión digital a la unidad central del sistema operativo de la terminal. Una definición más amplia de
-una consola es un escritorio o la interfaz desde la que un sistema se controla y/o monitorea. La
-terminal se conecta físicamente al puerto de la consola en la unidad central de manera que el usuario
-puede controlar la mainframe. En un sistema Linux puedes pulsar:
+Hoy en día, las consolas pueden ser completamente en software, pero no siempre fue el caso. Las consolas van de la mano con las terminales. Con respecto a un mainframe, una consola era a la vez el puerto y la conexión digital a la unidad central del sistema operativo de la terminal. Una definición más amplia de una consola es un escritorio o la interfaz desde la que un sistema se controla y/o monitorea. La terminal se conecta físicamente al puerto de la consola en la unidad central de manera que el usuario puede controlar la mainframe. En un sistema Linux puedes pulsar:
 ctrl + alt + { F1 | F2 | F3 | ... }
-Para acceder a las diferentes consolas. Muchos sistemas todavía tienen puertos de consola basada en
-administración, tales como equipos de red profesional.
+Para acceder a las diferentes consolas. Muchos sistemas todavía tienen puertos de consola basada en administración, tales como equipos de red profesional.
 
 
 
@@ -724,42 +705,36 @@ B). Documentación
 C). Variables de entorno
 
 .........................................................................................................
-Son cadenas que contienen información acerca del entorno para el sistema y el usuario que ha iniciado
-sesión en ese momento.
+Son cadenas que contienen información acerca del entorno para el sistema y el usuario que ha iniciado sesión en ese momento.
 
-El comando (comando del sistema operativo Unix y los sistemas Unix-like) "env" sirve para ver la lista
-de las variables disponibles en nuestra sesión de usuario.
+El comando (comando del sistema operativo Unix y los sistemas Unix-like) "env" sirve para ver la lista de las variables disponibles en nuestra sesión de usuario.
 
 Sintaxis:
 ~$ env
 ~$ env [bandera]... [<nombreVariable>=<valor>]... [<comando> [argumento]...]
 
 
-Algunas de ellas son las que mostramos en la lista siguiente, junto con su propósito. Es importante
-aclarar que la disponibilidad de una cierta variable puede depender del uso actual del sistema. Por
-ejemplo, SSH_CONNECTION no estará presente si no estamos conectados a un servidor SSH remoto.
+Algunas de ellas son las que mostramos en la lista siguiente, junto con su propósito. Es importante aclarar que la disponibilidad de una cierta variable puede depender del uso actual del sistema. Por ejemplo, SSH_CONNECTION no estará presente si no estamos conectados a un servidor SSH remoto.
 
 
-HISTSIZE		Máxima cantidad de comandos contenidos en el historial (aplica al usuario "loggeado"
-				actualmente).
+HISTSIZE		Máxima cantidad de comandos contenidos en el historial (aplica al usuario "loggeado" actualmente).
 DISPLAY			Donde aparecen la salidas de X-Windows.
 HOME			Directorio personal.
 HOSTNAME		Nombre de la máquina.
 MAIL			Archivo de correo.
 PATH			Lista de directorios donde buscar los programas/ejecutables.
-PS1				Prompt.
+PS1			Prompt.
 SHELL			Intérprete de comandos por defecto.
 TERM			Tipo de terminal.
 USER			Nombre del usuario.
 EDITOR			Editor de texto por default.
-SSH_CONNECTION	Detalles sobre la conexión SSH iniciada desde el equipo actual. Presenta el siguiente
+SSH_CONNECTION		Detalles sobre la conexión SSH iniciada desde el equipo actual. Presenta el siguiente
 				formato: <ipDelCliente> <puertoDelCliente> <ipDelServidor> <puertoDelServidor>.
 
 -~-~-~-~-	-~-~-~-~-
 
 With the flag "-i" or "-" or "--ignore-environment", start with an empty environment.
-       Clean all environment variables (create a new environment without any environment variable) for a
-       new shell.
+	Clean all environment variables (create a new environment without any environment variable) for a new shell.
 
 With the flag "-0" or "--null" end each output line with NULL, not newline.
 
@@ -770,8 +745,7 @@ With the flag "--help" display this help and ends.
 With the flag "--version" output shows version information and ends.
 .........................................................................................................
 Con la bandera "-i" o "-" o "--ignore-environment", inicia con un entorno vacío.
-       Limpiar todas las variables del entorno (crear un nuevo entorno sin ninguna variable de entorno)
-       para una nueva shell.
+	Limpiar todas las variables del entorno (crear un nuevo entorno sin ninguna variable de entorno) para una nueva shell.
 
 Con la bandera "-0" o "--null" finaliza cada línea de salida con NULL, no con una línea nueva.
 
@@ -806,9 +780,9 @@ REPORTING BUGS:
 		Report env translation bugs to <http://translationproject.org/team/>
 
 COPYRIGHT:
-		Copyright  © 2016 Free Software Foundation, Inc.  License GPLv3+: GNU GPL
+		Copyright © 2016 Free Software Foundation, Inc. License GPLv3+: GNU GPL
 		version 3 or later <http://gnu.org/licenses/gpl.html>.
-		This is free software: you are free to change and redistribute it.  There
+		This is free software: you are free to change and redistribute it. There
 		is NO WARRANTY, to the extent permitted by law.
 
 SEE ALSO:
@@ -836,18 +810,13 @@ VER TAMBIÉN:
 D). Comandos más Usados
 
 .........................................................................................................
-Primero para iniciar en GNU/Linux como tal se debe recordar que GNU/Linux es un S.O. que es altamente
-utilizado en casi cualquier servidor de la actualidad, gracias a su eficiencia, su extensa gama de
-utilidades para su administración, ya sea desde el entorno gráfico o desde la terminal. Pero su fuerte
-siempre será el uso de la Terminal.
+Primero para iniciar en GNU/Linux como tal se debe recordar que GNU/Linux es un S.O. que es altamente utilizado en casi cualquier servidor de la actualidad, gracias a su eficiencia, su extensa gama de utilidades para su administración, ya sea desde el entorno gráfico o desde la terminal. Pero su fuerte siempre será el uso de la Terminal.
 
 Así que abrimos la terminal lo primero que veremos será algo como esto:
 
 usuario@linux-cliente:~$
 
-Pues esto es el Prompt, es el indicativo que estamos manejando una shell o interprete de comandos, y en
-ciertas circunstancias puede aparecer un prompt secundario, como a la hora de ingresar unas credenciales
-(usuario y password), etc.
+Pues esto es el Prompt, es el indicativo que estamos manejando una shell o interprete de comandos, y en ciertas circunstancias puede aparecer un prompt secundario, como a la hora de ingresar unas credenciales (usuario y password), etc.
 
 Este prompt esta compuesto de la siguiente forma:
 
@@ -881,15 +850,9 @@ These are labeled as:
 .........................................................................................................
 El comando "man" sirve para mostrar en terminal el Manual de un Comando/Programa Gráfico.
 
-"man" es el paginador del manual del sistema. Las páginas usadas como argumentos al ejecutar "man" suelen
-ser normalmente nombres de programas, útiles o funciones. La página de manual asociada con cada uno de
-esos argumentos es buscada y presentada. Si la llamada da también la sección, "man" buscará sólo en dicha
-sección del manual. Normalmente, la búsqueda se lleva a cabo en todas las secciones de manual
-disponibles según un orden predeterminado, y sólo se presenta la primera página encontrada, incluso si
-esa página se encuentra en varias secciones.
+"man" es el paginador del manual del sistema. Las páginas usadas como argumentos al ejecutar "man" suelen ser normalmente nombres de programas, útiles o funciones. La página de manual asociada con cada uno de esos argumentos es buscada y presentada. Si la llamada da también la sección, "man" buscará sólo en dicha sección del manual. Normalmente, la búsqueda se lleva a cabo en todas las secciones de manual disponibles según un orden predeterminado, y sólo se presenta la primera página encontrada, incluso si esa página se encuentra en varias secciones.
 
-Es una macro configurada para el procesador troff (el principal componente de un sistema de
-procesamiento de documentos para UNIX).
+Es una macro configurada para el procesador troff (el principal componente de un sistema de procesamiento de documentos para UNIX).
 
 
 La siguiente tabla muestra los números de sección del manual y los tipos de páginas que contienen.
@@ -944,70 +907,45 @@ q
 
 -~-~-~-~-	-~-~-~-~-
 
-dvdf
+[English]
 .........................................................................................................
-La duplicación de opciones sin argumento tanto en la línea de órdenes, en $MANOPT, o en ámbos, no tiene
-ningún efecto dañino. Para aquellas opciones que requieren un argumento, cada duplicado sobrescribe el
-valor anterior del argumento.
+La duplicación de opciones sin argumento tanto en la línea de órdenes, en $MANOPT, o en ámbos, no tiene ningún efecto dañino. Para aquellas opciones que requieren un argumento, cada duplicado sobrescribe el valor anterior del argumento.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-l" o "--local-file"
-	Activa el modo 'local'. Formatéa e imprime las páginas de manual locales en vez de buscarlas entre la
-	colección de manuales del sistema. Cada página de manual argumento se supone fichero fuente en
-	formato nroff. No se genera un fichero cat. Si se añade '-' a la lista de argumentos, se toma la
-	entrada del stdin.
+	Activa el modo 'local'. Formatéa e imprime las páginas de manual locales en vez de buscarlas entre la colección de manuales del sistema. Cada página de manual argumento se supone fichero fuente en formato nroff. No se genera un fichero cat. Si se añade '-' a la lista de argumentos, se toma la entrada del stdin.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-L locales" o "--locale=locales"
-	"man" normalmente determina su estado de locales actual mediante una llamada a la función de la
-	biblioteca C setlocale(3) que interroga varias variables de entorno, entre otras $LC_MESSAGES y
-	$LANG.
-	Para sobrescribir temporalmente el valor determinado, puede usar esta opción y suplir la cadena de
-	locales directamente a "man". Es necesario notar que el cambio no tendrá lugar hasta que comience la
-	búsqueda propiamente dicha. Salidas como el mensaje de ayuda siempre aparecen según los locales
-	determinados inicialmente.
+	"man" normalmente determina su estado de locales actual mediante una llamada a la función de la biblioteca C setlocale(3) que interroga varias variables de entorno, entre otras $LC_MESSAGES y $LANG.
+	Para sobrescribir temporalmente el valor determinado, puede usar esta opción y suplir la cadena de locales directamente a "man". Es necesario notar que el cambio no tendrá lugar hasta que comience la búsqueda propiamente dicha. Salidas como el mensaje de ayuda siempre aparecen según los locales determinados inicialmente.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-D" o "--default"
-	Esta opción se usa generalmente la primera y restaura el comportamiento de "man" al modo
-	predeterminado. Se usa para restaurar las opciones modificadas mediante $MANOPT. Cualquier opción
-	que siga a -D producirá el efecto usual.
+	Esta opción se usa generalmente la primera y restaura el comportamiento de "man" al modo predeterminado. Se usa para restaurar las opciones modificadas mediante $MANOPT. Cualquier opción que siga a -D producirá el efecto usual.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-M <ruta>" o "--manpath=<ruta>"
-	Especifica una ruta de manual alternativa. De forma predeterminada, "man" utiliza código derivado de
-	manpath para determinar la ruta de búsqueda. Esta opción sobrescribe el valor de la variable de
-	entorno $MANPATH y hace que la opción "-m" sea ignorada.
+	Especifica una ruta de manual alternativa. De forma predeterminada, "man" utiliza código derivado de manpath para determinar la ruta de búsqueda. Esta opción sobrescribe el valor de la variable de entorno $MANPATH y hace que la opción "-m" sea ignorada.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-P <paginador>" o "--pager=<paginador>"
-	Especifica que paginador de salida se ha de usar. De forma predeterminada, "man" usa pager. Esta
-	opción sobrescribe el valor de la variable de entorno $PAGER y no se puede usar a la vez que "-f" o
-	"-k".
-dvdf
+	Especifica que paginador de salida se ha de usar. De forma predeterminada, "man" usa pager. Esta opción sobrescribe el valor de la variable de entorno $PAGER y no se puede usar a la vez que "-f" o "-k".
+[English]
 .........................................................................................................
 Con la bandera "-r <prompt>" o "--prompt=<prompt>"
-	Si se usa una versión reciente del paginador "less", "man" intentará fijar el prompt y alguna de sus
-	opciones de forma inteligente. El prompt predeterminado será
+	Si se usa una versión reciente del paginador "less", "man" intentará fijar el prompt y alguna de sus opciones de forma inteligente. El prompt predeterminado será
 
-               Página de Manual nombre(sección) línea x
+              Página de Manual nombre(sección) línea x
 
-              donde  nombre  denota  el  nombre  de la página de manual, sección
-              denota la sección en la que se ha encontrado dicha página y x,  el
-              renglón  actual.   Esto  se consigue usando la variable de entorno
-              $LESS.
+              donde  nombre  denota  el  nombre  de la página de manual, sección denota la sección en la que se ha encontrado dicha página y x, el renglón  actual.   Esto  se consigue usando la variable de entorno $LESS.
 
-              Si se suministra una cadena mediante la opción -r se  sobrescribe
-              este  comportamiento  predeterminado.  La cadena puede contener el
-              texto $MAN_PN que se convertirá en  el  nombre  de  la  página  de
-              manual  presentada  y  su  sección  rodeada  de '(' y ')'. Así, la
-              cadena que produce  el  comportamiento  predeterminado  se  podría
-              expresar como
+              Si se suministra una cadena mediante la opción -r se sobrescribe este comportamiento predeterminado. La cadena puede contener el texto $MAN_PN que se convertirá en el nombre de la página de manual presentada y su sección rodeada de '(' y ')'. Así, la cadena que produce el comportamiento predeterminado se podría expresar como
 
               \ Página\ del\ manual\ \$MAN_PN\ ?ltlínea\ %lt?L/%L.:
               \ byte\ %bB?s/%s..?\ (END):?pB %pB\\%.
@@ -1021,7 +959,7 @@ Con la bandera "-r <prompt>" o "--prompt=<prompt>"
               opciones  de  less.   De forma predeterminada man usa las opciones
               -ix8.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-7" o "--ascii"
 	Si está viendo una página de manual en código ascii(7) puro o en una terminal o emulador de
@@ -1046,7 +984,7 @@ Con la bandera "-7" o "--ascii"
 	Esta opción es ignorada cuando se usa a la vez que "-t", "-T" o "-Z" y puede ser completamente
 	inútil si el nroff usado es distinto del de GNU.
 
-dvdf
+[English]
 '........................................................................................................
 Con la bandera "-S <lista>" o "--sections=<lista>"
               Lista es un compendio de secciones separadas por "dos puntos"  que
@@ -1054,7 +992,7 @@ Con la bandera "-S <lista>" o "--sections=<lista>"
               manual. Esta opción  sobrescribe  el  valor  de  la  variable  de
               entorno $MANSECT.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-a" o "--all"
               Por  defecto, man termina después de presentar la página de manual
@@ -1062,19 +1000,19 @@ Con la bandera "-a" o "--all"
               opción,  forzará  a  man  a  presentar todas las páginas de manual
               cuyos nombres respondan a los criterios de la búsqueda.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-c" o "--catman"
               Esta opción no es de uso general y debería  ser  usada  únicamente
               por el programa catman .
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-d" o "--debug"
               En  vez  de  presentar  páginas  de manual, imprime información de
               depurado.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-e <sub-extensión>" o "--extensión=<sub-extensión>"
               Algunos sistemas  como  por  ejemplo  el  paquete  Tcl  incorporan
@@ -1092,26 +1030,26 @@ Con la bandera "-e <sub-extensión>" o "--extensión=<sub-extensión>"
               suministrar la opción -e tcl  a  man  para  que  se  restrinja  la
               búsqueda a páginas que tengan *tcl como extensión.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-f" o "--whatis"
               Es equivalente a whatis.  Presenta una breve descripción tomada de
               la página de manual cuando ésta está disponible.  Véase  whatis(1)
               para más detalles.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-h" o "--help"
               Imprime un mensaje de ayuda y termina.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera "-k" o "--apropos"
               Es  equivalente a apropos.  Realiza una búsqueda de palabras clave
               entre las descripciones breves de las páginas de manual y presenta
               las páginas identificadas. Véase apropos(1) para más detalles.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera -m sistema[,...], --systems=sistema[,...]
               Si  este  sistema  tiene  acceso  a  las páginas de manual de otro
@@ -1125,7 +1063,7 @@ Con la bandera -m sistema[,...], --systems=sistema[,...]
               El  valor  de esta opción sobrescribe el contenido de la variable
               del entorno $SYSTEM.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera -p cadena, --preprocessor=cadena
               Especifica la secuencia de preprocesadores  a  ejecutar  antes  de
@@ -1137,7 +1075,7 @@ Con la bandera -p cadena, --preprocessor=cadena
               entorno $MANROFFSEQ.   zsoelim  es  ejecutado  siempre  en  primer
               lugar.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera -u, --update
               Los  cachés  de los índices de las bases de datos son actualizados
@@ -1149,14 +1087,14 @@ Con la bandera -u, --update
               sistema de ficheros.  Para forzar una comprobación de consistencia
               de los 'inodos' anterior a la búsqueda, use la opción -u.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera -t, --troff
               Usa  groff  -mandoc  para  formatear  las  páginas  de  manual   y
               escribirlas   en   el  stdout.   Esta  opción  es  innecesaria  en
               conjunción con -T o -Z.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera -T dispositivo, --troff-device [=dispositivo]
               Esta opción permite  cambiar  la  salida  generada  por  groff  (o
@@ -1165,7 +1103,7 @@ Con la bandera -T dispositivo, --troff-device [=dispositivo]
               Posibles  ejemplos (incluidos en Groff-1.17) son, dvi, latin1, ps,
               utf8, X75 y X100.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera -Z, --ditroff
               groff ejecuta troff y  usa  un  post-procesador  para  generar  la
@@ -1173,7 +1111,7 @@ Con la bandera -Z, --ditroff
               -mandoc es groff, esta opción se pasa a groff evitando el  uso  de
               un post-procesador.  Implica la opción -t.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera -w, --where, --location
               En  vez  de  imprimir  las  páginas de manual, sólo imprime el/los
@@ -1181,7 +1119,7 @@ Con la bandera -w, --where, --location
               formateados  o impresos. Si se trata de un fichero cat, se imprime
               también la situación del fichero fuente nroff.
 
-dvdf
+[English]
 .........................................................................................................
 Con la bandera -V, --version
               Imprime la versión y el autor.
