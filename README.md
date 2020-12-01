@@ -22,6 +22,6 @@
 7. LaTex
 8. Bat
 
-## Authors:
+## Contributors:
 * RocoElWuero
 * WellMallard
