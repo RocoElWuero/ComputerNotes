@@ -1,6 +1,6 @@
 # ComputerNotes
 
-##Knowledge Areas:
+## Knowledge Areas:
 * Linux
 * Data Base
 * C/C++
@@ -12,7 +12,7 @@
 * Python
 * Forensic
 
-##Tools:
+## Tools:
 1. Linux
 2. Git
 3. Vim
@@ -22,6 +22,6 @@
 7. LaTex
 8. Bat
 
-##Authors:
+## Authors:
 * RocoElWuero
 * WellMallard
