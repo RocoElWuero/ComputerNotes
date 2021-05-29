@@ -24,4 +24,3 @@
 
 ## Contributors:
 * RocoElWuero
-* WellMallard
