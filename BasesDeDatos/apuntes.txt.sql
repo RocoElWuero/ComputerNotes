@@ -1807,18 +1807,18 @@ Herramientas Case de BD
 
 Saturacion es el numero de repeticion de Valores en un dominio.
 
-Tipos de datos: Primitivos, Estandar y Propio del manejador.
+Tipos de datos: Primitivos (Codd), Estandar (ISO) y Propio del manejador.
 
 SQL2 (1992)
 Caracter: CHAR, VARCHAR, TEXT (limitado, mas de 255 caracteres, no se puede usar funciones de texto [como UPPER, LOWER, buscar])
-	CodigoPostal (5 bytes)
-		VARCHAR: 5 bytes + 2 bytes
-		CHAR: 5 bytes
+	CodigoPostal (5 bytes): 09180
+		VARCHAR: 5 bytes + 2 bytes --Variable + 2
+		CHAR: 5 bytes --Fijo
 			Para longitudes fijas: RFC, PLACAS, NUMEROS DE TELEFONOS, CP
 			CP que sea un CHAR con un Constraint de Check que sea digito
-Tiempos: DATE, TIME, TIMESTAMP (para tablas historicas), DATETIME (ISO [cualquier manejador lo maneja], no usar porque no tiene su RFC [no es estandar])
+Tiempos: DATE, TIME, TIMESTAMP (para tablas historicas, por ejemplo los Diccionarios de Datos del Manejador), DATETIME (ISO [cualquier manejador lo maneja], no usar porque no tiene su RFC [no es estandar])
 Numericos: NUMERIC (usable), DECIMAL (flotante)
-	NO USAR: INT, INTERGER, SMALLINT, BIGINT, TINYINT... (Son propios de los Manejadores)
+	NO USAR: INT, INTERGER, SMALLINT, BIGINT, TINYINT/Bool/Boolean... (Son propios de los Manejadores)
 
 	Enteros: NUMERIC(<enteros>,<decimales>)
 		NUMERIC(6,0): -999,999 a +999,999
@@ -1828,15 +1828,30 @@ Numericos: NUMERIC (usable), DECIMAL (flotante)
 			FLOAT, DECIMAL, MONEY, CURRENCY... (Propios de los Manejadores)
 Todos los datos no Numeros, llevan ''.
 
-DBMS (Todo, menos un manejador Relacional)
+CREATE TABLE persona (
+	idPersona NUMERIC(2,0) NOT NULL, -- -99 a +99 y utilizar un CHECK para solo usar los positivos
+	cp CHAR(5),
+	nombre VARCHAR(30), -- +2
+	edad NUMERIC(3,0), --Esto es un chiste
+	anioNacimiento NUMERIC(4,0), --Utilizar este, porque no todo el tiempo vas a tener 26 años
+	fechaRegistro DATE,
+	CONSTRAINT pkPersona PRIMARY KEY (idPersona),
+	CONSTRAINT ckPkPersona CHECK (idPersona >= 1)
+);
+
+NOT NULL: Es obligado o que si o si debe tener un dato, o en cristiano significa que en el INSERT no puede faltar.
+NULL: Opcional, el complemento de NOT NULL o su opuesto. Puede ser nulo.
+
+DBMS (Todos e incluyendo al Relacional, no necesariamente es un relacional).
 RDBMS (Los relacionales)
-	Cliente (Software) - Servidor (Maquina, fierros)
-		Comando: psql
+	Cliente (Software el más común/Hardware) - Servidor (Maquina, fierros)
+		CLI/Comando: psql
 		GUI: pgAdmin
-		TOA
+		TOA: SuperSoftware de una empresa.
 	Una varias BD de sistema (tablas de sistema/diccionarios de datos db):
 		PostgreSQL: postgresql
 		SqlServer: model, master, mdb, temp
+		Pueden ser metadatos, usuarios, permisos, etc.
 OOBMS (Los orientados a objetos)
 
 
@@ -1862,10 +1877,11 @@ postgres=# CREATE DATABASE empleados;
 CREATE DATABASE
 postgres=# \c empleados
 Ahora está conectado a la base de datos «empleados» con el usuario «postgres».
-postgres=# 
+empleados=# 
 
 Primitivos: Caracter, Tiempo, Numero
 
+Como se escribe:
 SELECT
 FROM
 	[WHERE]
@@ -1874,6 +1890,16 @@ FROM
 		[HAVING]
 			[AND|OR]
 	[ORDER BY];
+      VS
+Como se ejecuta:
+5.SELECT
+1.FROM
+	2.[WHERE]
+		2.1.[AND|OR]
+	3.[GROUP BY]
+		3.1.[HAVING]
+			3.1.1.[AND|OR]
+	4.[ORDER BY];
 
 Restriccion (operador del algebra relacional), WHERE
 	Busqueda 89 (SQL1)
@@ -1887,29 +1913,55 @@ Restriccion (operador del algebra relacional), WHERE
 
 		SELECT * FROM empleado WHERE contratacion > '2000-01-01';
 		SELECT * FROM empleado WHERE edad > 18;
-	Logicos
+		SELECT * FROM empleado WHERE tipoSangre = '+B' ;
+		SELECT * FROM empleado WHERE tipoSangre != '+0' ;
+	Logicos 89 (SQL1)
 		()
 		AND
 		OR
 
-		WHERE a=1 AND b=2 OR c=3
+		Matemáticas:
+		+ -
+		x /
+		^ raiz
+		derivada integral
+		()
+		----------
+		X+3/2(5*5) = X+3/2(25) = X+3/2(25) =  X+3/2*25 =
+			X+1.5(25) = X+37.5
+
+		WHERE a=1 AND b=2 OR c=3 --89, v1
+			WHERE true OR noImporta
+			WHERE false OR true
 			es igual a
-		WHERE (a=1 AND b=2) OR c=3
+		WHERE (a=1 AND b=2) OR c=3 --89, v1
 
 		WHERE a=1 OR b=2 AND c=3
 			es igual a
-		WHERE a=1 OR (b=2 AND c=3)
+		WHERE a=1 OR (b=2 AND c=3) --Mucha crema a los tacos xD
 
 		WHERE (a=1 OR b=2) AND c=3
 
 		WHERE (a=1 OR b=2) AND c=3 OR (d=4 OR (e=5 OR f=6)) AND g=3;
 
-		-- Mostrar el nombre y la edad de los empleados mujeres que no sean del departamento 4 o los empleados hombre que ganen 20,000 o sean del cargo 3
+		-- Mostrar el nombre y la edad de los empleados mujeres que no sean del departamento 4 o los empleados hombres que ganen 20,000 o sean del cargo 3.
+		SELECT nombre, edad
+		FROM empleado
+			WHERE sexo = 'M' AND iddepartamento != 4
+				OR sexo = 'H'
+				AND (sueldo = 20000 OR idcargo = 3);
+		------------------
 		SELECT nombre, edad FROM empleado WHERE sexo = 'M' AND iddepartamento != 4 OR sexo = 'H' AND (sueldo = 20000 OR idcargo = 3);
-		-- Mostrar a los empleados que siendo del cargo mayor a 3 esten o por porcentaje de comision 3 o con sueldo menor a 15,000. Independiente cualquier empleado llamado Juan que sea González.
+		-- Mostrar a los empleados que siendo del cargo mayor a 3 ESTEN o por porcentaje de comision 3 o con sueldo menor a 15,000. Independiente cualquier empleado llamado Juan que sea González.
+		SELECT *
+		FROM empleado
+		WHERE idcargo > 3
+			AND (porcentaje_comision = 3 OR sueldo < 15000)
+			OR nombre = 'Juan' AND paterno = 'González';
+		------------------
 		SELECT * FROM empleado WHERE idcargo > 3 AND (porcentaje_comision = 3 OR sueldo < 15000) OR nombre = 'Juan' AND paterno = 'González';
 
-		Traza de consulta: Es la forma en que se ejecuta (con recursos Cpu y Ram, mediante el manejador) la consulta de manera mas efectiva.
+		Traza de consulta: Es la forma en que se ejecuta (con recursos Cpu y Ram), mediante el manejador, la consulta de manera mas efectiva.
 		Ruta critica: Tiempo (no es un recurso ya que no se recupera, es un costo), recursos y costo.
 
 		GROUP BY
@@ -2915,6 +2967,305 @@ PROGRAMACIÓN AVANZADA DE BASES DE DATOS
 20% Prácticas
 10% Examen (clase 7)
 50% Proyecto (clase 8)
+
+
+
+1. Lenguajes de programación de bases de datos
+1.1. PL/SQL (Oracle)
+	SQL es un lenguaje de conjuntos muy poderoso, cuyo único objetivo es manipular el contenido de bases de datos relacionales. Sin embargo, SQL no se puede utilizar para implementar toda la lógica de negocios y la funcionalidad que el usuario final necesita en nuestras aplicaciones. Esto nos lleva a PL/SQL.
+	PL/SQL (Programing Language/Structured Query Language) es un lenguaje de programación de 5ª generación incrustado en Oracle. En el Kernel de Oracle interpreta SQL y PL/SQL. Así como el Kernel es un sistema operativo, el Kernel Oracle es cargado a la memoria al inicio de las operaciones y es usado por cada base de datos existente en el equipo.
+	PL/SQL: es un lenguaje portable, procedural y de transacción muy potente y de fácil manejo, con las siguientes características fundamentales:
+		1. Incluye todos los comandos de SQL.
+		2. Es una extensión de SQL, ya que este es un lenguaje no completo dado que no incluye las herramientas clásicas de programación. Por eso, PL/SQL, amplía sus posibilidades al incorporar las siguientes sentencias:
+			• Control condicional
+			• Ciclos
+		3. Incorpora opciones avanzadas en:
+			• Control y tratamiento de errores llamado excepciones.
+			• Manejo de cursores.
+	PL/SQL ofrece un conjunto de instrucciones clásicos de la programación estructurada (instrucción condicional IF, loops o iteraciones, asignaciones), organizado dentro de bloques (lo que se explica más adelante), que complementan y amplían el alcance de SQL.
+	Sin duda que es posible crear aplicaciones sobre Oracle y SQL sin usar PL/SQL. Sin embargo, utilizar PL/SQL para realizar operaciones específicas de bases de datos, particularmente la ejecución de sentencias SQL, ofrece varias ventajas, incluyendo una estrecha integración con SQL, un mejor rendimiento a través del tráfico de red reducido, y la portabilidad (los programas PL/SQL pueden correr en cualquier instancia de base de datos Oracle). Por lo tanto, el código del front-end de muchas aplicaciones ejecuta tantas sentencias SQL como bloques PL/SQL, para maximizar el rendimiento al tiempo que mejora la capacidad de mantenimiento de las aplicaciones.
+1.2. Transact-SQL (SqlServer)
+	https://learn.microsoft.com/es-es/training/modules/get-started-transact-sql-programming/
+1.3. Otros
+2. Procedimientos almacenados de base de datos
+2.1. Programación de disparadores
+	Un "trigger" (disparador o desencadenador) es un tipo de procedimiento almacenado que se ejecuta cuando se intenta modificar los datos de una tabla (o vista).
+	Se definen para una tabla (o vista) específica.
+	Se crean para conservar la integridad referencial y la coherencia entre los datos entre distintas tablas.
+	Si se intenta modificar (agregar, actualizar o eliminar) datos de una tabla en la que se definió un disparador para alguna de estas acciones (inserción, actualización y eliminación), el disparador se ejecuta (se dispara) en forma automática.
+	Un trigger se asocia a un evento (inserción, actualización o borrado) sobre una tabla.
+	La diferencia con los procedimientos almacenados del sistema es que los triggers:
+	• No pueden ser invocados directamente; al intentar modificar los datos de una tabla para la que se ha definido un disparador, el disparador se ejecuta automáticamente.
+	• No reciben y retornan parámetros.
+	• Son apropiados para mantener la integridad de los datos, no para obtener resultados de consultas.
+	• Los disparadores, a diferencia de las restricciones "check", pueden hacer referencia a campos de otras tablas. Por ejemplo, puede crearse un trigger de inserción en la tabla "ventas" que compruebe el campo "stock" de un artículo en la tabla "articulos"; el disparador controlaría que, cuando el valor de "stock" sea menor a la cantidad que se intenta vender, la inserción del nuevo registro en "ventas" no se realice.
+	• Los disparadores se ejecutan DESPUES de la ejecución de una instrucción "insert", "update" o "delete" en la tabla en la que fueron definidos. Las restricciones se comprueban ANTES de la ejecución de una instrucción "insert", "update" o "delete". Por lo tanto, las restricciones se comprueban primero, si se infringe alguna restricción, el desencadenador no llega a ejecutarse.
+	• Los triggers se crean con la instrucción "create trigger". Esta instrucción especifica la tabla en la que se define el disparador, los eventos para los que se ejecuta y las instrucciones que contiene.
+	CREATE TRIGGER <trigger>
+		ON {<tabla>|<vista>}
+			{FOR|AFTER|INSTEAD OF} --al instante, despues, antes
+			[INSERT][,][UPDATE][,][DELETE]
+		AS
+			<querySql>;
+	Donde:
+	"create trigger" junto al nombre del disparador.
+	"on" seguido del nombre de la tabla o vista para la cual se establece el trigger.
+	luego de "for", se indica la acción (evento, el tipo de modificación) sobre la tabla o vista que activará el trigger. Puede ser "insert", "update" o "delete". Debe colocarse al menos UNA acción, si se coloca más de una, deben separarse con comas.
+	luego de "as" viene el cuerpo del trigger, se especifican las condiciones y acciones del disparador; es decir, las condiciones que determinan cuando un intento de inserción, actualización o borrado provoca las acciones que el trigger realizará.
+2.2. Programación de procedimientos
+2.3. Programación de funciones
+3. Manejo de transacciones
+3.1. Funcionamiento de una transacción
+3.2. El LOG de transacciones
+3.3. Recuperación de transacciones
+3.4. Programación de transacciones
+4. Cursores
+4.1. Conceptos básicos
+4.2. Cursores en procedimientos almacenados
+5. Características orientadas a objetos
+5.1. Herencia de tablas
+5.2. Tipos de datos complejos
+5.2.1. Manejo de arreglos
+5.3. Tipos de datos definidos por el usuario
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MÓDULO V - 4 al 11 de Marzo en linea
+ADMINISTRACIÓN DE LA BASE DE DATOS
+1. Funciones del DBA
+2. Administración del servidor
+2.1. Detener, arrancar y reiniciar un servidor
+2.2. Opciones de arranque
+3. Administración del catálogo
+3.1. Tablas del sistema
+3.2. Vistas del sistema
+4. Importación y exportación de datos
+5. Monitoreo del sistema
+6. Programación de tareas rutinarias
+7. Ajustes de configuración de rendimiento
+8. Optimización de consultas
+
+Dra. Adriana García Vargas
+
+https://www.javatpoint.com/mysql-export-table-to-cvs
+
+Actividades			40%
+Examenes			30%
+Video de un tema	30%
+
+https://extracurriculares.fca.unam.mx/docencia
+
+
+https://hireline.io/mx/enciclopedia-de-perfiles-ti/perfil-de-administrador-de-bases-de-datos
+Perfil de Administrador de Bases de Datos?
+1. ¿Qué es un Administrador de Bases de Datos?
+	Mantenimiento
+	Implementar mecanismos de seguridad
+	Actualiza
+	Reorganizar para optimización y uso
+	Respaldos
+	Establecer políticas y procedimientos de seguridad
+	Diseño
+	Implementación
+	Actualización de las nuevas tecnologías y enfoques de diseño
+	Perfil no es tan colaborativo
+	Contacto con la mayoría de los demás departamentos de una empresa
+	Comprensión del entorno de la industria
+	Previene y evita las interrupciones de los sistemas informáticos
+2. ¿Qué son las Bases de Datos?
+	Recopilación de datos organizados de diferentes maneras y almacenados de forma electrónica en sistemas informáticos.
+	Controlados por los DBMS (sistemas de gestión de bases de datos).
+	Estos son algunos tipos de bases de datos:
+		BD relacionales
+		BD orientados a objetos
+		BD NoSQL
+		BD OLTP
+		BD de código abierto
+		BD en la nube
+		BD de documentos /JSON
+		BD de autogestión
+3. Tipos de Administrador de Bases de Datos
+	Administrador de bases de datos del sistema
+	Arquitecto de bases de datos
+	Analista de bases de datos
+	Administrador de bases de datos de aplicaciones
+	Administrador de bases de datos orientados a tareas
+	Administrador de bases de datos en la nube
+4. ¿Qué hace un Administrador de Bases de datos?
+	Responsable de crear, manejar, mantener y las bases de datos de un sistema informático en una empresa.
+	Diseñar nuevos modelos que se adapten a las necesidades emergentes de las empresas.
+	Trabajar colaborativamente con desarrolladores.
+		Verificar que los diseños de aplicaciones o software que realicen los programadores, sea compatible con las bases de datos.
+	Crear sistemas de respaldo
+		Planes de contingencia para emergencias, con los que se pueda tener un punto de partida para actuar en caso de que haya problemas con las bases de datos.
+	Supervisa la actividad
+		El DBA debe tener acceso a la información para saber cuándo se realizaron retrotracciones de información.
+5. Perfil de Administrador de Bases de Batos
+	Simplemente habilidades de organización y pensamiento analítico.
+	Conocimientos
+		Creación de la BD
+		Acceso y la actualización de datos en diferentes niveles
+		Almacenamiento
+		Recuperación
+		Disponibilidad de datos
+		Seguridad
+		Privacidad
+	RDBMS
+		MySQL
+		MariaDB
+		SQLite
+		Microsoft SQL Server
+		Oracle
+	DBMS no relacionales
+		MongoDB
+		Redis
+		Cassandra
+		Azure Cosmos DB
+		RavenDB
+	Nube/DBaaS
+		AWS
+		Google Cloud
+		Microsoft Azure
+		Private Cloud OpenStack
+		VMware
+	Big Data: manejo de grandes volúmenes de datos, ya sean estructurados o no estructurados.
+		Utiliza las NoSQL.
+	Migración de datos: transferir información de un origen a otro destino, desactivando la base de origen una vez completado el proceso.
+	Backup y recover: copias creadas de la información alojada en bases de datos, cuyo fin es disponer de ellas en caso de perdida de los originales.
+	Hard Skills
+		Lenguajes de administración de bases de datos
+		Conocimientos de informática
+		Conocimientos de protección de datos
+		Actualizado
+		Conocimiento de negocios
+	Soft Skills
+		Trabajo bajo presión
+		Organizado
+		Comunicación efectiva
+		Analítico
+		Responsable
+6. Sueldo Mexicano: Administrador de Bases de Datos
+	Nuevo León	$37,012.20
+	Ciudad de México	$40,198.76
+	Querétaro	$58,592.59
+	Jalisco	$39,411.76
+	Remoto: LATAM	$44,062.50
+	Remoto: México	$47,590.00
+	Hidalgo	$22,500.00
+	Quintana Roo	$65,625.00
+	Guanajuato	$52,500.00
+	Estado de México	$31,000.00
+	Yucatán	$32,500.00
+	Colima	$32,500.00
+	Sinaloa	$33,750.00
+	Baja California Norte	$2,000.00
+	Sonora	$27,500.00
+	Chihuahua	$32,500.00
+
+
+Información: Recurso cada vez más critico e importante para las empresas y organizaciones. Por ello es crucial disponer de herramientas que permitan y faciliten su administración. Además del personal con los conocimientos competencias y habilidades necesarias.
+
+Para implementar una estrategia exitosa de administración de bd se requiere que los datos sean considerados recursos importantes y valiosos para ser tratados y manejados como activos corporativos.
+
+Dato: Representación simbolica sin ningun sentido semántico describiendo situtaciones y hechos sin transmitir mensaje alguno. Puede ser numero, letra, hecho.
+Dato no tiene sentido en si mismo, sino que se utiliza en la toma de decisiones o en la realización de calculos a partir de un procesamiento adecuado y teniendo en cuenta su contexto.
+
+Información: Conjunto de datos procesados con significado y relevancia dentro de un contexto.
+	Exactitud
+	Completa
+	Económica
+	Confiable
+	Relevante
+	Simple
+	Oportuno
+	Verificable
+
+BD: Conjunto de datos relacionados y organizados con cierta estructura. Segun dicha organización distinguimos entre diferentes modelos de bd como el relacional, jerárquicos o en red.
+
+SGBD: Sistema que permite a los usuarios definir, crear y mantener bd proporcionando acceso controlado a las mismas. Es una herramienta que sirve de interfaz entre el usaurio y las bd.
+
+DBA encargado del diseño fisico, implementación, control de la seguridad, concurrencia. Mantiene el sistema para que siempre se encuentre operativo y se encarga de que los usuarios y las apps obtengan buenas prestaciones. Debe conocer el SGBD, como el equipo informático. Control de acceso de usuarios. Tener una gran resposabilidad ya que posee el maximo nivel de privilegios entre los que se encuentra crear usuarios.
+
+Habilidades del DBA:
+	Tecnicas
+		Uso del SGBD
+		Diseño
+		Desarrollo
+		Ejecución
+		Producción, desarrollo y uso de programas
+		Diagrama de flujo
+		Programar
+		Diagrama conceptual
+		Diagrama logico
+		Diagrama fisico
+	Administrativas
+		Manejo del personal
+		Interacción con la comunidad de usuarios
+		Conocimientos general del negocio
+		Coordinación
+		Analitico
+		Resolución de conflictos
+		Negociación
+
+Politicas, procedimientos y normas
+Estrategia de administración de datos exitosa es el establecimiento y aplicación continua de políticas, p y n para la correcta creación, uso y eliminación de datos dentro de la bd.
+El DBA debe definir, documentar y comunicar las políticas, p y n antes que puedan aplicarse.
+
+Las políticas, normas y procedimientos deben ser revisados cada 6 meses.
+
+Politica: Declaración general de direccion o accion que comunican y sustentan los objetivos del DBA.
+	Todos los usuarios deben tener passwords.
+	Passwords cambiados cada 6 meses.
+	Passwords cifrados.
+	3 p tecnicas
+	Contraseñas seguras.
+		Minimo 12 caracteres.
+		Maximo 16 caracteres.
+		Alfanumerico y 
+	Integridad de la BD.
+
+
+Norma: Describe la necesidad de una actividad de un DBA, son mas detalladas y especificas que las políticas. Para evaluar la calidad de la actividad.
+	Passwords debe ser minimo de 8 caracteres.
+	Maximo de 12 caracteres.
+	No caracteres especiales.
+	3 n por cada p
+
+Procedimiento: Instrucciones que describen una serie de pasos a seguir durante la operación de una actividad determinada.
+	El usuario final envia al DBA una solicitud por escrito para la creación de una cuenta.
+	El DBA aprueba la solicitud y la envia al operador de la computadora.
+	1 p relacionado con alguna p o n
+
+Politica, n y p que abarcan campos de actividad como son:
+	Diseño y modelado de una bd.
+	Documentación y operación de una bd.
+	Mantenimiento y operación de una bd.
+	Seguridad e integridad
+	Respaldo y recuperación
+
+Funciones del DBA
+	Los procedimientos y normas deben revisarse y modificarse al menos cada año.
+	Extensión lógica de sus actividades administrativas.
+	Los aspectos tecnicos del trabajo del DBA son en las siguientes areas:
+		Evaluar, seleccionar e instalar el DBMS y utilerias necesarias
 
 
 
