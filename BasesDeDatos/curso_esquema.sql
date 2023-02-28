@@ -2,15 +2,13 @@ CREATE TABLE cargo (
   idCargo numeric(2,0) NOT NULL,
   nombre varchar(255) NOT NULL,
   CONSTRAINT pkCargo PRIMARY KEY (idCargo)
-)
-;
+);
 
 CREATE TABLE departamento (
   idDepartamento numeric(2,0) NOT NULL,
   nombre varchar(100) NOT NULL,
   CONSTRAINT pkDepartamento PRIMARY KEY  (idDepartamento)
-)
-;
+);
 
 CREATE TABLE empleado (
   idEmpleado numeric(4,0) NOT NULL,
@@ -25,5 +23,6 @@ CREATE TABLE empleado (
   idDepartamento numeric(2,0),
   idCargo numeric(2,0) NOT NULL,
   CONSTRAINT pkEmpleado PRIMARY KEY  (idEmpleado)
-)
-;
+  --CONSTRAINT pk<tablaDestino> PRIMARY KEY (<idDestino>)
+  --CONSTRAINT fk<tablaDestino><tablaOrigen> FOREIGN KEY (<idOrigen>)
+);

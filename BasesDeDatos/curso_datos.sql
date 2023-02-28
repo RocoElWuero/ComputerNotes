@@ -7,9 +7,9 @@ INSERT INTO cargo VALUES (6,'Director');
 
 INSERT INTO departamento VALUES (1,'Ventas');
 INSERT INTO departamento VALUES (2,'Recursos Humanos');
-INSERT INTO departamento VALUES (3,'Dise�o');
+INSERT INTO departamento VALUES (3,'Diseño');
 INSERT INTO departamento VALUES (4,'Sistemas');
-INSERT INTO departamento VALUES (5,'AdministraciOn');
+INSERT INTO departamento VALUES (5,'Administración');
 INSERT INTO departamento VALUES (6,'Redes');
 
 INSERT INTO empleado VALUES (1,'Gilberto', 'Aparicio', 'Guerrero',27,'H',7000.00,NULL,'2001-03-20',4,1);
