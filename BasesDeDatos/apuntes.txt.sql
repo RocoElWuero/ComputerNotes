@@ -1885,7 +1885,12 @@ Como se escribe:
 SELECT
 FROM
 	[WHERE]
-		[AND|OR]
+		<>!=
+		() AND OR
+		BETWEEN
+		IN
+		IS NULL
+		LIKE
 	[GROUP BY]
 		[HAVING]
 			[AND|OR]
@@ -2122,35 +2127,97 @@ Restriccion (operador del algebra relacional), WHERE
 		SELECT atributo -- Hace una Proyección
 	Relacionales (SQL 89 + SQL 92)
 		BETWEEN	Numéros y Tiempos
-			SELECT * FROM empleado WHERE sueldo >= 15000 AND sueldo <= 35000;
+			SELECT *
+			FROM empleado
+				WHERE sueldo >= 15000
+					AND sueldo <= 35000;
 			Son lo mismo en resultado pero el rendimiento es mayor el de abajo.
-			SELECT * FROM empleado WHERE sueldo BETWEEN 15000 AND 35000;
+			SELECT *
+			FROM empleado
+				WHERE sueldo BETWEEN 15000
+					AND 35000;
+			Los empleados nacidos en el segundo siglo despues de Cristo:
+			SELECT contratacion
+			FROM empleado
+				WHERE contratacion BETWEEN '2000-01-01'
+					AND '3000-01-01';
+			El complemento del anterior:
+			SELECT contratacion
+			FROM empleado
+				WHERE contratacion NOT BETWEEN '2000-01-01'
+					AND '3000-01-01';
 		IN	Todos tipos datos
-			SELECT * FROM empleado WHERE nombre = 'Liliana' OR nombre = 'Oscar' OR nombre = 'Arturo';
+			SELECT *
+			FROM empleado
+				WHERE nombre = 'Liliana'
+				OR nombre = 'Oscar'
+				OR nombre = 'Arturo';
 			Son lo mismo en resultado pero el rendimiento es mayor el de abajo.
-			SELECT * FROM empleado WHERE nombre IN ('Liliana', 'Oscar', 'Arturo');
+			SELECT *
+			FROM empleado
+				WHERE nombre IN ('Liliana', 'Oscar', 'Arturo');
+			El complemento del anterior:
+			SELECT *
+			FROM empleado
+				WHERE nombre NOT IN ('Liliana', 'Oscar', 'Arturo');
+
+			Numero:
+			SELECT *
+			FROM empleado
+				WHERE edad NOT IN (18,20,35);
+
+			Fecha/tiempo:
+			SELECT *
+			FROM empleado
+				WHERE contratacion IN ('1989-12-01','1989-04-30','1994-03-20');
 		IS NULL	Todos tipos datos
-			SELECT * FROM empleado WHERE porcentaje_comision = NULL;
+			SELECT *
+			FROM empleado
+				WHERE porcentaje_comision = NULL;
 			No son lo mismo, ya que al mostrar el conjunto vacio, no se muestra nada, precisamente.
-			SELECT * FROM empleado WHERE porcentaje_comision IS NULL;
-		LIKE	Caracter
-			SELECT * FROM empleado WHERE nombre = 'Ana'; -- 89
+			SELECT *
+			FROM empleado
+				WHERE porcentaje_comision IS NULL;
+			El complemento del anterior:
+			SELECT *
+			FROM empleado
+				WHERE porcentaje_comision IS NOT NULL;
+		LIKE	Caracter --Patrones de SQL, NO REGEX (Expresiones Regulares)
+			SELECT *
+			FROM empleado
+				WHERE nombre = 'Ana'; -- 89
 			No son lo mismo, ya que el LIKE es como un Regex.
-			SELECT * FROM empleado WHERE nombre LIKE '%na%'; -- 92
+			SELECT *
+			FROM empleado
+				WHERE nombre LIKE '%na%'; -- 92
 				_	1 caracter obligatorio
-					SELECT * FROM empleado WHERE nombre LIKE '__t___';
-				%	cualquier caracter de 0 a n cantidad
+					SELECT *
+					FROM empleado
+						WHERE nombre LIKE '__t___';
+				%	cualquier posible(s) caracter(es), o sea de 0 a n cantidad
 					SELECT * FROM empleado WHERE nombre LIKE '__t%';
 				[]	Rango
-					^	Complemento del rango del []
+				^	Complemento del rango del []
+
+
+			Oracle y PostgreSQL funcionan con Regex (cuales cambian entre si) y depreca los corchetes: ^.*(r|t)..$
+				SELECT *
+				FROM empleado
+					WHERE nombre LIKE '__[t,T]___'; --La 't' o la 'T'
+				SELECT *
+				FROM empleado
+					WHERE nombre LIKE '__t___' OR nombre LIKE '__T___';
+
 			SELECT * FROM empleado WHERE nombre LIKE 'A%a';
+			Entre el inicio y el final, sea 'a':
 			SELECT * FROM empleado WHERE nombre LIKE '_%a%_';
+
 			Nombre que antepenultima letra en r o en t.
 				SELECT * FROM empleado WHERE nombre LIKE '%r__' OR nombre LIKE '%t__';
 				Oracle y PostgreSQL funcionan con Regex (cuales cambian entre si) y depreca los corchetes: ^.*(r|t)..$
-					SELECT * FROM empleado WHERE nombre LIKE '%[r,t]__';
+					SELECT * FROM empleado WHERE nombre LIKE '%[r,t]__'; -- 'r' o 't'
 			Nombre que antepenultima letra sea de la 'c' a la 'l'.
-				SELECT * FROM empleado WHERE nombre LIKE '%[c-l]__';
+				SELECT * FROM empleado WHERE nombre LIKE '%[c-l]__'; -- De la 'c' a la 'l'. O sea 'c' o 'd' o 'e' o 'f' ... 'l'
 			'[A-L]%_a%[o,a,r,s]'
 				VALE:
 					A lond ra     s
@@ -2158,9 +2225,19 @@ Restriccion (operador del algebra relacional), WHERE
 					A le   ja ndr a
 					H o    ra ci  o
 				NO VALE: Lauisana
+					Para que fuera esta, tendria que ser la siguiente: '[A-L]_%_a%[o,a,r,s]'
+						Probar en SqlServer:
+						DECLARE @nombre VARCHAR(8)
+						SET @nombre='Lauisana'
+						SELECT @nombre WHERE @nombre LIKE '[A-L]_%_a%[o,a,r,s]';
 			Cualquier parte del nombre completo donde termine con vocal.
 				SELECT * FROM empleado WHERE nombre LIKE '%_[a,e,i,o,u]' OR paterno LIKE '%_[a,e,i,o,u]' OR materno LIKE '%_[a,e,i,o,u]';
 
+		Mostrar/dame/devuelve(me)/regresame el nombre,edad,sueldo del empleado
+		Que el empleado tenga un departamento.
+		Que los apellidoS sean Gonzalez, Reyes o Sanchez.
+		Ademas que el nombre de las mujeres no termine en 'a' y no tengan porcentaje_comision
+		O el nombre de los hombres no termine en 'o' y su sueldo sea entre 15 mil y 30 mil.
 		SELECT nombre,edad,sueldo
 		FROM empleado
 		WHERE iddepartamento IS NOT NULL
@@ -2174,7 +2251,10 @@ Restriccion (operador del algebra relacional), WHERE
 				AND sueldo BETWEEN 15000 AND 30000
 			);
 
+	Todos los WHERE son Restricciones
+	Pero no todas las Restricciones son WHERE.
 
+	El complemento de WHERE es el HAVING, que también es una restricción xD.
 
 https://stackoverflow.com/questions/1565234/character-with-encoding-utf8-has-no-equivalent-in-win1252
 
@@ -2182,11 +2262,28 @@ https://stackoverflow.com/questions/1565234/character-with-encoding-utf8-has-no-
 Tipos de Tablas: https://es.wikipedia.org/wiki/Tabla_(base_de_datos)
 Tablas Persistentes: Son aquellas que permiten que los registros sean eliminados o borrados manualmente y se clasifican en tres tipos.
 	Base: Es donde se encuentra toda la información de todos los registros sin que se haga ninguna validación adicional.
+		Empresa Jodidita
+		Corporación: MierdCrosoft,Apple,Google,Indra,Spotify,Amazon
 		Particionamiento: Una tabla de partición es una tabla especial que se divide en segmentos, denominados particiones, que facilitan la administración y la consulta de tus datos. Dividir una tabla grande en particiones más pequeñas puede mejorar el rendimiento de la consulta.
 			Las unicas tablas que se particionan son las base, y se almacenan en otra BD y otro dispositivo de almacenamiento.
 		https://cloud.google.com/bigquery/docs/partitioned-tables?hl=es-419#:~:text=Una%20tabla%20de%20partici%C3%B3n%20es,el%20rendimiento%20de%20la%20consulta.
 		Distribución de carga.
+			Jack El Destripador xD
+			El Divide y venceras :D
 	Vista: Es una relación que se hace en referencia a una fila o columna específica.
+		Una vista existe cuando se ejecuta, crea una tabla temporal.
+		Lo que la mayoria entiende:
+			SELECT *
+			FROM empleado
+				WHERE sueldo >= 15000
+					AND sueldo <= 35000;
+		Lo que ADEMÁS es:
+			CREATE VIEW superLibros
+			AS
+				SELECT titulo,autor,cantidad
+				FROM libros
+				WHERE idcodigolibro >3;
+		Todo en el modelo relacional, son relaciones.
 	Instantáneo: Es todo registro que se puede ver de manera inmediata con solo una referencia.
 		Una instantánea de base de datos es una vista estática de solo lectura de una base de datos de SQL Server (la base de datos de origen). La instantánea de base de datos es coherente en cuanto a las transacciones con la base de datos de origen tal como existía en el momento de la creación de la instantánea. Una instantánea de base de datos siempre reside en la misma instancia de servidor que la base de datos de origen. Aunque las instantáneas de base de datos proporcionan una vista de solo lectura de los datos que se encuentran en el mismo estado que cuando se creó la instantánea, el tamaño del archivo de instantáneas crece a medida que se realizan cambios en la base de datos de origen.
 		https://learn.microsoft.com/es-es/sql/relational-databases/databases/database-snapshots-sql-server?view=sql-server-ver16
@@ -2246,8 +2343,44 @@ Sql (2) 92 hace busquedas rapidas.
 		WHERE edad = NULL
 		WHERE edad IS NULL
 		--
-		WHERE fecha LIKE '0_-01-2000'
-		WHERE CAST(fecha LIKE '0_-01-2000')
+
+
+
+		WHERE fecha LIKE '0_-01-2000' --Esto solo es valido, SI fecha NO es de tipo DATE y en cambio es de tipo VARCHAR(10)
+		Pero si se desea utilizar funciones de agregado/agrupado, mejor utilza HAVING.
+			AVG --Promedio
+			COUNT --Contar todo lo indicado
+			SUM --Sumar todo lo indicado
+			MAX --Todos los tipos de datos
+				Numeros
+				Tiempos: O el mas reciente
+				Texto: De acuerdo al valor ascii.
+			MIN
+				Numeros
+				Tiempos: O el mas viejo
+				Texto: De acuerdo al valor ascii.
+
+		SELECT contratacion
+		FROM empleado
+		GROUP BY contratacion
+			HAVING CAST(contratacion AS VARCHAR(10)) LIKE '2000-01-0_';
+
+		SELECT *
+		FROM empleado
+		GROUP BY contratacion
+			HAVING CAST(contratacion AS VARCHAR(10)) LIKE '2000-01-0_'; --ERROR:  column "empleado.idempleado" must appear in the GROUP BY clause or be used in an aggregate function
+
+		SELECT nombre,contratacion
+		FROM empleado
+		GROUP BY edad,nombre,contratacion
+			HAVING CAST(contratacion AS VARCHAR(10)) LIKE '2000-01-__';
+
+		SELECT sueldo,contratacion
+		FROM empleado
+		GROUP BY sueldo,contratacion
+			HAVING CAST(contratacion AS VARCHAR(10)) LIKE '2000-01-__'
+				AND MAX(sueldo) >= 0.00;
+
 		https://learn.microsoft.com/en-us/sql/t-sql/functions/cast-and-convert-transact-sql?view=sql-server-ver16
 		--
 		En los Relacionales el "NOT" es el complemento, NO el "negado", ya que no existe ese concepto en los BDR:
@@ -2314,7 +2447,7 @@ Operaciones de Conjuntos
 			A U B = {1,2,3,7,8}
 
 			La unión sirve para el balanceo de carga, ya que una tabla puede ser enorme, y para ello se divide en pequeñas tablas.
-			-- Elimina valores repetidos
+			-- Elimina valores repetidos (teniendo en cuenta que los valores son toda la tupla/registro/renglon/fila)
 			SELECT idcargo
 			FROM cargo
 			UNION
@@ -3066,6 +3199,9 @@ ADMINISTRACIÓN DE LA BASE DE DATOS
 Dra. Adriana García Vargas
 
 https://www.javatpoint.com/mysql-export-table-to-cvs
+https://www.postgresql.org/docs/current/sql-createrole.html#:~:text=CREATE%20ROLE%20adds%20a%20new,about%20managing%20users%20and%20authentication.
+https://www.postgresql.org/docs/current/catalogs-overview.html
+https://community.qlik.com/t5/Official-Support-Articles/PostgreSQL-postgresql-conf-and-pg-hba-conf-explained/ta-p/1713744
 
 Actividades			40%
 Examenes			30%
@@ -3235,13 +3371,36 @@ Politica: Declaración general de direccion o accion que comunican y sustentan l
 	Todos los usuarios deben tener passwords.
 	Passwords cambiados cada 6 meses.
 	Passwords cifrados.
-	3 p tecnicas
-	Contraseñas seguras.
-		Minimo 12 caracteres.
-		Maximo 16 caracteres.
-		Alfanumerico y 
-	Integridad de la BD.
 
+	3 p tecnicas
+Contraseñas seguras.
+	Mínimo 12 caracteres.
+	Máximo 16 caracteres.
+	Alfanumérico y caracteres especiales cuáles son: ~!@#$%^&*()_-+={}[];:'"<>,./?\|Ññ
+Integridad de la BD.
+	Crear restricciones en la BD para mantener la integridad de la lógica del negocio.
+	Crear Backups mediante TRIGERRS, PROCEDURES o manualmente.
+	Tener bien administrados los usuarios y sus permisos para evitar pérdida, fuga o alteración de las BDs.
+Optimización de la BD.
+	Escoger el modelo de datos idóneo para la BD.
+	Respetar las reglas de dicho modelo de datos, para evitar redundancias innecesarias, ambigüedad en la estructura, etc.
+	Utilizar los tipos de datos primitivos y estándar, para que se pueda garantizar la posibilidad de una migración.
+		Si es para el modelo relacional, utilizar los tipos primitivos, Numéricos, Tiempos y Texto, cuáles son respectivamente:
+		NUMERIC(<entero>,<decimal>), DATE, CHAR(<longitud>), VARCHAR(<longitud>)
+		Ejemplos y con sus CONSTRAINTs necesarios:
+			Si es el año de creación:
+				anioCreacion NUMERIC(4,0)
+				CONSTRAINT ckAnioCreacion CHECK (anioCreacion >= 2000)
+				Del año 2000 hasta el 9999.
+			Si es una calificacion:
+				calificacion NUMERIC(3,1)
+				CONSTRAINT ckCalificacion CHECK (calificacion >= 0.0)
+			Fecha de nacimiento:
+				fechaNacimiento DATE
+			Código postal:
+				cp CHAR(10)
+			Apellido paterno:
+				paterno VARCHAR(15)
 
 Norma: Describe la necesidad de una actividad de un DBA, son mas detalladas y especificas que las políticas. Para evaluar la calidad de la actividad.
 	Passwords debe ser minimo de 8 caracteres.
@@ -3266,7 +3425,398 @@ Funciones del DBA
 	Extensión lógica de sus actividades administrativas.
 	Los aspectos tecnicos del trabajo del DBA son en las siguientes areas:
 		Evaluar, seleccionar e instalar el DBMS y utilerias necesarias
+	Extensión lógica de sus actividades administrativas.
+	Los aspectos técnicos son las siguientes areas:
+		Evaluar: seleccionar e instalar el DBMS t utilerias relacionadas.
+		Diseñar e implementar BDs y apps.
+		Probar y evaluar BDs y apps.
+		Mantener el DBMS, utilerias y apps.
+	De acuerdo con las fases del ciclo de vida de una BD:
+		Adquisición del SGBD
+		Planeación de las BD, incluida la definición de estándares, procedimientos y ejecución.
+		Obtención de requerimientos de datos persistentes.
+		Diseño conceptual, lógico y físico.
+		Implementación de BD.
+		Pruebas de la BD.
+		Operación y mantenimiento de BD.
+		Instalación del SGBD.
+		Incluida la migración.
+	Importante saber usar herramientas de ayuda que proporcionan tanto de las herramientas de su SGBD asi como la documentación oficial.
+	Administrar el SGBD no es facil, pero la experiencia permitira la formación completa del DBA.
 
+Usuarios:
+	DBA
+	Diseñador de la BD
+	Programador
+	Usuarios finales
+
+Areas de trabajo: Cualquier organización donde se desarrollen sistemas o apps con acceso a datos.
+	Sector educativo, bancario, medico, seguros, etc.
+
+Administrador del server
+~# sudo apt-get check
+
+Instalación de PostgreSQL en Linux xD:
+~# sudo su
+~# wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add
+~# sudo echo "deb http://apt.postgresql.org/pub/repos/apt/ 'lsb_release –cs'-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+~# sudo apt update
+~# sudo apt upgrade
+~# sudo apt-get install postgresql
+~# ps aux | grep postgresql
+~# sudo apt install curl
+~# curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+~# sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+~# sudo apt install postgresql postgresql-client postgresql-contrib libpq-dev
+~# ps aux | grep postgres
+~# sudo mkdir -p /etc/apt/sources.list.d/
+~# sudo echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal/ pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list
+~# sudo apt install pgadmin4
+
+
+https://noviello.it/es/como-instalar-pgadmin4-en-ubuntu-20-04-lts/
+~# curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add -
+	~# sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list'
+~# sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list'
+~# sudo apt update
+~# sudo apt install pgadmin4
+~# sudo /usr/pgadmin4/bin/setup-web.sh
+
+
+
+
+
+7. Ajustes de configuración de rendimiento:
+Todos los DBMS cuentan con parámetros configurables que mejoran su rendimiento: Cantidad de caché, máximo de usuarios contectados, etc.
+
+En PostgreSQL el archivo de configuración es /etc/postgresql/12/main/pg_hba.conf
+SHOW hba_file;
+
+/etc/postgresql/12/main/postgresql.conf
+	port: Puerto
+	max_connections: Total de conexiones
+	shared_buffers: Determina el número de bloques de memoria/buffers que PostgreSQL reservará, como zona de trabajo, en el momento del arranque para procesar las consultas y mantener datos en cache.
+		Se recomienda minimo el 25% y maximo el 40% de RAM.
+	¿Porque esa cantidad? Si un Linux es muy ligero. =======================
+		Depende de los datos almacenados en la BD y del tipo de consultas que se hacen.
+	work_mem: Memoria temporal utilizada por cada sesión, para las operaciones de ordenamiento (ORDER BY), las sesiones de diferenciación (GROUP BY, HAVING y DISTINCT), y para gestión de hash (uniones HASH, indices HASH, hash_aggregations), si realizamos muchísimas consultas ordenadas, agrupadas, diferenciadas por cadenas, etc., se crearán mucho de estos buffers de manera paralela, mientras más memoria asignemos, menos probabilidades hay que los ordenamientos y otras operaciones se hagan con archivos temporales en disco (más lentos que la RAM).
+	Regla: Consultas con poca concurrencia se asigna 2% - 4% de RAM disponible.
+		Con alta concurrencia deja el valor por defecto.
+		Cada consulta consume la misma cantidad de RAM: 4Gb el 4% es 163 MB
+		work_mem=163
+	temp_buffers: Memoria temporal utilizada por cada sesión para las tablas temporales y para la apertura de tablas en cada sesión para cada BDs.
+		Este valor depende de la cantidad de datos que carga cada sesión y del hardware que se utiliza.
+		Valor default 8MB, pero se puede cambiar a 16MB.
+	shared_preload_libraries = '$libdir/plpython2.so'
+		Permite cargar una biblioteca específica cuando arranca el sistema, si utiliza muchos procedimientos almacenados en un lenguaje especificado (Python, Perl, Tcl, Java, etc.), es bueno pre-cargarla para que esté disponible cuando se utilice por primera vez.
+		Nota: esta opción ralentiza un poco el reinicio del sistema.
+	bgwriter_delay = 500ms
+		Es un proceso del servidor que se enarga de escribir a disco todos los "shared_buffers" modificados, este proceso conlleva una carga de I/O sobre el disco, su modificación permite o reducir el valor para evitar en lo más posible pérdidas de datos en equipos que pueden fallar, o su incremento permite reducir el I/O al disco duro en sistemas perfectamente protegidos.
+	vacuum_cost_delay: PostgreSQL determina el tiempo que vacuum dormirá luego de haber trabajado por un cierto periodo.
+		Hacer uso de este parámetro puede evitar que un vacuum consuma demasiados recursos procesando una tabla muy grande y/o con alta concurrencia. Y ser utilizados por otro proceso o aplicación.
+El sitio web https://pgtune.leopard.in.ua/#/ para generar un contenido (recomendado) para el archivo de configuración "/etc/postgresql/12/main/postgresql.conf".
+
+8. Optimización de consultas
+Si las BD no estan hasta la 3era forma normal. Esto puede afectar de forma radical la velocidad de la BD.
+
+Regla: Conocer y aplicar por lo menos las primeras 3 formas normales.
+
+Después de la tercera se usan para hacer aún más rápida la BD, y es función de los Administradores con profundo conocimiento del funcionamiento del motor de BD.
+
+Regla: Si la consulta toma más de un segundo, hay que optimizarla.
+
+Una consulta correctamente escrita y optimizada puede significar un ahorro de recursos aun cuando nosotros solo veamos segundos de diferencia.
+
+Errores comunes que afectan para que una consulta sea optima:
+	Sobre utilización de subconsultas: Es de alto impacto para el rendimiento de nuestra BD.
+		Solo utilizarlas cuando sean necesarias.
+	Tener tablas donde con n cantidad de columnas y solo algunas columnas en concreto son utilizadas de manera continua.
+	Utilizar SELECT * para cualquier consulta aun cuando no necesariamente se ocupen todas las columnas.
+	Abuso de índices: Por regla general se crean índices sobre campos que se seleccionan, agrupan y ordenan a menudo.
+		El problema es que es que cada índice ocupa un espacio proporcional al número de filas en la tabla.
+	Uso excesivo de las búsquedas de texto en cadenas, especialmente usando el %.
+		LIKE %
+
+Soluciones:
+	Evitar las subconsultas, si existe otro camino.
+	NOTA: Por regla general, convertir un SELECT anidado en un JOIN fácilmente.
+	Limitar las consultas a las columnas que se necesitan.
+	Los datos que son usados frecuentemente se mantienen en otra tabla mientras que los que se usan con menos frecuencia se dejan en otra evitando asi que la tabla menos frecuente ocupe menos memoria.
+	Crear índices estrictamente necesarios.
+	Evitar el LIKE %.
+
+Los procedimientos almacenados son una alternativa rápida y mejor a las consultas por las siguientes razones:
+	1. Los procedimientos almacenados son compilados, dependiendo del RDBMS, como lo implemente, (el código SQL es interpretado) haciéndolas una opción mucho más rápida.
+	2. El ahorro de ancho de banda es importante pues se pueden realizar varias consultas en un mismo procedimiento, además el procedimiento se mantiene en el servidor hasta que el resultado final es obtenido, y es esto únicamente lo que se envía al cliente.
+Min 1:07:23
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CMD:
+psql -U postgres
+\conninfo --Info de la conexion
+\?
+\h [comando] --Muestra la sintaxis de un comando o lista todos los comandos
+\encoding --Muestra codificacion de la consola
+\l --Lista BDs
+\c --Cambia a una BD
+\d [tabla] --Muestra las tablas de la BD o la estructura de una tabla
+\i <script> --Ejecuta el script
+\o <rutaSalida> --Guarda los resultados en el archivo de salida
+C:\Program Files\PostgreSQL\14\bin> pg_ctl -D "C:\Program Files\PostgreSQL\14\data" {stop|start|restart}
+C:\Program Files\PostgreSQL\14\bin> pg_ctl --help
+
+
+\password --Cambiar el password de PostgreSql
+/var/lib/postgresql/14/main --Carpeta de los binarios
+~# sudo -u postgres psql -c "SHOW data_directory;" --Carpeta de las BDs
+~# systemctl {status|stop|start|restart|reload|is-active} postgresql.service
+
+
+3. Administración del Catalogo
+Definir una BD involucra especificar los tipos de datos, estructuras y restricciones de los datos o ser almacenados en la base la definición descriptiva de la BD es también almacenada por el DBMS en forma de un catalogo.
+El catalogo consiste en el conjunto de tablas de sistema que guardan información sobre los objetos de la BD.
+Por lo que en el catalogo se puede encontrar una tabla que describe los datos de todas las tablas de usuario, también una tabla que describe los datos de las BDs, otra tabla que describe los usuarios, etc.
+La información almacenada en el catalogo se denomina meta-datos. Su principal utilidad es la de conocer que datos existen sin acceder a ellos.
+
+Dado que son tablas, es posible hacer consultas.
+pg_constraint, pg_database, pg_group, pg_indexes, pg_tables, pg_user, pg_class, pg_roles, pg_language
+
+\dS --Muestra los catalogos del sistema
+SELECT name, setting FROM pg_settings WHERE category = 'File Locations';
+SELECT VERSION(); --Funcion de agregado que retorna la version de PostgreSql
+
+SELECT * FROM pg_database;
+SELECT datname,datcollate FROM pg_database;
+SELECT datname,datconnlimit FROM pg_database;
+SELECT * FROM pg_class;
+SHOW server_encoding;
+SHOW client_encoding;
+SET CLIENT_ENCODING TO 'LATIN2';
+SET SERVER_ENCODING TO 'UTF8';
+SELECT * FROM pg_roles;
+CREATE ROLE usuario1 CREATEDB;
+SELECT rolname,rolcreatedb FROM pg_roles WHERE rolcreatedb = '1';
+SELECT lanname FROM pg_language;
+ALTER USER postgres WITH password 'postgres';
+ALTER ROLE usuario1 WITH CREATEDB CREATEROLE;
+CREATE USER usuario2 PASSWORD 'usuario2' SUPERUSER CREATEDB CREATEROLE;
+
+SELECT pg_size_pretty(pg_database_size('empleados'));
+SELECT pg_size_pretty(pg_total_relation_size('cargo'));
+\timing --Tiempo de ejecucion de una consulta, se activa/desactiva
+SELECT relname,relpages FROM pg_class ORDER BY relpages DESC; --Tablas mas grandes
+
+
+--Super usuarios:
+SELECT oid,rolname,rolsuper FROM pg_authid;
+--Creadores de roles:
+SELECT oid,rolname,rolcreaterole FROM pg_authid;
+--Creadores de BD:
+SELECT oid,rolname,rolcreatedb FROM pg_authid;
+--Quienes se logean:
+SELECT oid,rolname,rolcanlogin FROM pg_authid;
+--Quienes tienen password:
+SELECT oid,rolname,rolpassword FROM pg_authid;
+--Clave de la BD:
+SELECT oid,datname,datcollate FROM pg_database;
+--El idioma de la BD:
+SELECT datname,datcollate FROM pg_database;
+--Máximo de conexiones a la BD:
+SELECT datname,datconnlimit FROM pg_database;
+--Codificación de la BD:
+SELECT datname,encoding FROM pg_database;
+--El espacio de tabla predeterminado para la base de datos.
+SELECT datname,dattablespace FROM pg_database;
+--Clave de las tablas, indices, secuencias, vistas (relaciones)
+SELECT oid,relname FROM pg_class;
+--Clave que la relación contiene
+SELECT oid,relname,relnamespace FROM pg_class;
+--Propietario de la relación
+SELECT oid,relname,relowner FROM pg_class;
+--Tamaño de la representación en disco de esta tabla en páginas
+SELECT oid,relname,relpages FROM pg_class;
+--Numero de tuplas de la relación
+SELECT oid,relname,reltuples  FROM pg_class;
+--Clave del lenguaje
+SELECT oid,lanname FROM pg_language;
+--Lenguaje interno como SQL
+SELECT lanname,lanispl FROM pg_language;
+--Propietario del lenguaje
+SELECT lanname,lanowner FROM pg_language;
+--Si es un lenguaje confiable, que no otorga acceso a nada fuera del entorno normal de ejecución de SQL:
+SELECT lanname,lanpltrusted  FROM pg_language;
+--Para los idiomas no internos, esto hace referencia al controlador de idiomas, que es una función especial que es responsable de ejecutar todas las funciones que están escritas en el idioma en particular. Cero para idiomas internos.
+SELECT lanname,lanplcallfoid FROM pg_language;
+
+3.1. Tablas del sistema
+3.2. Vistas del sistema
+
+
+
+
+5. Monitoreo del sistema
+Vigilar el funcionamiento de un sistema, servicio o actividad.
+
+Elementos comunes a tomar en cuanto para el monitoreo:
+Servidor: Disponibilidad y posibles problemas del hardware
+CPU: Carga del sistema y uso de la CPU
+Memoria: Carga y uso de la RAM y la Swap
+Red: Disponibilidad de los componentes de red, trafico de entrada y salida
+Disco/almacenamiento: Espacio utilizado
+PostgreSQL: Numero de conexiones, numero de transacciones, transacciones, bloqueo, espacio usado, etc.
+
+Los objetivos son:
+Verificar el consumo de recursos
+Actividad positiva del mismo
+Tiempo de respuesta del servidor
+Recabar la mayor cantidad de información, a fin de poder tener los suficientes datos para ubicar donde esta el problema
+Detección de problemas de red
+Obtener información de una determinada tarea o consulta  (especial para puesta a punto de sentencias o servidor).
+
+Formas de monitoreo: S.O. y el manejador de bases de datos
+~# ps aux | egrep 'postgres'
+~# vmstat --Muestra estadisticas del sistema, permite obtener un detalle general de los procesos, E/S, uso de RAM/SWAP, CPU, estados del sistema. Puede ser utilizado para ayudar a identificar cuellos de botella en el rendimiento.
+~# vmstat 2 10 --Cada 2 segundos muestra datos, durante 10 segundos
+~# vmstat 2 --Infinito
+~# top
+~# htop
+~# bashtop
+~# gotop --https://github.com/cjbassi/gotop
+~# netstat -ntu|grep "TIME_WAIT"|wc -l
+-p --Puertos
+-u --Puertos udp
+-t --Puertos tcp
+-o --Timers
+-n --Numero de puerto
+-a --Conexiones activas
+~# ps f -o pid,ppid,args -C postgres
+~# iostat
+~# iostat -d 2
+~# iostat -p sda
+~# free
+-b bytes
+-k kigabytes
+-m megabytes
+-g gigabytes
+-t total
+~# lscpu
+~# mpstat
+~# netstat | grep 5432
+~# cat /proc/cpuinfo
+
+Ver consultas actuales corriendo:
+SELECT pg_stat_get_backend_pid(s.backendid) as procpid, pg_stat_get_backend_activity(s.backendid) as current_query FROM (SELECT pg_Stat_get_backend_idset() as backendid) AS s;
+
+SELECT * FROM pg_stat_activity;
+Actividad del usuario postgres
+empleados=# SELECT datname FROM pg_stat_activity WHERE usename = 'postgres';
+
+Muestra información sobre todos los procesos en ejecución
+postgres=# SELECT usename,application_name,state FROM pg_stat_activity;
+
+Muestra las conexiones de los clientes:
+SELECT datname,usename,client_addr,client_port FROM pg_stat_activity;
+
+
+
+
+
+4. Importación y exportación de datos
+Importar: traer de otra parte algo, incorporar datos que fueron creados en otra app o RDBMS distinto o versiones anteriores.
+COPY <tabla> FROM {<direccion>|<archivo>} WITH DELIMITER;
+	FORMAT: tipo de archivo
+	DELIMITER: separador de columnas (| o ,)
+	NULL: cadena que representa el valor nuli
+	HEADER: indica si la primera linea contiene encabezados (formato CSV)
+	QUOTE: caracter usado para citar texto/valores
+
+Exportar:
+
+mv DATOS.sql /var/lib/postgresql/
+mv CREAB_BD_EMPLEADO.sql /var/lib/postgresql/
+cd /var/lib/postgresql/
+sudo su postgres
+psql
+CREATE DATABASE misempleados;
+\c misempleados;
+\i CREAB_BD_EMPLEADO.sql;
+\i DATOS.sql;
+exit
+cat > datos_copy.txt
+7,Vendedor
+8,Marketing
+9,Logistica
+cat datos_copy.txt
+misempleados=# COPY cargo FROM misempleados/datos_copy.txt WITH DELIMITER ',';
+exit
+cat > empleado_copy.txt
+id_empleado,nombre,apaterno,amaterno,edad,sexo,sueldo,comision,fecha,departamento,cargo
+20,MIGUEL,TORRES,JUAREZ,21,M,20000,20,2019-02-04,2,4
+cat empleado_copy.txt
+psql
+\c misempleados;
+COPY empleado FROM '/var/lib/postgresql/empleado_copy.txt' WITH (FORMAT csv, HEADER, DELIMITER ',');
+exit
+psql
+cat > empleado_copy2.txt
+id_empleado,nombre,apaterno,amaterno,edad,sexo,sueldo,departamento,cargo
+21,JULIA,PEREZ,CAMARGO,25,M,20000,2,4
+cat empleado_copy2.txt
+psql
+\c misempleados;
+COPY empleado (id_empleado,nombre,apellido_paterno,apellido_materno,edad,sexo,sueldo,id_departamento,id_cargo) FROM '/var/lib/postgresql/empleado_copy2.txt' WITH (FORMAT csv, HEADER, DELIMITER ',');
+exit
+cat > datos_comillas.txt
+"11","Ayudante"
+cat datos_comillas.txt
+psql
+\c misempleados;
+COPY cargo (id_cargo,nombre) FROM '/var/lib/postgresql/datos_comillas.txt' WITH (FORMAT csv, DELIMITER ',', QUOTE '"');
+--COPY <tabla> TO '<nuevoArchivo>' WITH DELIMITER ',';
+COPY cargo TO '/var/lib/postgresql/datos_exp.csv' WITH DELIMITER ',';
+--COPY cargo TO 'C:\Users\oscar\Downloads\DiploBD\Modulo5\datos_exp.csv' WITH DELIMITER ',';
+COPY cargo TO '/var/lib/postgresql/datos_exp2.csv' WITH (FORMAT csv, HEADER);
+COPY (SELECT nombre FROM cargo WHERE nombre LIKE 'M%') TO '/var/lib/postgresql/datos_exp4.csv' WITH (FORMAT csv, HEADER);
+COPY cargo TO '/var/lib/postgresql/datos_exp3.csv' WITH (DELIMITER E\'t');
+COPY (SELECT nombre FROM cargo WHERE nombre LIKE 'M%') TO '/var/lib/postgresql/datos_exp5.csv' WITH (DELIMITER E\'t');
+
+
+
+
+
+
+
+
+
+
+
+
+
+6. Programación de tareas rutinarias
+~$ pg_dump misempleados > resmisempleados.sql
+CREATE DATABASE misempleados_res;
+~$ psql misempleados_res < resmisempleados.sql
+analyze; --Analiza la BD
+vacuum analyze; --Limpia la BD
+REINDEX DATABASE misempleados; --Vuelve a hacer el indice de las tablas
+
+sudo cat > /etc/cron.d/postgresmicron
+45 4 * * * root nice -n 19 su - postgres -c "pg_dumpall --clean" | gzip -9 > /var/lib/postgresql/postgres_all.sql.gz
+* * * * 0 root nice -n 19 su - postgres -c "vacuumdb --all --full –analyze"
+45 3 * * 1-6 root nice -n 19 su - postgres -c "vacuumdb --all --analyze --quiet"
+0 3 * * 0 root nice -n 19 su - postgres -c 'psql -t -c "select datname from pg_database order by datname;" | xargs -n 1 -I"{}" -- psql -U postgres {} -c "reindex database {};"'
 
 
 
