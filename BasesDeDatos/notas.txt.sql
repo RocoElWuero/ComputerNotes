@@ -115,6 +115,8 @@ Tipos de datos: Primitivos (Codd), Estandar (ISO) y Propio del manejador.
 Diccionario de datos: Es una tabla del manejador que tambien almacena información o mejor dicho, meta-información, o metadatos de las tablas que el usuario creó.
 	Los metadatos del Archivo pueden ser la hora de creación, modificación, localización (GPS), autor, contribuyentes, etc.
 
+Los valores (pares, tercios, cuaternarios, etc.), en la BD no tienen orden, pero se le muestra al usuario con un orden, por las tablas de sistema (diccionario de datos).
+
 
 
 

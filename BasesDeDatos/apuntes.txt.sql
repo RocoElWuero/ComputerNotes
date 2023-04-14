@@ -2052,7 +2052,7 @@ Restriccion (operador del algebra relacional), WHERE
 				SELECT SUM(sueldo) AS sumaSueldo FROM empleado;
 
 			HAVING
-				Restricción de agrupamiento:
+				Restricción de agrupamiento/agregado:
 					Que la ultima fecha de contratacion no sea en el 2000:
 						HAVING MAX(contratacion) NOT BETWEEN '01-01-2000' AND '31-12-2000'
 				Restricción simple (de la tabla):
@@ -2103,7 +2103,7 @@ Restriccion (operador del algebra relacional), WHERE
 					HAVING SUM(sueldo) IN (30000, 45000, 45500)
 					OR SUM(sueldo) > 60000;
 		ORDER BY <atributo> [ASC|DESC][, ...] -- Solo sirve para verse bonito
-			SELECT *
+			SELECT * --Esto NO es Proyección
 			FROM empleado
 			ORDER BY 2 DESC, 1 ASC; -- Mal uso
 
@@ -2119,7 +2119,7 @@ Restriccion (operador del algebra relacional), WHERE
 			FROM empleado
 			ORDER BY edad ASC; -- Buen uso
 
-			SELECT edad, sueldo, nombre
+			SELECT edad, sueldo, nombre --Esto SI es Proyección
 			FROM empleado
 			ORDER BY nombre DESC, idempleado ASC;
 
@@ -2479,6 +2479,9 @@ Operaciones de Conjuntos
 			SELECT sexo
 			FROM empleado;
 
+			O sea que el sexo que es un texto de 1 caracter (CHAR(1)) y el nombre que es un texto de 255 caracteres (VARCHAR(255)), sexo cabe dentro del nombre. O sea sus valores pueden ser un subconjunto del otro, dentro de la vista generada.
+			sexo ⊆ nombre
+
 			SELECT nombre
 			FROM cargo
 			WHERE nombre NOT LIKE '%a'
@@ -2488,7 +2491,25 @@ Operaciones de Conjuntos
 			CUANTAS operaciones del algebra relacional se ocupan? 4
 			CUALES operaciones del algebra relacional se ocupan? PROYECCIÓN, RESTRICCIÓN Y UNIÓN
 
-	UNIÓN	(∪*): Union all does not remove duplicate.
+	UNIÓN	(∪*): Union all does not remove duplicate, to both tables.
+			SELECT nombre
+			FROM cargo
+			UNION ALL
+			SELECT sexo
+			FROM empleado;
+
+
+			SELECT sexo
+			FROM empleado
+			UNION
+			SELECT sexo
+			FROM empleado;
+
+			SELECT sexo
+			FROM empleado
+			UNION ALL
+			SELECT sexo
+			FROM empleado;
 
 	INTERSECCION	(∩)
 		1. El encabezado de resultado siempre es el encabezado de la primer tabla a operar.
@@ -2503,7 +2524,7 @@ Operaciones de Conjuntos
 			-- Ejemplo
 			A = {1,2,3}
 			B = {2,3,7,8}
-			A n B = {2,3}
+			A ∩ B = {2,3}
 			SELECT * FROM cargo
 			INTERSECT
 			SELECT * FROM departamento;
@@ -2512,7 +2533,7 @@ Operaciones de Conjuntos
 			INTERSECT
 			SELECT iddepartamento FROM departamento;
 
-	INTERSECCION	(∩*): Intersect all does not remove duplicate.
+	INTERSECCION	(∩*): Intersect all does not remove duplicate, to both tables.
 		1. El encabezado del resultado siempre es el encabezado de la primer tabla a operar.
 		2. Grado y cardinalidad: El numero de atributos/columnas deben ser del mismo grado, las dos tablas a operar.
 		3. Los grados correspondientes deben ser del mismo tipo o mapeables. Un "tipo CAST" implicito.
@@ -2522,10 +2543,12 @@ Operaciones de Conjuntos
 			INTERSECT ALL
 			SELECT [*|atributo,...]
 			FROM <tabla>;
+
 			-- Ejemplo
 			A = {1,2,3}
 			B = {2,3,7,8}
-			A n B = {2,3}
+			A ∩ B = {2,3}
+
 			SELECT * FROM cargo
 			INTERSECT ALL
 			SELECT * FROM departamento;
@@ -2533,9 +2556,14 @@ Operaciones de Conjuntos
 			SELECT * FROM departamento
 			INTERSECT
 			SELECT * FROM departamento;
+
 			SELECT * FROM departamento
 			INTERSECT ALL
 			SELECT * FROM departamento;
+
+			SELECT idcargo FROM cargo
+			INTERSECT ALL
+			SELECT iddepartamento FROM departamento;
 			https://www.datasciencemadesimple.com/intersect-and-intersect-all-in-postgresql/
 			---------------------
 
@@ -2573,9 +2601,12 @@ Operaciones de Conjuntos
 			-- Sintaxis
 			SELECT [*|atributo,...]
 			FROM <tabla>
-			EXCEPT|[MINUS] --El 1ro es estandar, el 2do no lo es
+			EXCEPT|[MINUS] --El 1ro es estandar SQL2 (92), el 2do no lo es
 			SELECT [*|atributo,...]
 			FROM <tabla>;
+
+			Casi el 50% de RDBMS utilizan EXCEPT y el casi otro 50% MINUS. xD
+
 			-- Ejemplo
 			A = {1,2,3}
 			B = {2,3,7,8}
@@ -2585,6 +2616,10 @@ Operaciones de Conjuntos
 			SELECT * FROM cargo
 			EXCEPT
 			SELECT * FROM departamento;
+			/*
+				Es como si fuera esto:
+				15 - 0 = 15
+			*/
 
 			SELECT idcargo FROM cargo
 			EXCEPT
@@ -2600,10 +2635,18 @@ Operaciones de Conjuntos
 			-- EJEMPLO BUENISIMO!!!!!!!!!!!!!!!!!!!
 			A = {1,9,1,2,3}
 			B = {2,3,7,8,1,10,10,9}
-			A - B = {ǿ}
+			A - B = {ǿ} --DUDA: si es {ǿ} o es el {1}
+				Todo A contiene lo mismo que B.
 			A -* B = {ǿ}
+				Todo A contiene lo mismo que B.
 			B - A = {7,8,10}
+				Todo A contiene casi lo mismo que B.
+				Pero los elementos que no estan en A, se conservan (de B).
+				Y no hay repetición.
 			B -* A = {7,8,10,10}
+				Todo A contiene casi lo mismo que B.
+				Pero los elementos que no estan en A, se conservan (de B).
+				Y hay repetición.
 
 			SELECT * FROM cargo
 			EXCEPT ALL
@@ -2638,13 +2681,74 @@ Operaciones de Conjuntos
 			FROM empleado
 			WHERE sexo = 'H' AND idcargo IN (1,3,6));
 
+
+		Mostrar las direcciones de Mexico que se llamen igual a las direcciones de Peru y el codigo postal sea 10925 o 10930 o 10927.
+			CREATE DATABASE proyecto;
+			\c proyecto;
+			CREATE TABLE factura (
+				idFactura numeric(2,0) NOT NULL,
+				empresa varchar(45) NULL,
+				nombre varchar(45) NOT NULL,
+				dniRuc varchar(45) NOT NULL,
+				direccion varchar(45) NOT NULL,
+				direccion2 varchar(45) NULL,
+				codigoPostal numeric(5,0) NOT NULL,
+				ciudad varchar(45) NOT NULL,
+				pais varchar(45) NOT NULL,
+				infoAdicional varchar(45) NULL,
+				telefonoFijo varchar(45) NOT NULL,
+				telefonoMovil varchar(45) NOT NULL,
+				CONSTRAINT pkFactura PRIMARY KEY (idFactura)
+			);
+			(SELECT direccion
+			FROM factura
+			WHERE pais = 'Mexico' AND codigoPostal IN (10925, 10930, 10927)
+			UNION
+			SELECT direccion2
+			FROM factura
+			WHERE pais = 'Mexico' AND codigoPostal IN (10925, 10930, 10927))
+			INTERSECT
+			(SELECT direccion
+			FROM factura
+			WHERE pais = 'Peru' AND codigoPostal IN (10925, 10930, 10927)
+			UNION
+			SELECT direccion2
+			FROM factura
+			WHERE pais = 'Peru' AND codigoPostal IN (10925, 10930, 10927));
+
 	PRODUCTO CARTESIANO (Χ): El resultado de tomar la primer tupla de la primer relación y combinarla con todos y cada una de las tuplas de la segunda relación, continuando con la segunda tupla y asi sucesivamente hasta terminar con la primer tupla.
+		El CROSS JOIN, NO ES un JOIN.
 		1. El encabezado es igual a la suma del encabezado de la primer relación con la segunda tabla.
+			idcargo nombre
+			iddepartamento nombre
+			===================
 			idcargo nombre iddepartamento nombre
 		2. El grado (total atributos) del resultado es igual a la suma de grados de ambas tablas.
 			R(n) = 2 + 2 = 4
+
+			idcargo nombre
+			iddepartamento nombre
+			===================
+			idcargo nombre iddepartamento nombre
 		3. La cardinalidad (total tuplas) del resultado es igual al producto de las cardinalidades de ambas tablas.
 			R(n) = 6 * 6 = 36
+
+			R1
+			1
+			2
+			3
+
+			R2
+			1
+			2
+
+			CROSS JOIN
+			1
+			2
+			3
+			4
+			5
+			6
 
 		SQL 92 - Cood
 		SELECT *
@@ -2665,6 +2769,10 @@ Operaciones de Conjuntos
 
 			SELECT *
 			FROM cargo CROSS JOIN empleado;
+
+			SELECT COUNT(*)
+			FROM cargo CROSS JOIN departamento
+				CROSS JOIN empleado;
 
 			SELECT *
 			FROM cargo CROSS JOIN departamento
@@ -2696,6 +2804,8 @@ Operaciones Relacionales
 		cargo.idcargo	departamento.iddepartamento
 		cargo.nombre	departamento.nombre
 
+		El '.' es el operador de extensión/miembro/añadido.
+
 		Atributo común
 		cargo.idcargo = departamento.iddepartamento
 		cargo.nombre = departamento.nombre
@@ -2709,6 +2819,9 @@ Operaciones Relacionales
 		FROM cargo INNER JOIN departamento
 			ON(cargo.nombre = departamento.nombre); --Si ejecuta, si es join, no deberia hacerse, ademas porque no tiene referencia
 
+		SELECT *
+		FROM cargo CROSS JOIN departamento;
+
 
 		SELECT empleado.nombre, cargo.nombre, departamento.nombre
 		FROM departamento INNER JOIN empleado
@@ -2716,15 +2829,29 @@ Operaciones Relacionales
 				INNER JOIN cargo ON (cargo.idcargo = empleado.idcargo); --Siempre que haya un JOIN, se tiene que partir desde la que tiene las referencias hacias las otras tablas directas.
 		departamento <-> empleado <-> cargo
 
+		SELECT COUNT(*)
+		FROM departamento AS d INNER JOIN empleado AS e
+			ON(d.iddepartamento = e.iddepartamento)
+				INNER JOIN cargo AS c ON (c.idcargo = e.idcargo); --Si o si tiene que calcular sus 684 registros Y con las Restricciones, se reduce a simplemente 17 registros.
+
 		SELECT e.nombre, c.*, d.nombre
 		FROM departamento AS d INNER JOIN empleado AS e
 			ON(d.iddepartamento = e.iddepartamento)
 				INNER JOIN cargo AS c ON (c.idcargo = e.idcargo);
 
+		Regla para los Aliases:
+		Al nombrarlos, siempre utilizar como maximo, 3 letras.
+		Si no, simplemente utilizar su nombre original.
+
 		Diagrama de Interrelaciones
 			A <-> B <-> C              => (A,B,C) o (C,B,A)
 			  <-> D <-> E              => (A,D,E) o (E,D,A)
 			        <-> F              => (A,D,F) o (F,D,A)
+			(A,C) --No hacer esto, porque necesito a B, para interrelacionarlos.
+			Si quiero sacar los atributos que esten relacionados entre varias tablas.
+			A <-> B <-> C
+			A <-> B = X
+			      X <-> C
 
 		El JOIN idóneo/directo: Donde hay una referencia
 			JOIN: (B,C)
@@ -2732,6 +2859,9 @@ Operaciones Relacionales
 			JOIN: (C,E)
 			JOIN: (D,F)
 		El JOIN NO idóneo/indirecto: Donde NO hay una referencia, por eso MODIFICARLO a directo
+			JOIN: (C,E) => (C,B,A,D,E)
+			JOIN: (E,B) => (E,D,A,B)
+			JOIN: (F,B) => (F,D,A,B)
 			JOIN: (A,F)   =[idóneo/Válido]=> (A,D,F)
 			JOIN: (C,A,F) =[idóneo/Válido]=> (C,B,A,D,F)
 
@@ -2740,7 +2870,7 @@ Operaciones Relacionales
 				INNER JOIN
 				SELF JOIN
 				NATURAL JOIN
-			Joins Externos (INNER + extra)
+			Joins Externos (INNER + extra) --Darle prioridad (rescatar los valores que fueron expulsados por la restricción) a la izquierda/derecha/ambos
 				RIGHT OUTER JOIN --Estandar 92
 				RIGHT JOIN --No estandar
 				LEFT OUTER JOIN --Estandar 92
@@ -2787,10 +2917,14 @@ Operaciones Relacionales
 
 		SELECT *
 		FROM empleado AS e INNER JOIN departamento AS d
-			ON(e.iddepartamento = c.iddepartamento);
+			ON(e.iddepartamento = d.iddepartamento);
 
 		SELECT *
 		FROM empleado AS e RIGHT OUTER JOIN departamento AS d
+			ON(e.iddepartamento = d.iddepartamento);
+
+		SELECT *
+		FROM empleado AS e FULL OUTER JOIN departamento AS d
 			ON(e.iddepartamento = c.iddepartamento);
 
 		Mostrar a las mujeres que no teniendo departamento y todos los departamentos solo si ganan más de 25,000.
@@ -3819,6 +3953,673 @@ sudo cat > /etc/cron.d/postgresmicron
 0 3 * * 0 root nice -n 19 su - postgres -c 'psql -t -c "select datname from pg_database order by datname;" | xargs -n 1 -I"{}" -- psql -U postgres {} -c "reindex database {};"'
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Raul Alejandro Ojeda Ramirez
+raul_ojeda@comunidad.unam.mx
+
+MÓDULO VI
+SEGURIDAD DE BASES DE DATOS
+1. Seguridad
+1.1. Esquemas de acceso a servidores de bases de datos
+1.2. Administración de usuarios
+1.3. Administración de grupos
+1.4. Administración de roles
+1.5. Administración de privilegios
+1.6. Restricciones de acceso al servidor
+2. Respaldos
+2.1. Generación automática de scripts
+2.2. Creación de respaldos
+2.3. Restauración de respaldos
+3. Desarrollo de planes de contingencia
+
+20% Participación y/o actividades
+30% Tareas
+50% Exámenes
+
+Seguridad: Protección ante cualquier amenaza o acción maliciosa.
+
+Privacidad: La seguridad en BD es un mecanismo fundamental ya que todo sistema esta expuesto a cualquier tipo de amenazas de daño, enormes y desastrosas como pequeñas y leves pero que de una manera u otra causan perdida de confidencialidad.
+Se puede medir en:
+* La protección del sistema frente a ataques externos.
+* La protección frente a caídas o fallos en el software o en el equipo.
+* La protección frente a manipulación por parte de usuarios no autorizados.
+
+Medidas de seguridad:
+* Físicas: Controlar el acceso al equipo. Tarjetas de acceso, etc.
+Personal: Acceso sólo del personal autorizado. Evitar sobornos, etc.
+S.O: Seguridad a nivel del S.O.
+Herramientas de seguridad, perfiles de usuario, vistas, restricciones de uso de vistas, etc.
+
+Hay 2 tipos de seguridad:
+* Direccional: Se usa para otorgar y revocar privilegios a los usuarios a nivel de archivos, registros o campos en un modo determinado (consulta o modificación). El DBA puede otorgar o revocar privilegios a otros usuarios en la forma de consulta (SELECT), modificación o refencias. A través del uso de la instrucción (GRANT OPTION).
+* Obligatoria: Sirve para imponer seguridad de varios niveles tanto para los usuarios como para los datos.
+
+Tipos de usuarios:
+* Con derecho a crear, borrar y modificar objetos y que además puede conceder privilegios a otros usuarios sobre los objetos que ha creado.
+* Con derecho a consultar, o actualizar, y sin derecho a crear o borrar objetos. Privilegios sobre los objetos, añadir nuevos campos, indexar, alterar la estructura de los objetos, etc.
+
+Identificación y Autentificación:
+* Código y Contraseña
+* Identificación por hardware
+* Conocimiento, aptitudes y hábitos del usuario
+* Información predefinida (Aficiones, cultura...)
+
+El DBA deberá especificar los privilegios que un usuario tiene sobre los objetos:
+* Usar una BD
+* Consultar ciertos datos
+* Actualizar datos
+* Crear o actualizar objetos
+* Ejecutar procedimientos almacenados
+* Referenciar objetos
+* Indexar objetos
+* Crear identificadores
+
+Esquema: Representa la configuración lógica de todo o parte de una BD relacional. Puede existir de 2 formas: como representación visual y como un conjunto de fórmulas conocidas como restricciones de integridad que controlan una BD. Indica cómo las entidades que conforman la BD se relacionan entre sí, incluidas las tablas, las vistas, los procedimientos almacenados.
+Database
+               ┌────────┬─────────┐
+Schema owners  │  USER1 │  USER2  │
+               ├────────┼─────────┤
+Schema objects │  test  │  test   │
+               │ table5 │ table1  │
+               │ table7 │ table15 │
+               └────────┴─────────┘
+
+Agrupación o permisos prestablecidos.
+
+En PostgreSQL, una BD contiene uno o más schemas, los cuales contienen tablas. Pero también pueden contener otros tipos de objetos como tipos de datos, funciones y operadores. Los nombres se pueden repetir entre schemas, por ejemplo dos schemas diferentes pueden contener cada uno su propia tabla llamada "usuario". Pero a diferencia de las BDs, los schemas no están separados de manera rígida: un usuario puede acceder a objetos pertenecientes a cualquiera de los schemas de la BD a la cual están conectados.
+
+CREATE DATABASE modulo6;
+\c modulo6;
+CREATE SCHEMA myEsquema;
+DROP SCHEMA myEsquema;
+
+Permisos de los objetos
+* Owner: Cuando se crea un objeto de BD, se le asigna un owner (generalmente es quién ejecuta la sentencia de creación), por ejemplo CREATE DATABASE db_name. A este owner, Postgres le asigna por defecto todos los permisos sobre ese objeto.
+* Public: Existe el pseudo-rol o palabra clabe Public, que se puede entender como un grupo que contiene a todos los usuarios de la instancia. Por defecto, este grupo tiene ciertos privilegios sobre los objetos de la BD, como ser: CONNECT y TEMPORARY (crear tablas temporales) para las BDs, EXECUTE para las funciones y USAGE para los lenguajes y tipos de datos. Nota: no se asginan privilegios por defecto a Public para tablas, columnas, esquemas, secuencias, foreign data wrappers, foreign servers o large objects.
+
+Public: Indica que los privilegios deben otorgarse a todos los roles, incluidos los que prodrían crearse más adelante. Public se puede considerar como un grupo implícitamente definido que siempre incluye todos los roles. Cualquier directamente a él, los privilegios otorgados a cualquier rol al que actualmente pertenece y los privilegios otorgados a Public.
+PostgreSQL otorga privilegios predeterminados en algunos tipos de objetos a Public. No se otorgan privilegios a Public de forma predeterminada en tablas, columnas de tabla, secuencias, contenedores de datos externos, servidores extranjeros, objetos grandes, esquemas o espacios de tabla. Para otros tipos de objetos, los privilegios predeterminados otorgados a Public son los siguientes: privilegios CONNECT y TEMPORARY (crear tablas temporales) para BDs; Privilegio EXECUTE para funciones; y privilegio de USAGE para idiomas y tipos de datos (incluidos los dominios).
+
+Creación de usuarios
+CREATE USER <name> [ [ WITH ] option [...] ]
+where option can be:
+	SYSID <uid>
+	| CREATEDB | NOCREATEDB
+	| CREATEUSER | NOCREATEUSER
+	| IN GROUP <groupName> [, ...]
+	| [ ENCRYPTED | UNENCRYPTED ] PASSWORD '<password>'
+	| VALID UNTIL '<abstime>';
+
+Ejecutar:
+CREATE USER appweb01 WITH PASSWORD 'appweb01';
+CREATE USER dba01 WITH PASSWORD 'dba01';
+CREATE USER data01 WITH PASSWORD 'data01';
+--Muestra los  usuarios creados
+\du
+\dg
+SELECT * FROM pg_user;
+
+Controlar permisos en PostgreSQL. GRANT & REVOKE
+* Los RDBMS como Oracle, MySQL, SqlServer o PostgreSQL implementan una serie de comandos SQL que permiten al administrador controlar el acceso a los objetos de una DB.
+* Estos comandos SQL son proporcionados por el lenguaje SQL, más concretamente por el DCL (lenguaje de control de datos).
+
+GRANT
+Tiene dos variantes básicas: una que otorga privilegios a un objeto de la BDs (tabla, columna, vista, tabla externa, secuencia, BDs, contenedor externo de datos, servidor externo, función, lenguaje de procedimientos, esquema o espacio de tabla) y uno que otorga membresía en un rol.
+
+Sintaxis Grant
+GRANT {{SELECT|INSERT|UPDATE|DELETE|TRUNCATE|REFERENCES|TRIGGER}[,...]|ALL [PRIVILEGES]}
+	ON {[TABLE] <table_name> [,...]|ALL TABLES IN SCHEMA <schema_name> [,...]}
+	TO <role_specification> [,...] [WITH GRANT OPTION];
+
+Privilegios que otorga Grant
+* SELECT. Permite consultar cualquier columna de tabla, vista o secuencia especificada.
+* INSERT. Permite insertar registros en la tabla especificada.
+* UPDATE. Permite actualizar cualquier columna de la tabla especificada.
+* DELETE. Permite eliminar registros de la tabla especificada.
+* REFERENCES. Para poder crear una clave foránea es necesario tener este privilegio sobre ambas tablas de la relación.
+* TRIGGER. Permite la creación de triggers sobre la tabla especificada.
+* CREATE. Para BDs, permite crear nuevos esquemas dentro de la misma. Para esquemas, permite la creación de nuevos objetos dentro del mismo.
+* CONNECT. Permite a los usuarios especificados conectarse a una BD determinada.
+* TEMPORARY o TEMP. Permite crear tablas temporales para la BD especificada.
+* EXECUTE. Permite utilizar la función especificada. Este es el único privilegio para tratar funciones.
+* USAGE. Para lenguaje procedimental, permite el uso del mismo para la creación de funciones.
+* ALL PRIVILEGES. Garantiza todos los privilegios disponibles.
+Tablas Temporales son los procedimientos almacenados.
+
+REVOKE
+* Con este comando eliminamos los privilegios otorgados o los que ya tenían por defecto los roles.
+REVOKE <privilegio> ON <table> FROM <rol>;
+
+Algunos privilegios y sus significados:
+* a: Permiso de INSERT a append
+* r: Permiso de SELECT o read
+* w: Permiso de UPDATE o write
+* d: Permiso de DELETE o delete
+* D: Permiso de 
+* x: Permiso de REFERENCES
+* t: Permiso de TRIGGER
+postgresql.org/docs/8.3/sql-grant.html
+
+Ejecutar:
+Logearse como postgres:
+CREATE TABLE tabla01 (id INTEGER, nombre VARCHAR(20));
+GRANT SELECT ON tabla01 TO data01;
+--Lista los privilegios otorgados sobre los objetos
+\dp
+\z
+
+Logearse desde el inicio con data01:
+\c modulo6
+SELECT * FROM tabla01;
+ id | nombre
+----+--------
+(0 filas)
+
+
+modulo6=> INSERT INTO tabla01 VALUES (1,'1');
+ERROR:  permiso denegado a la tabla tabla01
+
+En postgres:
+\c modulo6;
+GRANT INSERT (id) ON tabla01 TO appweb01;
+GRANT UPDATE (id), INSERT (nombre) ON tabla01 TO dba01;
+--Comprobar
+\z
+                                             Privilegios
+ Esquema | Nombre  | Tipo  |        Privilegios        | Privilegios de acceso a columnas | PolÝticas
+---------+---------+-------+---------------------------+----------------------------------+-----------
+ public  | tabla01 | tabla | postgres=arwdDxt/postgres+| id:                             +|
+         |         |       | data01=r/postgres         |   appweb01=a/postgres           +|
+         |         |       |                           |   dba01=w/postgres              +|
+         |         |       |                           | nombre:                         +|
+         |         |       |                           |   dba01=a/postgres               |
+(1 fila)
+REVOKE INSERT (id) ON tabla01 FROM appweb01;
+\z
+ALTER USER dba01 SUPERUSER;
+\du
+                                     Lista de roles
+ Nombre de rol |                         Atributos                          | Miembro de
+---------------+------------------------------------------------------------+------------
+ appweb01      |                                                            | {}
+ data01        |                                                            | {}
+ dba01         | Superusuario                                               | {}
+ postgres      | Superusuario, Crear rol, Crear BD, Replicaci¾n, Ignora RLS | {}
+
+Crear un usuario de sólo lectura en PostgreSQL (sin permiso alguno)
+* Ahora creemos un usuario:
+CREATE USER pruebauser WITH PASSWORD 'pruebauser';
+* Por seguridad, revocamos los permisos al public para que ningún usuario tenga 
+REVOKE ALL ON DATABASE modulo6 FROM public; --Solo para futuros usuarios
+
+Crear un usuario de sólo lectura en PostgreSQL
+* Se asigna el permiso para conectarse a la BD:
+CONNECT ON DATABASE modulo6 TO pruebauser;
+* El usuario ya puede conectarse a la BD, pero cuidado, el public tiene permisos por defecto sobre el esquema público, con lo cual, el usuario puede crear estructuras e insertarle datos. Quitemos los permisos al public y asignemos permisos USAGE al usuario para que pueda ver los objetos del esquema.
+REVOKE ALL ON SCHEMA public FROM public;
+GRANT USAGE ON SCHEMA public TO pruebauser;
+
+Crear un usuario de sólo lectura en PostgreSQL
+* Ahora se le da permisos para consultar todas las tablas (incluye vistas) EXISTENTES en la BD (suponiendo que estamos en el esquema public):
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO pruebauser;
+Se especifica al motor que, en cada objeto nuevo que se cree se otorguen los privilegios:
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO pruebauser;
+
+Permisos de escritura
+* Creamos una tabla:
+CREATE TABLE usuarios (nombre VARCHAR(30), clave VARCHAR(10));
+* Se asignan los permisos a la tabla con el usuario prueba;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE usuarios TO pruebauser;
+* Con el siguiente comando se quitan los permisos:
+REVOKE SELECT, INSERT, UPDATE, DELETE ON TABLE usuarios FROM pruebauser;
+
+Un usuario tiene permisos.
+Un grupo puede tener un rol.
+Un rol puede tener un rol.
+Un rol tiene permisos.
+
+Tarea
+5 de GRANT
+5 de REVOKE
+Conectarse a 4 usuarios para corroborar los permisos anteriores.
+Word con caratula
+Rojas Castillo Oscar - Modulo 6 - Tarea 1
+Martes 21
+
+CREATE USER user1 WITH PASSWORD 'user1';
+CREATE USER user2 WITH PASSWORD 'user2';
+CREATE USER user3 WITH PASSWORD 'user3';
+CREATE USER user4 WITH PASSWORD 'user4';
+
+SELECT oid,rolname,rolsuper FROM pg_authid;
+
+CREATE DATABASE database1; --SELECT, INSERT
+CREATE DATABASE database2; --UPDATE
+CREATE DATABASE database3; --DELETE
+CREATE DATABASE database4; --TRUNCATE
+
+\c database1;
+CREATE TABLE tabla11 (idTabla11 NUMERIC(2,0) NOT NULL, CONSTRAINT pkTabla11 PRIMARY KEY (idTabla11));
+\c database2;
+CREATE TABLE tabla21 (idTabla21 NUMERIC(2,0) NOT NULL, CONSTRAINT pkTabla21 PRIMARY KEY (idTabla21));
+INSERT INTO tabla21 VALUES(1);
+\c database3;
+CREATE TABLE tabla31 (idTabla31 NUMERIC(2,0) NOT NULL, CONSTRAINT pkTabla31 PRIMARY KEY (idTabla31));
+INSERT INTO tabla31 VALUES(1);
+\c database4;
+CREATE TABLE tabla41 (idTabla41 NUMERIC(2,0) NOT NULL, CONSTRAINT pkTabla41 PRIMARY KEY (idTabla41));
+INSERT INTO tabla41 VALUES(1);
+
+\c database1;
+REVOKE ALL ON tabla11 FROM user1; REVOKE ALL ON tabla11 FROM user2; REVOKE ALL ON tabla11 FROM user3; REVOKE ALL ON tabla11 FROM user4;
+\c database2;
+REVOKE ALL ON tabla21 FROM user1; REVOKE ALL ON tabla21 FROM user2; REVOKE ALL ON tabla21 FROM user3; REVOKE ALL ON tabla21 FROM user4;
+\c database3;
+REVOKE ALL ON tabla31 FROM user1; REVOKE ALL ON tabla31 FROM user2; REVOKE ALL ON tabla31 FROM user3; REVOKE ALL ON tabla31 FROM user4;
+\c database4;
+REVOKE ALL ON tabla41 FROM user1; REVOKE ALL ON tabla41 FROM user2; REVOKE ALL ON tabla41 FROM user3; REVOKE ALL ON tabla41 FROM user4;
+
+\z
+\c database3;
+\z
+\c database2;
+\z
+\c database1;
+\z
+
+GRANT SELECT
+	ON TABLE tabla11
+	TO user1;
+\z
+GRANT INSERT (idTabla11)
+	ON TABLE tabla11
+	TO user1;
+\z
+\c database2;
+GRANT UPDATE (idTabla21)
+	ON TABLE tabla21
+	TO user2;
+\z
+\c database3;
+GRANT DELETE
+	ON TABLE tabla31
+	TO user3;
+\z
+\c database4;
+GRANT TRUNCATE
+	ON TABLE tabla41
+	TO user4;
+\z
+
+
+
+Comandos importantes
+Para cambiar la contraseña de un usuario:
+ALTER ROLE <usuario> WITH PASSWORD '<password>';
+Asignar todos los permisos a un usuario a una BD:
+GRANT ALL PRIVILEGES ON DATABASE <bd> TO <usuario>;
+Verificar que usuario es:
+SELECT current_user;
+Listar los privilegios sobre los schemas de una bd:
+\dn
+\dn+ -- + da los permisos de la lista ACL
+Listar los esquemas:
+SELECT nspname FROM pg_catalog.pg_namespace;
+
+Administración de grupos:
+La administración de grupos de usuarios. Permite a los administradores organizar los privilegios de seguridad de los usuarios como parte de Grupos. El administrador establece los privilegios de seguridad del grupo y asigna los usuarios a grupos.
+* Un administrador puede crear, cambiar el nombre y eliminar grupos, así como modificar la pertenecia a grupos.
+* Un grupo puede contener usuarios o incluso otros grupos.
+* Tanto un usuario como un grupo pueden pertenecer a varios grupos.
+
+La pertenecia a grupos facilita la administración de la seguridad de muchos usuarios ya que no tienen que administrar de forma individual los privilegios de cada usuario:
+* Si se aplica una restricción de seguridad a un grupo, esta restricción se aplica de forma implícita a todos los miembros de ese grupo.
+* Si se añaden usuarios al grupo posteriormente, se aplicarán las mismas restricciones de seguridad de forma automática.
+* Si los usuarios se eliminan, las restricciones de seguridad no se aplicarán.
+
+Sintaxis de creación de grupos:
+CREATE GROUP <group> [WITH [SYSID <gid>][USER <user>[,...]]];
+
+Ejercicio de Creación de grupos:
+Los usuarios:
+CREATE USER usuario1 PASSWORD '123';
+CREATE USER usuario2 PASSWORD '123';
+CREATE USER usuario3 PASSWORD '123';
+CREATE USER usuario4 PASSWORD '123';
+Se comprueba:
+SELECT * FROM pg_user;
+\du;
+Los grupos:
+CREATE GROUP grupo1;
+CREATE GROUP grupo2 WITH USER usuario3, usuario4;
+Se verifican:
+SELECT * FROM pg_group;
+Se añaden usuarios a un grupo:
+ALTER GROUP grupo1 ADD USER usuario1,usuario2;
+ALTER GROUP grupo2 ADD USER usuario1,usuario2;
+Se le dan los siguientes privilegios (y se crean 2 tablas):
+CREATE TABLE tabla1 (idTabla1 NUMERIC(2,0));
+CREATE TABLE tabla2 (idTabla2 NUMERIC(2,0));
+GRANT INSERT ON tabla1 TO PUBLIC;
+GRANT SELECT,UPDATE ON tabla1 TO usuario2;
+GRANT ALL PRIVILEGES ON tabla2 TO usuario3;
+GRANT ALL PRIVILEGES ON tabla2 TO usuario1 WITH GRANT OPTION;
+Se verifican:
+\z tabla1;
+\z tabla2;
+Se borra un grupo:
+DROP GROUP grupo2;
+Se verifica:
+SELECT * FROM pg_group;
+Se elimina los privilegios de un usuario:
+REVOKE ALL PRIVILEGES ON tabla1 FROM usuario2;
+Se verifica:
+\z tabla1;
+Eliminamos usuarios:
+DROP USER usuario2;
+REVOKE ALL PRIVILEGES ON tabla2 FROM usuario1;
+DROP USER usuario1;
+SELECT * FROM pg_user;
+
+Administración de roles:
+PostgreSQL gestiona permisos a través del concepto de "roles". Los roles se pueden manipular para parecerse a las convenciones de grupo o de usuario, pero también son más flexibles. Es decir: los roles pueden ser miembros de otros roles, lo que les permite asumir las características de permisos de los roles definidos previamente. Los roles también pueden poseer objectos y controlar su acceso para otros roles.
+
+El concepto de roles contiene los conceptos de "usuarios" y "grupos".
+Cualquier rol puede actuar como un usuario, un grupo o ambos.
+También se pueden ver como grupos y usarse para hacer que los privilegios sean más fáciles de administrar, considerando la jerarquía y la herencia de roles.
+
+Sintaxis de creación de roles:
+CREATE ROLE <role> [ [WITH] <option> [...] ]
+where option can be:
+...
+
+<diagrama1>
+CREATE TABLE table1 (idTable1 NUMERIC(2,0));
+CREATE TABLE table2 (idTable2 NUMERIC(2,0));
+CREATE TABLE table3 (idTable3 NUMERIC(2,0));
+GRANT SELECT ON table1 TO user1;
+GRANT SELECT ON table2 TO user1;
+GRANT INSERT ON table1 TO user2;
+GRANT UPDATE ON table1 TO user1;
+GRANT UPDATE ON table3 TO user3;
+
+<diagrama2>
+┌────────┬─────────┐
+│  USER1 │  USER2  │
+├────────┼─────────┤
+│  test  │  test   │
+│ table5 │ table1  │
+│ table7 │ table15 │
+└────────┴─────────┘
+CREATE ROLE role1;
+CREATE ROLE role2;
+GRANT SELECT ON table1 TO role1;
+GRANT SELECT ON table2 TO role1;
+GRANT INSERT ON table1 TO role2;
+GRANT UPDATE ON table3 TO role2;
+GRANT role2 TO user1;
+GRANT role2 TO user3;
+GRANT role1 TO user2;
+
+El user1 tendrá los permisos de role1?
+┌───────┐   ┌───────┐   ┌───────┐
+│ Role1 │==>│ Role2 │==>│ User1 │
+└───────┘   └───────┘   └───────┘
+CREATE ROLE role1;
+CREATE ROLE role2;
+GRANT role1 TO role2;
+GRANT role2 TO user1;
+Si lo hereda, pero dependerá de la opción que se le haya puesto cuando se creo el role2 de si se creo con la opción de INHERENT (heredar) o con la opción de NOINHERENT (no heredar). Si se creo con la opción de INHERENT si tendrá los permisos de role1.
+
+Ejercicio administración de roles 1/4
+* Creamos una BD:
+CREATE DATABASE prueba2;
+* Revocamos los permisos al grupo público:
+REVOKE ALL ON DATABASE prueba2 FROM public;
+* Conectados en la base prueba, revocamos los permisos sobre el esquema público al grupo público:
+\c prueba2;
+REVOKE ALL ON SCHEMA PUBLIC FROM PUBLIC;
+* Creamos los grupos:
+CREATE ROLE lectura WITH NOLOGIN;
+CREATE ROLE escritura WITH NOLOGIN;
+
+Ejercicio administración de roles 2/4
+* Asignamos permisos de conexión a la BD prueba2:
+GRANT CONNECT ON DATABASE prueba2 TO lectura;
+GRANT CONNECT ON DATABASE prueba2 TO escritura;
+* Asignamos permisos de uso en el esquema público:
+GRANT USAGE ON SCHEMA PUBLIC TO lectura;
+GRANT USAGE ON SCHEMA PUBLIC TO escritura;
+* Para el grupo de sólo lectura, asignamos los respectivos permisos para tablas/vistas actuales:
+GRANT SELECT ON ALL TABLES IN SCHEMA PUBLIC TO lectura;
+
+Ejercicio administración de roles 3/4
+* Ahora lo dejamos configurado para cada tabla que se cree:
+ALTER DEFAULT PRIVILEGES IN SCHEMA PUBLIC GRANT SELECT ON TABLES TO lectura;
+* Para el grupo de escritura, asignamos los respectivos permisos para tablas/vistas actuales:
+GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA PUBLIC TO escritura;
+* Ahora lo dejamos configurado para cada tabla que se cree:
+ALTER DEFAULT PRIVILEGES IN SCHEMA PUBLIC GRANT SELECT,INSERT,UPDATE,DELETE ON TABLES TO escritura;
+
+Ejercicio administración de roles 4/4
+* Asignamos permisos de uso para las secuencias:
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA PUBLIC TO escritura;
+* Ahora lo dejamos configurado para cada secuencia que se cree:
+ALTER DEFAULT PRIVILEGES IN SCHEMA PUBLIC GRANT USAGE ON SEQUENCES TO escritura;
+* Si nos piden usuario de sólo lectura en la BD:
+CREATE USER user_select WITH PASSWORD 'user_select' IN GROUP lectura;
+* Si nos piden un usuario de escritura en la BD:
+CREATE USER user_write WITH PASSWORD 'user_write' IN GROUP escritura;
+
+Examen:
+CREATE DATABASE examen;
+\c examen;
+Crear 3 grupos (grupo1,grupo2,grupo3).
+CREATE GROUP grupo1;
+CREATE GROUP grupo2;
+CREATE GROUP grupo3;
+--CREATE GROUP grupo2 WITH USER usuario3, usuario4;
+Crear los usuarios (user01,user02,user03,user04,user05,user06).
+	Donde el grupo1 tenga user01,user02,user03 y los privilegios de INSERT y SELECT.
+	Donde el grupo2 tenga user01,user04,user05 y los privilegios de SELECT y DELETE.
+	Donde el grupo3 tenga user06,user02 y todos los privilegios.
+CREATE USER user01 WITH IN GROUP grupo1, grupo2;
+CREATE USER user02 WITH IN GROUP grupo1, grupo3;
+CREATE USER user03 WITH IN GROUP grupo1;
+CREATE USER user04 WITH IN GROUP grupo2;
+CREATE USER user05 WITH IN GROUP grupo2;
+CREATE USER user06 WITH IN GROUP grupo3;
+
+CREATE TABLE tabla1 (tabla1 NUMERIC(2,0));
+CREATE TABLE tabla2 (tabla2 NUMERIC(2,0));
+CREATE TABLE tabla3 (tabla3 NUMERIC(2,0));
+
+GRANT INSERT,SELECT ON tabla1 TO grupo1;
+GRANT SELECT,DELETE ON tabla2 TO grupo2;
+GRANT ALL PRIVILEGES ON tabla3 TO grupo3;
+
+SELECT * FROM pg_group;
+SELECT * FROM pg_roles;
+\du;
+\z;
+En word
+
+
+
+Ejercicio role with no NoInherit --A reparar
+CREATE DATABASE modulo6;
+\c modulo6
+CREATE TABLE usuarios(nombre VARCHAR(30), clave VARCHAR(10));
+CREATE ROLE role0 WITH NOINHERIT;
+GRANT SELECT,UPDATE,INSERT ON usuarios TO role0;
+CREATE ROLE role3;
+CREATE USER miguel WITH PASSWORD '123';
+GRANT role0 TO role3;
+GRANT role3 TO miguel;
+\z
+\du
+\c modulo6 miguel --Cambia a modulo6 con el usuario miguel
+GRANT CONNECT ON DATABASE modulo6 TO miguel;
+\c modulo6 miguel
+INSERT INTO usuarios (clave,nombre) VALUES ('River','Juan');
+SELECT * FROM usuarios;
+
+
+
+Respaldos
+Hacer copias de las tablas de sistema, los objetos creados por el programador (tablas, vistas, procedimientos almacenados, restricciones, etc.) y los datos del usuario. Es el DBA el encargado de realizar esta labor mediante un esquema de respaldo (backup). El respaldo es lo que permite al administrador recuperar los datos en caso de una contingencia, como puede ser: Fallas de disco, fallas de software, borrado o actualización accidental, virus, desastres naturales, robo, etc.
+
+Para establecer su esquema, el DBA toma en cuenta los siguientes aspectos:
+a) Con qué periodicidad debe realizarse el respaldo?
+b) Qué se debe respaldar?
+c) Qué medio electrónico se debe usar para el respaldo?
+d) Debe efectuarse en línea o fuera de línea?
+e) Existe un mecanismo para asegurarnos que el respaldo se hizo correctamente?
+f) Dónde se almacenarán los respaldos?
+g) Cuánto tiempo deben conservarse los respaldos?
+h) Deben ser hechos de forma manual o automática?
+i) Si son automáticos, como se verifican?
+j) Cuando ocurre una falla, cuánto tiempo toma restaurar las BDs?
+
+Algunas de las respuestas las encontramos al conocer el volumen de transacciones que se realizan sobre las BDs. Pensemos que un respaldo toma tiempo y distrae al procesador de su actividad normal, por lo que el DBMS deja de atender con la misma velocidad las transacciones de los usuarios. Por ello muchos respaldos se hacen por la noche o los fines de semana y de manera automática. El principio básico consiste en hacer los respaldos en horas en las que se efectúe el menor número de transacciones.
+Y es recomendable verificar que los respaldos se hayan realizado correctamente, como realizando el restore sobre una nueva BD.
+C:\Program Files\PostgreSQL\15\bin
+pg_dump --help
+pg_dump -U postgres -C -f C:\Users\oscar\respaldo.dump modulo6
+psql
+DROP DATABASE modulo6;
+exit
+psql -U postgres < C:\Users\oscar\respaldo.dump
+pg_dumpall --help
+pg_dumpall -U postgres -f C:\Users\oscar\respaldo_todo.dump
+
+Script y Tarea automática
+Archivo de texto que contiene comandos o porciones de código.
+
+Tarea 3
+Cambiar el en el script, pg_dump.exe por pg_dumpall.exe
+
+
+
+
+
+
+
+
+
+
+Desarrollo de plan de contingencia
+
+La información es uno de los activos más valiosos de una organización, y que la BD es la fuente primaria de esta información. La pérdida o corrupción de datos puede tener consecuencias graves y duraderas para una empresa, como la pérdida de clientes, la disminución de la productividad y la imagen negativa en el mercado.
+
+¿Qué es un desastre?
+Podríamos considerar al desastre como pérdida total o parcial de la información critica para la institución, durante un periodo considerable de tiempo, durante el cual la organización puede verse seriamente afectada en su operación.
+
+Listado de los desastres más conocidos
+Evento Año Causa
+...
+
+Plan de contingencia
+En la actualidad los cambios tecnológicos adquieren cada vez mayor importancia al interior de las organizaciones, por lo cual se hace necesario e indispensable contar con un plan de contingencias, que garantice el restablecimiento del correcto funcionamiento de los servicios informáticos en el menor tiempo posible, ante cualquier eventualidad.
+Un plan de contingencia es una estrategia planificada con una serie de procedimientos que nos faciliten o nos orienten a tener una solución alternativa que nos permita restituir rápidamente los servicios de la organización ante la eventualidad de todo lo que lo pueda paralizar, ya sea de forma parcial o total. Dicho plan contiene las medidas técnicas, humanas y organizativas necesarias para garantizar la continuidad de las operaciones de una empresa.
+
+Importancia del plan de contingencia
+La importancia de contar con un plan de contingencia en la BD es crucial para garantizar la integridad y la disponibilidad de los datos en una organización. Sin un plan...
+
+Ejemplo problema de hardware
+* Operaciones
+* Clientes
+
+Plan de contingencia
+Objetivos del plan de contingencia
+* Garantizar la continuidad de las operaciones de los elementos considerados críticos que componen los sistemas de información.
+* Definir acciones y procedimientos a ejecutar en caso de fallas de los elementos que componen un sistema de información.
+
+Normas
+Organización Internacional de Normalización (ISO)
+ISO/IEC 27001. Norma internacional que describe cómo gestionar la seguridad de la información en una organización. Específicamente de cómo establecer el SGSI (Sistema de Gestión de la Seguridad de la Información) y sobre cómo implementar y operar el SGSI.
+ISO/IEC 27002. 2013 Es una guía de buenas prácticas para un SGSI que describe los objetivos de control y controles recomendados en cuanto a seguridad de la información.
+
+Estructua de ISO 27001
+Evaluación y tratamiento de riesgos -> Implementación de medidas de seguridad
+
+Normas
+ISO 22301:2012 norma...
+ISO 27017: Código de prácticas...
+
+Riesgos
+Errores humanos: pueden incluir la eliminación accidental de datos importantes, la introducción de datos incorrectos o la modificación accidental de datos importantes.
+Fallas de hardware: pueden incluir la falla de discos duros, la pérdida de energía, la falla de componentes de red o la falla de servidores.
+Desastres naturales: pueden incluir terremotos, inundaciones, incendios y otros eventos que puedan dañar físicamente la infraestructura de TI.
+Amenazas de seguridad: pueden incluir ataques cibernéticos, virus informáticos y otros actos maliciosos que puedan afectar la integridad de BD.
+
+¿Tendra la misma repercusión una falla humana que una de hardware?
+Un error humano que afecta a un solo registro puede tener un impacto menor en la organización, mientras que una falla de hardware que afecta a toda la BD puede tener un impacto significativo en la organización.
+
+Organización que almacena información financiera confidencial.
+Organización que almacena información no confidencial.
+
+Existen diferentes planes de contingencia
+Copias de seguridad: Crear copias...
+Planes de recuperación ante desastres: Este...
+
+<diagrama1>
+
+Fase: Estategias de continuidad
+Actividades preventivas
+Las medidas preventivas requieren un detallado análisis previo de riesgos y vulnerabiliades. Algunos de ellos serán de carácter general: incendios, desastres naturales, etc., mientras que otros tendrán un carácter estrictamente informático: fallo de sistemas de almacenamiento, ciberataques, virus, etc.
+Cold standby: ...
+Hot standby: que...
+
+Fase organización y planificación
+El plan de respaldo. Contempla las contramedidas preventivas antes de que se materialice una amenaza. Su finalidad es evitar dicha materialización.
+El plan de emergencia...
+
+Plan de respaldo
+Es un conjunto de acciones utilizadas para evitar el fallo o, en us caso, aminorar las consecuencias que dé el se puedan derivar.
+Ubicación del centro...
+Ubicación del edificio...
+
+Plan de emergencia
+La crisis suelen provocar "reacciones de pánico" que pueden ser contraproducentes y a veces...
+Realizar un análisis de aplicaciones críticas...
+Determinar las prioridades...
+
+Plan de recuperación
+Los contratos de seguros...
+
+
+
+
+
+Tarea - 5 características del desarrollo del plan de contingencia
+Algunos riesgos y vulnerabiliades son informáticos (fallo de sistemas de almacenamiento, ciberataques, virus, etc.), y otros no (incendios, desastres naturales, etc.).
+Errores humanos: pueden incluir la eliminación accidental de datos importantes, la introducción de datos incorrectos o la modificación accidental de datos importantes.
+Fallas de hardware: pueden incluir la falla de discos duros, la pérdida de energía, la falla de componentes de red o la falla de servidores.
+Desastres naturales: pueden incluir terremotos, inundaciones, incendios y otros eventos que puedan dañar físicamente la infraestructura de TI.
+Amenazas de seguridad: pueden incluir ataques cibernéticos, virus informáticos y otros actos maliciosos que puedan afectar la integridad de BD.
+
+
+https://dev.mysql.com/doc/refman/8.0/en/create-temporary-table.html#:~:text=To%20create%20a%20temporary%20table,INSERT%20,%20UPDATE%20,%20or%20SELECT%20.
 
 
 
