@@ -2865,6 +2865,10 @@ Operaciones Relacionales
 			JOIN: (A,F)   =[idóneo/Válido]=> (A,D,F)
 			JOIN: (C,A,F) =[idóneo/Válido]=> (C,B,A,D,F)
 
+		JOIN = Producto Cartesiano (CROSS JOIN) + Restricción = INNER JOIN
+		CROSS JOIN: Tomar todos los valores del registro (renglon) y combinarlos con los valores de la otra tabla.
+		Restricción: Del resultado anterior, filtrar aquellos donde el valor de un atributo de la primera tabla, es igual al valor del atributo de la otra tabla.
+
 		Tipos de JOIN:
 			Joins Internos: Que el atributo en común sea el mismo valor
 				INNER JOIN
@@ -2911,6 +2915,10 @@ Operaciones Relacionales
 			FROM <tablaA>, <tablaB>
 			WHERE <tablaA>.<atributo> = <tablaB>.<atributo>;
 
+		Regla de ORO:
+			Programación: Entre menos código mejor.
+			SQL: Entre más código mejor, porque le doy al manejador más información/contexto, y no tendrá que deducir (consultar en las tablas del sistema), tomarse su tiempo, etc. Y por lo tanto será mucho más rápida la consulta.
+
 		SELECT *
 		FROM empleado AS e INNER JOIN cargo AS c
 			ON(e.idCargo = c.idCargo);
@@ -2940,12 +2948,12 @@ Operaciones Relacionales
 		SELECT c.nombre, COUNT(*) AS totalEmpleadosMujeres
 		FROM cargo AS c INNER JOIN empleado AS e
 			ON (c.idCargo=e.idCargo)
-		WHERE e.sexo = 'H'
+		WHERE e.sexo = 'M'
 		GROUP BY c.nombre
 			HAVING AVG(e.edad) BETWEEN 15 AND 35
 		ORDER BY c.nombre DESC;
 
-		7+5+6 => 12+6
+		7+5+6 => 12+6 = 18
 		A+B+C
 		Incorrecto: A JOIN C JOIN B
 		Correcto:
@@ -2967,6 +2975,10 @@ Operaciones Relacionales
 						ON(A.idA = D.idA);
 
 		SELECT *
+		FROM A INNER JOIN D
+			ON(A.idA = D.idA);
+
+		SELECT *
 		FROM A INNER JOIN B
 			ON(A.idA = B.idA)
 				INNER JOIN C
@@ -2975,6 +2987,12 @@ Operaciones Relacionales
 						ON(A.idA = D.idA)
 							INNER JOIN F
 								ON(D.idD = F.idD);
+
+		SELECT *
+		FROM A INNER JOIN D
+			ON(A.idA = D.idA)
+				INNER JOIN F
+					ON(D.idD = F.idD);
 
 		Reglas de los JOIN externos:
 			1. Relevancia a la tabla con prioridad (desde el JOIN)
@@ -3001,6 +3019,8 @@ Operaciones Relacionales
 		GROUP BY c.nombre
 			HAVING MAX(e.contratacion) > '1999-12-31'
 		ORDER BY COUNT(*) DESC;
+		... cargos y ... empleados ...: JOIN
+		... completo de cargos ...: LEFT
 
 		SELECT CURRENT_TIMESTAMP; -- Para checar como es el formato de la fecha, es Estandar y por lo tanto en todos los manejadores
 
@@ -3009,6 +3029,10 @@ Operaciones Relacionales
 		FROM empleado AS e INNER JOIN departamento AS d
 			ON(e.idDepartamento = d.idDepartamento)
 		WHERE e.sexo = 'M' AND e.porcentaje_comision IS NULL OR d.nombre LIKE '%_a' OR e.sueldo > 50000;
+
+		Y si fuera lo siguiente:
+		Mostrar todos los empleados y los que tengan departamento:
+			FROM empleado LEFT OUTER JOIN departamento
 
 		Mostrar cuantos departamentos hay por edad que sean departamentos cuyo promedio de sueldos sea mayor a 25,000 siendo de que cualquier cargo tengan un promedio de empleados mayor a 5.
 		SELECT COUNT(d.idDepartamento) AS conteoDepartamento, e.edad --COUNT(d.idDepartamento), porque hay empleados que no tienen departamento
@@ -3020,11 +3044,27 @@ Operaciones Relacionales
 			HAVING AVG(e.sueldo) > 25000 AND COUNT(c.idCargo) > 5;
 
 		NATURAL*	No es estandar, no es ISO, no es nada. MierdCrosoft no lo tiene.
-			CROSS JOIN + RESTRICCIÓN + Atributo en común se llame igual (idóneo).
+			CROSS JOIN + RESTRICCIÓN + Atributo en común se llame igual (extremadamente idóneo).
 
 			SELECT *
 			FROM <tablaA> [IJ|ROJ|FOJ|LOJ] <tablaB>
 				USING(<atributoComúnIdóneo>); --Los pocos manejadores que lo tienen, son muy eficientes
+
+			SELECT *
+			FROM empleado AS e INNER JOIN cargo AS c
+				USING(idCargo);
+
+			SELECT *
+			FROM empleado AS e LEFT OUTER JOIN departamento AS d
+				USING(iddepartamento);
+
+			SELECT *
+			FROM empleado AS e RIGHT OUTER JOIN departamento AS d
+				USING(iddepartamento);
+
+			SELECT *
+			FROM empleado AS e FULL OUTER JOIN departamento AS d
+				USING(iddepartamento);
 
 
 		SELF*		Es estandar 92
@@ -3075,6 +3115,31 @@ Subconsultas: Una o varias consultas anidadas dentro de otra.
 				SELECT * FROM empleado WHERE idCargo IN (SELECT idCargo FROM cargo);
 				SELECT * FROM empleado WHERE idCargo = (SELECT MAX(idCargo) FROM cargo);
 				SELECT * FROM empleado WHERE idCargo IN (SELECT MAX(idCargo) FROM cargo); --Muy estupida, porque en el IN solo tiene un valor
+
+
+				SELECT * FROM empleado WHERE idCargo IN (SELECT idCargo FROM cargo);
+				SELECT idCargo FROM cargo;
+				 idcargo 
+				---------
+				       1 
+				       2 
+				       3 
+				       4 
+				       5 
+				       6 
+				(6 rows) 
+				SELECT * FROM empleado WHERE idCargo IN (1,2,3,4,5,6);
+				----------------------------------------------------------------------
+				SELECT * FROM empleado WHERE idCargo = (SELECT idCargo FROM cargo WHERE idCargo = 1);
+				SELECT idCargo FROM cargo WHERE idCargo = 1;
+				 idcargo 
+				---------
+				       1 
+				(1 row)  
+				SELECT * FROM empleado WHERE idCargo = (1);
+				SELECT * FROM empleado WHERE idCargo = 1;
+
+
 		SELECT *
 		FROM empleado
 		WHERE sueldo = (SELECT MAX(sueldo)
@@ -3082,6 +3147,7 @@ Subconsultas: Una o varias consultas anidadas dentro de otra.
 			WHERE sexo = 'M'
 		) AND sexo = 'H';
 
+		--Las restricciones que estan dentro de la primer consulta (subconsulta), no se "heredan/pasan/comparten" con las restricciones de la consulta padre (superior).
 		SELECT *
 		FROM empleado
 		WHERE idCargo = (SELECT MAX(idCargo)
@@ -3089,6 +3155,7 @@ Subconsultas: Una o varias consultas anidadas dentro de otra.
 			WHERE nombre LIKE '%_o'
 		) AND sexo = 'H';
 
+		--No importa si el resultado de la consulta inferior/subconsulta son 0 renglones, el manejador lo interpreta como el digito 0 y trabaja con ello sin problema alguno.
 		SELECT *
 		FROM empleado
 		WHERE idCargo = (SELECT idCargo
@@ -3098,6 +3165,7 @@ Subconsultas: Una o varias consultas anidadas dentro de otra.
 	2. Tablas Temporales FROM (SELECT...)
 	3. Queries Correlacionales SELECT (SELECT...)
 
+	--Si en el los JOINs, no se ocupta al menos UN ATRIBUTO de cada TABLA, sustituye eso por una subconsulta.
 	Nombre del cargo y el nombre de todas las mujeres que sean de un departamento de finanzas.
 	SELECT c.nombre AS cargo, e.nombre AS empleado
 	FROM cargo AS c RIGHT OUTER JOIN empleado AS e --Right: ... y el nombre de todas ...
@@ -4620,6 +4688,63 @@ Amenazas de seguridad: pueden incluir ataques cibernéticos, virus informáticos
 
 
 https://dev.mysql.com/doc/refman/8.0/en/create-temporary-table.html#:~:text=To%20create%20a%20temporary%20table,INSERT%20,%20UPDATE%20,%20or%20SELECT%20.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MÓDULO VIII
+MANEJADORES DE BASES DE DATOS COMERCIALES
+1. PostgreSQL
+2. Oracle
+3. DB2 Universal Database
+4. SQL Server
+5. Otros
+
+1. PostgreSQL no tiene procedimientos almacenados, porque PostgreSQL es un modelo orientado a objetos.
+Las funciones retornan un valor, por lo tanto se pueden utilizar estructuras de control y por lo tanto se puede programar dentro de PostgreSQL, mediante las funciones.
+Los procedimientos almacenados no retornan un valor.
+
+PostgreSQL además del modelo relacional, incorpora 4 conceptos:
+* Clases
+* Herencia
+* Tipos
+* Funciones
+
+Con la llegada de la GUI, se empezo a programar en OO, para programar comportamientos de los eventos de la GUI.
+
+Otras características aportan potencia y flexibilidad adicional:
+* Restricciones (Constraints)
+* Disparadores (Triggers)
+* Reglas (rules)
+* Integridad transaccional
+
+El codigo de PostgreSQL fue adaptado a ANSIC y su tamaño reducido en un 25%.
+
+2. Oracle
+Cliente-Servidor
+Tener Oracle 8i y manejar la bd desde otros equipos con herramientas de desarrollo como Oracle Designer y Oracle Developer.
+Programar con el lenguaje de programación PL/SQL de Oracle.
+Oracle Designer se conecta con la BD, y se puede crear formularios.
+Shared Pool: Almacena el diccionario de datos (DATA DICTIONARY CACHE) y las sentencias SQL recientemente utilizadas (SHARED SQL o LIBRARY CACHE). Es donde tiene lugar la fase de analisis de las sentencias SQL (PARSING). Para definir su ...
+
+3. DB2
+
+4. SqlServer
+En el 2012 se puede cifrar las BDs.
+
+
+https://www.freecodecamp.org/news/an-administrator-has-blocked-you-from-running-this-app-how-to-fix-on-a-windows-10-pc/
 
 
 
