@@ -1,0 +1,777 @@
+A continuación, te presento un posible temario para un curso básico-avanzado de Redes de Computadoras. Este temario abarca desde los conceptos fundamentales de redes hasta temas más avanzados en la configuración y administración de redes.
+
+Nivel Básico:
+1. Introducción a las redes de computadoras:
+	*¿Qué son las redes y por qué son importantes?
+		Las redes de computadoras son sistemas de dispositivos interconectados que pueden comunicarse y compartir recursos. Estos dispositivos pueden ser computadoras, servidores, impresoras, dispositivos de almacenamiento y más. Las redes permiten la transferencia de datos y la comunicación entre estos dispositivos, lo que es fundamental en el mundo digital actual. Aquí te explico por qué son importantes:
+			1. Comunicación y Conectividad: Las redes permiten la comunicación instantánea entre dispositivos, independientemente de la ubicación física. Esto es vital en entornos empresariales y personales.
+			2. Compartir Recursos: Facilitan el acceso y uso compartido de recursos como impresoras, escáneres, archivos y bases de datos. Esto reduce costos y mejora la eficiencia.
+			3. Acceso a Internet: La mayoría de las conexiones a Internet se realizan a través de redes. Esto proporciona acceso a información global, comunicación, entretenimiento y servicios en línea.
+			4. Trabajo en Equipo y Colaboración: En entornos empresariales, las redes permiten la colaboración en tiempo real. Los empleados pueden trabajar juntos en documentos, presentaciones y proyectos, incluso si están en diferentes ubicaciones.
+			5. Seguridad y Control: Las redes permiten implementar medidas de seguridad para proteger datos y recursos. Esto incluye firewalls, sistemas de detección de intrusiones, cifrado y autenticación.
+			6. Crecimiento Escalable: Las redes pueden escalarse para acomodar el crecimiento de una organización. Se pueden agregar nuevos dispositivos y recursos a medida que sea necesario.
+			7. Centralización de Recursos: Las redes permiten centralizar recursos como servidores, lo que facilita la administración y la actualización de software y datos.
+			8. Acceso Remoto: Las redes habilitan el acceso remoto a sistemas y datos, lo que es crucial en situaciones de trabajo a distancia o para acceder a recursos desde ubicaciones externas.
+			9. Entretenimiento y Multimedia: Las redes permiten la transmisión de contenido multimedia, como música y video en tiempo real, y facilitan el acceso a servicios de transmisión.
+			10. Automatización y Control: En entornos industriales y de automatización, las redes son esenciales para el control y monitoreo de dispositivos y sistemas.
+		En resumen, las redes son esenciales en el mundo moderno. Facilitan la comunicación, la colaboración y el acceso a información y servicios. Tanto en entornos empresariales como en la vida cotidiana, las redes son una infraestructura fundamental para el intercambio de datos y recursos.
+	* Tipos de redes (LAN, WAN, MAN, etc.).
+		Existen varios tipos de redes de computadoras, cada una diseñada para satisfacer diferentes necesidades de comunicación y alcance. Aquí están algunos de los tipos más comunes:
+			1. LAN (Red de Área Local): Una LAN es una red limitada geográficamente y que se encuentra en un área pequeña, como un hogar, una oficina o un campus. Las LAN suelen utilizar tecnologías como Ethernet para conectar dispositivos y compartir recursos como impresoras y archivos.
+			2. WAN (Red de Área Amplia): Una WAN abarca un área geográfica más grande, como una ciudad, un país o incluso a nivel global. Las WAN conectan redes LAN y otros dispositivos a través de tecnologías como enlaces dedicados, líneas telefónicas y conexiones de fibra óptica. Internet es un ejemplo de una WAN global.
+			3. MAN (Red de Área Metropolitana): Una MAN se encuentra entre una LAN y una WAN en términos de alcance geográfico. Cubre un área metropolitana más grande, como una ciudad o una región. Las MAN son menos comunes que las LAN y las WAN, y se utilizan a menudo para interconectar diferentes sucursales de una organización.
+			4. PAN (Red de Área Personal): Una PAN es una red muy pequeña que abarca un área personal, como el alcance de un dispositivo Bluetooth o una red de sensores en un cuerpo humano. Las PAN son comunes en la interconexión de dispositivos personales, como auriculares inalámbricos y relojes inteligentes.
+			5. CAN (Red de Área de Campus): Una CAN es similar a una MAN pero con un alcance más limitado, generalmente centrado en el campus de una universidad o una gran empresa. Puede abarcar varios edificios en un área cercana.
+			6. SAN (Red de Área de Almacenamiento): Una SAN se utiliza para conectar dispositivos de almacenamiento, como matrices de discos y unidades de cinta, a través de una red de alta velocidad. Las SAN son ideales para entornos que requieren un acceso rápido y compartido a grandes cantidades de datos.
+			7. VLAN (Red de Área Local Virtual): Aunque no es un tipo de red física, una VLAN es una red lógica que agrupa dispositivos en una red LAN basándose en criterios como equipos, funciones o departamentos. Las VLAN permiten segmentar y administrar el tráfico de red de manera eficiente.
+			8. VPN (Red Privada Virtual): Una VPN es una red segura creada sobre una red pública (como Internet). Permite a los usuarios acceder a recursos de una red remota de manera segura, como si estuvieran físicamente presentes en la misma red.
+
+		Estos son solo algunos ejemplos de los tipos de redes que existen. La elección del tipo de red depende de factores como el alcance geográfico, la escala de la organización y los objetivos de comunicación.
+
+
+
+2. Topologías de red:
+	1. Estrella:
+		Descripción: En una topología de estrella, todos los dispositivos están conectados a un punto central llamado "concentrador" o "switch". Todos los datos pasan a través de este concentrador.
+		Ventajas:
+			- Facilidad de instalación y configuración.
+			- Fácil de diagnosticar y resolver problemas.
+			- Si un cable o dispositivo falla, no afecta a los demás.
+		Desventajas:
+			- Depende fuertemente del concentrador central. Si falla, toda la red puede caer.
+			- Mayor costo, ya que requiere más cables y dispositivos.
+	2. Bus:
+		Descripción: En una topología de bus, todos los dispositivos comparten un único canal de comunicación. Los datos se transmiten a lo largo del canal y los dispositivos toman lo que necesitan.
+		Ventajas:
+			- Menor cantidad de cableado que algunas otras topologías.
+			- Fácil de extender al agregar nuevos dispositivos.
+		Desventajas:
+			- Si el canal principal se rompe, toda la red puede caer.
+			- La adición de dispositivos puede generar congestión en el canal.
+	3. Anillo:
+		Descripción: En una topología de anillo, cada dispositivo está conectado al menos a otros dos dispositivos, formando un bucle o anillo. Los datos circulan en una dirección.
+		Ventajas:
+			- Distribución equitativa del tráfico de red.
+			- Fácil de agregar o quitar dispositivos.
+		Desventajas:
+			- Si un dispositivo o cable falla, puede interrumpir toda la red.
+			- El rendimiento de la red puede degradarse a medida que se agregan más dispositivos.
+	4. Malla:
+		Descripción: En una topología de malla, cada dispositivo está conectado a todos los demás dispositivos de la red. Esto crea múltiples rutas para los datos.
+		Ventajas:
+			- Alta redundancia y robustez. Si un camino falla, hay rutas alternativas.
+			- Buena escalabilidad, ya que se pueden agregar más dispositivos sin afectar el rendimiento.
+		Desventajas:
+			- Requiere una gran cantidad de cableado y puede ser costoso.
+			- Puede ser complicado de configurar y administrar.
+	Otras Topologías:
+		Además de las mencionadas, existen otras topologías menos comunes, como la topología de árbol, la topología híbrida (combinación de dos o más topologías) y la topología celular (común en redes móviles).
+	Cada topología tiene sus propias fortalezas y debilidades, y la elección de una sobre otra dependerá de los requisitos específicos de la red y los recursos disponibles.
+
+
+
+3. Protocolos de red:
+	* Conceptos básicos de protocolos.
+	* Protocolos TCP/IP y su importancia.
+
+
+
+4. Modelo OSI y TCP/IP:
+	* Explicación de los niveles del modelo OSI.
+		El Modelo OSI (Open Systems Interconnection) es un marco de referencia conceptual que se utiliza para comprender y describir cómo funcionan las redes de computadoras y los protocolos de comunicación en capas. Fue desarrollado por la Organización Internacional de Normalización (ISO) en la década de 1980 con el objetivo de estandarizar y racionalizar la comunicación entre sistemas informáticos.
+		El Modelo OSI divide el proceso de comunicación en redes en siete capas distintas, cada una de las cuales tiene un conjunto específico de funciones y responsabilidades. Estas capas trabajan en conjunto para garantizar una comunicación eficiente y confiable entre dispositivos en una red. Las siete capas del Modelo OSI son:
+			Nivel de Aplicación (Servicios de red a aplicaciones):
+				La capa superior del Modelo OSI es donde operan las aplicaciones y servicios que utilizan la red. Proporciona interfaces para que las aplicaciones se comuniquen con la red y ofrece servicios como correo electrónico, navegación web, transferencia de archivos, etc.
+				Data:
+				Enrutamiento:
+					WWW/HTTP
+					SSH
+					DNS
+					FTP
+					P2P
+					POP
+					SMTP
+					Telnet
+			Nivel de Presentación (Representación de los datos):
+				Esta capa se ocupa de la traducción, compresión y cifrado de los datos para que puedan ser entendidos por las aplicaciones receptoras. También maneja cuestiones de representación de datos, como la conversión entre diferentes formatos de caracteres.
+				Data:
+				Traducir:
+					ASCII:
+						HTML
+					Binary:
+						DOC
+						JPEG
+						MP3
+						AVI
+					Sockets
+					EBCDIC
+			Nivel de Sesión (Comunicación entre dispositivos de la red):
+				La capa de sesión establece, administra y finaliza las conexiones entre aplicaciones en diferentes dispositivos. También se encarga de la sincronización y el control del diálogo entre las aplicaciones.
+				Data:
+				Establecimiento de sesiones:
+					TCP
+					SIP
+					RTP
+					RPC-Named pipes
+					RCP
+					SQL
+			Nivel de Transporte (Conexión extremo-a-extremo y fiabilidad de los datos):
+				Aquí se proporciona la entrega de datos de extremo a extremo, asegurando que los datos lleguen en el orden correcto y sin errores. También controla la división y el ensamblaje de mensajes más grandes en segmentos más pequeños.
+				Segmentos/Segments:
+				Transferencia de datos:
+					Transmission Control Protocol (TCP)
+					User Datagram Protocol (UDP)
+					SCTP
+					SSL
+					TLS
+			Nivel de Red (Determinación de ruta e IP/Direccionamiento lógico):
+				Esta capa se encarga de enrutar los paquetes de datos a través de la red utilizando direcciones lógicas. Controla la gestión de la congestión, la fragmentación y el enrutamiento de los datos.
+				Paquetes/Packets:
+				Enrutamiento:
+					IPv4
+					IPv6
+					ARP
+					IPsec
+					ICMP
+					IGMP
+					OSPF
+					Router
+			Nivel de Enlace de Datos (Direccionamiento físico, MAC y LLC):
+				Aquí se establece la comunicación directa entre dos dispositivos en la misma red local. Se encarga de la detección y corrección de errores, el control de flujo y la organización de los datos en tramas.
+				Tramas/Frames:
+				Direccionamiento físico:
+					Ethernet
+					802.11
+					ATM
+					Frame Relay
+					MAC/LLC
+					VALN
+					HDP
+					HDLC
+					PPP
+					Q.921
+					Token Ring
+					Switch
+					Bridge
+			Nivel Físico (Señal y transmisión binaria):
+				Esta capa se encarga de la transmisión física de los datos a través de medios como cables, fibra óptica o ondas de radio. Define aspectos como la topología de la red, la codificación de señales y las características eléctricas.
+				Bits
+				Conexiones Físicas:
+					Cable UTP
+					Fibra Óptica
+					Hub
+		https://image.slidesharecdn.com/mapamentalmodeloosi-200602165509/75/mapa-mental-modelo-osi-1-2048.jpg?cb=1666756193
+		https://static.platzi.com/media/user_upload/Captura%20de%20Pantalla%202022-01-26%20a%20la%28s%29%207.18.25%20p.m.-c9668c1c-6cea-4114-a78f-a37d97f00bea.jpg
+	* Descripción de las capas del modelo TCP/IP.
+		Aplicación
+		Transporte
+		Red
+		Acceso a red
+
+
+
+5. Direcciones IP y subredes:
+	* Direccionamiento IPv4 y Subredes (Explicado): https://youtu.be/SHbBso63X38
+		Una IPv4 es un numero binario de 32 bits:
+		10000011011011000111101011001100
+
+		El cual se divide en 4 Bytes, 4 grupos de 8 bits, 4 octetos:
+		10000011 01101100 01111010 11001100
+
+		Estos 4 numeros binarios, se traducen a 4 numeros decimales (separados por puntos), el resultado es la "Notación Decimal Punteada":
+		131.108.122.204
+
+		Esta IPv4 (32 bits) tambien se divide en dos partes, el identificador de red y el identificador de host.
+		En este caso, la divición esta a la mitad, pero eso puede variar:
+		1000001101101100 0111101011001100 (binario)
+		◄------RED-----► ◄-----HOST-----►
+
+		131.108.122.204 (decimal)
+		◄-RED-► ◄-HOST-►
+
+		Lo que define la cantidad de bits para la red (y de host), es la clase a la que pertenece la direccion IPv4.
+		Las que son usables, son las A, B y C:
+		* Clase A - Soporta redes grandes - Primer octeto está comprendido entre 0 a 127
+		* Clase B - Soporta redes medianas - Primer octeto está comprendido entre 128 a 191
+		* Clase C - Soporta redes pequeñas - Primer octeto está comprendido entre 192 a 223
+		* Clase D - Soporta redes multicast - Primer octeto está comprendido entre 224 a 239
+		* Clase E - Sin uso, redes experimentales - Primer octeto está comprendido entre 240 a 255
+
+		Y para determinar la clase de una IPv4, es con el primer grupo de 8 bits, Byte, el primer (octeto) numero en decimal.
+			Clase A, los primeros 8 bits son para la red y los 24 bits restantes, son para el host:
+				xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+				◄--Red-► ◄----------Host----------►
+				Entonces el prefijo de red seria: /8
+
+			Clase B, los primeros 16 bits son para la red y los 16 bits restantes, son para el host:
+				xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+				◄------Red------► ◄-----Host------►
+				Entonces el prefijo de red seria: /16
+
+			Clase C, los primeros 24 bits son para la red y los 8 bits restantes, son para el host:
+				xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx
+				◄-----------Red----------► ◄-Host-►
+				Entonces el prefijo de red seria: /24
+
+		Para este caso, el 131 es de la clase B:
+		131.108.122.204 /16
+		◄-RED-► ◄-HOST-►
+
+		Toca traducir el prefijo de red a una máscara.
+		El prefijo indica cuantos bits estarán prendidos y esos serán para la red:
+		/16
+		11111111.11111111.00000000.00000000
+
+		Esta traducción binaria, toca traducirla a la "Notación Decimal Punteada":
+		255.255.0.0
+
+		Entonces se puede representar de la siguiente forma:
+		131.108.122.204/16
+
+		O de esta otra forma:
+		131.108.122.204
+		255.255.0.0
+
+		Se debe realizar una operación AND con los valores en binario.
+		Y su tradicción a decimal, será la IPv4 de la red:
+		    131.108.122.204 ≡ 10000011.01101100.01111010.11001100
+		AND 255.255.0.0     ≡ 11111111.11111111.00000000.00000000
+		    -----------------------------------------------------
+		    131.108.0.0     ≡ 10000011.01101100.00000000.00000000
+
+		La Ip 131.108.0.0, es la direccion de la red, siempre será la primera IP.
+		Donde la porción del host, siempre estará(n) en cero.
+
+		Para calcular el total de hosts posibles:
+		(2^bits_de_host)-2
+
+		Y en este caso seria asi:
+		(2^16)-2 = 65,534 hosts
+
+		¿Pero que pasa si tengo demasiadas direcciones disponibles para los hosts y no ocupo todas? Se pierden.
+		Pero se puede hacer, es crear Subredes.
+		Una subred es una divición de una red más grande.
+
+		Para crear Subredes, hay que tomar bits de la porción del host y reasignarlos a la porción de red, recordando que sea igual o mayor que el número de subredes que se necesita:
+		131.108.0.0 ≡ 10000011.01101100.00000000.00000000       131.108.0.0   ≡ 10000011.01101100.00000000.00000000
+		255.255.0.0 ≡ 11111111.11111111.00000000.00000000 ====> 255.255.255.0 ≡ 11111111.11111111.11111111.00000000
+		Se presto los 8 primeros bits de la porción de host.
+		Se calcula cuantas subredes pueden crearse con esta mascara:
+			(2^total_bits_prestados) = 2^8 = 256 subredes
+
+		He aqui las 256 subredes creadas:
+		131.108.0.0 ≡ 10000011.01101100.00000000.00000000
+		131.108.1.0 ≡ 10000011.01101100.00000001.00000000
+		131.108.2.0 ≡ 10000011.01101100.00000010.00000000
+		131.108.3.0 ≡ 10000011.01101100.00000011.00000000
+		131.108.4.0 ≡ 10000011.01101100.00000100.00000000
+		...
+		131.108.251.0 ≡ 10000011.01101100.11111011.00000000
+		131.108.252.0 ≡ 10000011.01101100.11111100.00000000
+		131.108.253.0 ≡ 10000011.01101100.11111101.00000000
+		131.108.254.0 ≡ 10000011.01101100.11111110.00000000
+		131.108.255.0 ≡ 10000011.01101100.11111111.00000000
+
+		Cada una de estas subredes, tiene la capacidad para direccionar 8 bits de host:
+		                                    |
+		RED: 131.108.0.0 ≡ 10000011.01101100.00000000.00000000
+		RED: 131.108.1.0 ≡ 10000011.01101100.00000001.00000000
+		RED: 131.108.2.0 ≡ 10000011.01101100.00000010.00000000
+		RED: 131.108.3.0 ≡ 10000011.01101100.00000011.00000000
+		RED: 131.108.4.0 ≡ 10000011.01101100.00000100.00000000
+		...
+		RED: 131.108.251.0 ≡ 10000011.01101100.11111011.00000000
+		RED: 131.108.252.0 ≡ 10000011.01101100.11111100.00000000
+		RED: 131.108.253.0 ≡ 10000011.01101100.11111101.00000000
+		RED: 131.108.254.0 ≡ 10000011.01101100.11111110.00000000
+		RED: 131.108.255.0 ≡ 10000011.01101100.11111111.00000000
+		HOST:131.108.255.1 ≡ 10000011.01101100.11111111.00000001
+		HOST:131.108.255.2 ≡ 10000011.01101100.11111111.00000010
+		HOST:131.108.255.3 ≡ 10000011.01101100.11111111.00000011
+		HOST:131.108.255.4 ≡ 10000011.01101100.11111111.00000100
+		...
+		HOST:      131.108.255.254 ≡ 10000011.01101100.11111111.11111110
+		BROADCAST: 131.108.255.255 ≡ 10000011.01101100.11111111.11111111
+		==========================================================================================================================
+			Para crear Subredes, hay que tomar bits de la porción del host y reasignarlos a la porción de red, recordando que sea igual o mayor que el número de subredes que se necesita:
+			192.168.168.0 ≡ 11000000.10101000.10101000.00000000       192.168.168.0   ≡ 11000000.10101000.10101000.00000000
+			255.255.255.0 ≡ 11111111.11111111.11111111.00000000 ====> 255.255.255.224 ≡ 11111111.11111111.11111111.11100000
+			Se presto los 3 primeros bits de la porción de host.
+			Se calcula cuantas subredes pueden crearse con esta mascara:
+				(2^total_bits_prestados) = 2^3 = 8 subredes
+
+			He aqui las 8 subredes creadas:
+			192.168.168.0   ≡ 11000000.10101000.10101000.00000000
+			192.168.168.32  ≡ 11000000.10101000.10101000.00100000
+			192.168.168.64  ≡ 11000000.10101000.10101000.01000000
+			192.168.168.96  ≡ 11000000.10101000.10101000.01100000
+			192.168.168.128 ≡ 11000000.10101000.10101000.10000000
+			192.168.168.160 ≡ 11000000.10101000.10101000.10100000
+			192.168.168.192 ≡ 11000000.10101000.10101000.11000000
+			192.168.168.224 ≡ 11000000.10101000.10101000.11100000
+
+			Cada una de estas subredes, tiene la capacidad para direccionar 5 bits de host:
+			                                                     |
+			RED: 192.168.168.0   ≡ 11000000.10101000.10101000.000 00000
+			RED: 192.168.168.32  ≡ 11000000.10101000.10101000.001 00000
+			RED: 192.168.168.64  ≡ 11000000.10101000.10101000.010 00000
+			RED: 192.168.168.96  ≡ 11000000.10101000.10101000.011 00000
+			RED: 192.168.168.128 ≡ 11000000.10101000.10101000.100 00000
+			RED: 192.168.168.160 ≡ 11000000.10101000.10101000.101 00000
+			RED: 192.168.168.192 ≡ 11000000.10101000.10101000.110 00000
+			RED: 192.168.168.224 ≡ 11000000.10101000.10101000.111 00000
+			HOST:192.168.168.225 ≡ 11000000.10101000.10101000.111 00001
+			HOST:192.168.168.226 ≡ 11000000.10101000.10101000.111 00010
+			HOST:192.168.168.227 ≡ 11000000.10101000.10101000.111 00011
+			HOST:192.168.168.228 ≡ 11000000.10101000.10101000.111 00100
+			...
+			HOST:      192.168.168.254 ≡ 11000000.10101000.10101000.111 11110
+			BROADCAST: 192.168.168.255 ≡ 11000000.10101000.10101000.111 11111
+		==========================================================================================================================
+	* Direccionamiento IPv6
+		IPv6 (Internet Protocol version 6) es la versión más reciente del protocolo de Internet, diseñada para reemplazar a IPv4 debido al agotamiento de direcciones disponibles en este último. IPv6 proporciona un espacio de direcciones mucho más amplio y ofrece una serie de mejoras en comparación con IPv4. Aquí te explico los aspectos clave del direccionamiento IPv6:
+			1. Longitud de la Dirección:
+				* IPv4: Utiliza direcciones de 32 bits, lo que permite aproximadamente 4.3 mil millones de direcciones únicas.
+				* IPv6: Utiliza direcciones de 128 bits, lo que proporciona un número astronómico de direcciones únicas, lo suficiente para satisfacer las necesidades futuras de direcciones IP.
+			2. Formato de Dirección:
+				* IPv6 utiliza notación hexadecimal, lo que resulta en direcciones mucho más largas y complejas que las direcciones IPv4.
+					Por ejemplo, una dirección IPv6 puede parecerse a esto: "2001:0db8:85a3:0000:0000:8a2e:0370:7334".
+			3. Notación de Dirección Compacta:
+				* Debido a la longitud de las direcciones IPv6, se permite omitir ceros a la izquierda y agrupar bloques de ceros consecutivos con "::". Esto facilita la escritura y lectura de direcciones IPv6.
+					Por ejemplo, "2001:0db8:85a3::8a2e:0370:7334".
+			4. Asignación de Direcciones:
+				* IPv6 puede asignarse de manera estática o dinámica, similar a IPv4. Sin embargo, IPv6 también incluye características como la autoconfiguración de direcciones, que permite a los dispositivos generar direcciones automáticamente.
+			5. Subredes en IPv6:
+				* IPv6 también utiliza subredes, pero debido a la gran cantidad de direcciones disponibles, las subredes IPv6 tienden a ser más grandes y ofrecen una mayor flexibilidad en la asignación de direcciones.
+			6. Tipos de Direcciones IPv6:
+				* Direcciones Unicast: Identifican una interfaz de red de manera única.
+				* Direcciones Multicast: Utilizadas para la transmisión de datos a un grupo de receptores.
+				* Direcciones Anycast: Asignadas a múltiples interfaces, pero el tráfico se envía a la interfaz "más cercana" según la métrica de enrutamiento.
+			7. Soporte de IPv6:
+				* Muchos sistemas operativos y dispositivos modernos están diseñados para admitir IPv6 de manera nativa. Además, muchas redes y proveedores de servicios están implementando IPv6 para satisfacer las crecientes demandas de direcciones IP.
+			8. Transición de IPv4 a IPv6:
+				* Dado que IPv4 e IPv6 coexisten en la actualidad, existen mecanismos para permitir la comunicación entre ambas versiones. Esto incluye la transición dual-stack, túneles y traducción de direcciones.
+			9. Ventajas de IPv6:
+				* Además de la expansión del espacio de direcciones, IPv6 proporciona una mayor seguridad, mejora la eficiencia de enrutamiento y simplifica la configuración de red.
+		En resumen, IPv6 es la última versión del protocolo de Internet que ofrece un espacio de direcciones mucho más amplio y presenta diversas mejoras en comparación con IPv4. A medida que la adopción de IPv6 continúa creciendo, se espera que juegue un papel crucial en el futuro de la conectividad global.
+
+
+
+Nivel Intermedio:
+6. Dispositivos de red:
+	* Router:
+		Dispositivo de red que opera en la capa de red del Modelo OSI (capa 3). Su función principal es conectar redes diferentes y enrutar paquetes de datos entre ellas, lo que permite que los dispositivos en diferentes redes se comuniquen entre sí.
+
+		Aquí están las funciones clave de un router:
+			1. Enrutamiento: Un router toma decisiones sobre cómo enviar paquetes de datos a través de la red. Utiliza tablas de enrutamiento para determinar la mejor ruta para los paquetes en función de las direcciones IP de origen y destino. Esto asegura que los paquetes lleguen a su destino de manera eficiente.
+			2. Segmentación de redes: Los routers pueden dividir una red en segmentos o subredes más pequeñas. Esto ayuda a organizar y administrar el tráfico de red, mejorar la seguridad y permitir una mejor administración.
+			3. Conexión de redes: Los routers son esenciales para conectar redes diferentes, como una red local (LAN) a Internet a través de un proveedor de servicios de Internet (ISP). El router actúa como el punto de acceso entre la red local y la red más amplia de Internet.
+			4. Traducción de direcciones de red (NAT): Los routers pueden realizar NAT, lo que significa que pueden traducir direcciones IP privadas en una red local en una dirección IP pública para la comunicación fuera de la red local. Esto permite que varios dispositivos en una red compartan una única dirección IP pública.
+			5. Firewall y seguridad: Muchos routers incluyen capacidades de firewall, que pueden filtrar y bloquear ciertos tipos de tráfico no deseado. Esto ayuda a proteger la red contra amenazas y ataques.
+			6. Calidad de servicio (QoS): Los routers pueden priorizar ciertos tipos de tráfico para asegurar un rendimiento óptimo para aplicaciones críticas, como llamadas VoIP o videoconferencias.
+			7. Gestión de ancho de banda: Los routers pueden limitar la velocidad de tráfico en ciertas redes o para ciertos dispositivos, lo que ayuda a controlar la congestión de la red.
+
+		En resumen, un router es un componente esencial en la arquitectura de una red. Su capacidad para enrutar paquetes de datos entre diferentes redes y segmentar el tráfico es fundamental para el funcionamiento eficiente y seguro de las redes modernas.
+	* Switch:
+		Dispositivo de red que opera en la capa de enlace de datos del Modelo OSI (capa 2) y, en algunos casos, también puede tener funcionalidades en la capa de red (capa 3). Su función principal es conectar dispositivos en una misma red local (LAN) y administrar el tráfico de datos entre ellos de manera eficiente.
+
+		Aquí están las características clave de un switch:
+			1. Conmutación de trama: Un switch toma decisiones basadas en las direcciones MAC (direcciones físicas únicas de los dispositivos) para determinar a qué puerto debe enviar un paquete de datos. Esto permite que los paquetes se envíen solo al dispositivo al que están destinados, en lugar de ser transmitidos a todos los dispositivos en la red, como ocurre en un hub.
+			2. Segmentación de colisiones: A diferencia de los hubs, los switches crean dominios de colisión separados para cada puerto. Esto significa que el tráfico entre dos dispositivos conectados a diferentes puertos no se interferirá entre sí, lo que mejora el rendimiento y la eficiencia de la red.
+			3. Tabla de direcciones MAC: Los switches mantienen una tabla de direcciones MAC que mapea direcciones MAC con los puertos físicos del switch. Esta tabla ayuda al switch a tomar decisiones rápidas sobre cómo dirigir el tráfico.
+			4. Autoaprendizaje: Los switches pueden aprender automáticamente qué dispositivos están conectados a cada puerto a medida que los dispositivos envían tráfico. Esto permite que el switch construya y actualice su tabla de direcciones MAC.
+			5. Broadcast y multicast: Los switches transmiten broadcast solo al puerto necesario y pueden optimizar la transmisión de tráfico multicast al enviarlo solo a los puertos que necesitan el tráfico.
+			6. Virtual LAN (VLAN): Muchos switches avanzados admiten la segmentación de redes en VLANs, lo que permite separar dispositivos en grupos lógicos para mejorar la seguridad y la administración.
+			7. Agregación de enlaces: Algunos switches permiten la agregación de enlaces, lo que combina varios puertos físicos en un solo enlace lógico para aumentar el ancho de banda y la redundancia.
+
+		En resumen, un switch es fundamental para construir una red local eficiente y organizada. Su capacidad para segmentar el tráfico, aprender direcciones MAC y tomar decisiones de conmutación inteligentes mejora el rendimiento y la seguridad en comparación con dispositivos más simples como los hubs.
+	* Hub:
+		Dispositivo de red que opera en la capa física del Modelo OSI. El hub es uno de los dispositivos más simples en términos de funcionalidad y operación en una red. Funciona tomando las señales eléctricas que recibe en uno de sus puertos y las repite a todos los demás puertos, lo que provoca que todos los dispositivos conectados al hub vean todas las comunicaciones en la red.
+
+		Dado que el hub simplemente repite las señales sin considerar la dirección de destino ni ningún tipo de lógica, no tiene inteligencia para segmentar redes o filtrar tráfico. Debido a esta operación básica, los hubs no son eficientes en términos de uso de ancho de banda y seguridad. Cualquier dispositivo en la red puede escuchar todo el tráfico transmitido, lo que presenta riesgos de seguridad y congestión.
+	* Bridge:
+		Dispositivo de red que opera en la capa de enlace de datos del Modelo OSI (capa 2) y se utiliza para conectar segmentos de redes locales (LANs) separados, permitiendo la comunicación entre ellos. Aunque los bridges eran más comunes en redes antiguas, su concepto básico sigue siendo relevante hoy en día, especialmente en entornos donde es necesario extender redes y mejorar la eficiencia de la comunicación.
+
+		La función principal de un bridge es dividir dominios de colisión, lo que mejora la eficiencia de la red al reducir el tráfico no deseado. Aquí están algunas características clave de los bridges:
+			1. Segmentación de colisiones: Los bridges dividen una red en segmentos separados. Cada segmento se considera un dominio de colisión, lo que significa que el tráfico solo colisionará dentro de ese segmento y no afectará a otros segmentos.
+			2. Aprendizaje de direcciones MAC: Al igual que los switches, los bridges mantienen tablas de direcciones MAC para saber qué dispositivos están conectados a cada segmento. Esta información les permite enviar tráfico solo a los segmentos necesarios.
+			3. Filtrado de tráfico: Los bridges pueden filtrar el tráfico en función de las direcciones MAC, lo que permite que solo el tráfico destinado a un segmento específico se transmita por ese segmento.
+			4. Extensión de redes: Los bridges permiten extender redes más allá de los límites físicos de un solo segmento. Pueden conectarse entre sí para conectar segmentos separados en diferentes ubicaciones.
+			5. Reducción de tráfico: Al separar dominios de colisión, los bridges reducen el tráfico no deseado y mejoran el rendimiento general de la red.
+
+		Es importante mencionar que, aunque los bridges desempeñaron un papel fundamental en las redes antiguas, en redes modernas es más común encontrar switches, que ofrecen funcionalidades similares pero con un mejor rendimiento y características más avanzadas. Los switches operan en capa 2 al igual que los bridges, pero tienen la capacidad adicional de conmutar basándose en direcciones MAC y aprender más eficientemente las topologías de red.
+
+
+
+7. Configuración de red en sistemas operativos:
+	* Configuración de IP estática y dinámica.
+	* Configuración de DNS y puerta de enlace.
+
+
+
+8. Protocolos de enrutamiento:
+	* RIP
+	* OSPF
+	* BGP
+	* WWW/HTTP:
+		La World Wide Web (WWW), comúnmente conocida como la web, es un sistema de información global que se encuentra en Internet y permite acceder a documentos y recursos a través de enlaces y navegadores web. El Protocolo de Transferencia de Hipertexto (HTTP) es el protocolo subyacente que se utiliza para la transferencia de datos en la web. Juntos, la WWW y el HTTP forman la base de cómo interactuamos con contenido en línea a través de navegadores web.
+
+		Aquí hay una explicación sencilla de ambos conceptos:
+			1. World Wide Web (WWW):
+				La WWW es un sistema de información en línea que utiliza hipertexto (Html) para enlazar recursos, como páginas web y archivos multimedia, en una estructura interconectada. Los recursos de la web se identifican mediante URL (Uniform Resource Locators), que son direcciones que permiten a los navegadores y otros clientes acceder a los recursos en Internet. Los documentos web generalmente están escritos en lenguajes de marcado como HTML (Hypertext Markup Language), que define cómo se muestra el contenido en un navegador.
+			2. Protocolo de Transferencia de Hipertexto (HTTP):
+				El HTTP es el protocolo utilizado para la transferencia de datos en la web. Define cómo los navegadores web y los servidores interactúan para solicitar y entregar recursos. Cuando ingresas una URL en la barra de direcciones de tu navegador y presionas "Enter", el navegador envía una solicitud HTTP al servidor web correspondiente. El servidor responde con el recurso solicitado, que puede ser una página web, una imagen, un archivo de video, etc. HTTP también establece cómo se deben estructurar y formatear las solicitudes y respuestas.
+
+		En resumen, la WWW es la infraestructura global que contiene documentos y recursos interconectados a través de enlaces, mientras que el protocolo HTTP es el mecanismo que permite que los navegadores web soliciten y obtengan estos recursos de los servidores web. Juntos, la WWW y el HTTP han revolucionado la forma en que accedemos a la información, nos comunicamos y compartimos contenido en línea.
+	* HTTPS:
+		HTTPS (Hypertext Transfer Protocol Secure) es una variante segura del protocolo HTTP utilizado para la transferencia de datos en la World Wide Web (WWW). HTTPS añade una capa de seguridad al protocolo HTTP al cifrar los datos que se transmiten entre el navegador del usuario y el servidor web. Esto ayuda a proteger la privacidad y la integridad de la información transmitida, evitando que terceros puedan interceptar o manipular los datos de manera maliciosa.
+
+		Aquí tienes una explicación sencilla sobre HTTPS:
+			1. Cifrado de datos: En una conexión HTTPS, los datos se cifran antes de ser enviados desde el navegador del usuario al servidor web y viceversa. Esto significa que incluso si alguien logra interceptar el tráfico, los datos serán ilegibles sin la clave de cifrado adecuada.
+			2. Certificado SSL/TLS: HTTPS utiliza protocolos de seguridad como SSL (Secure Sockets Layer) y su sucesor TLS (Transport Layer Security) para establecer una conexión segura entre el navegador y el servidor. El servidor web debe tener un certificado SSL/TLS válido, que contiene información sobre la identidad del sitio web y la clave de cifrado.
+			3. Barra de direcciones verde y candado: En los navegadores web modernos, una conexión HTTPS segura se indica mediante una barra de direcciones con un candado y, a menudo, un fondo verde. Esto brinda a los usuarios una indicación visual de que están interactuando con un sitio web seguro.
+			4. Verificación de identidad: Los certificados SSL/TLS también verifican la identidad del propietario del sitio web. Esto ayuda a los usuarios a estar seguros de que están interactuando con el sitio web correcto y no con un sitio falso o malicioso.
+			5. Integridad de los datos: Además del cifrado, HTTPS también asegura la integridad de los datos transmitidos. Esto significa que los datos no pueden ser alterados en tránsito sin que ambas partes se den cuenta.
+			6. Recomendación para SEO: Los motores de búsqueda, como Google, valoran los sitios web seguros y favorecen las páginas que utilizan HTTPS en los resultados de búsqueda. Esto ha llevado a un aumento en la adopción de HTTPS por parte de los propietarios de sitios web.
+
+		En resumen, HTTPS es una medida importante para garantizar la seguridad y la privacidad en la comunicación en línea. Es especialmente crucial en sitios web que manejan información sensible, como datos de usuarios, contraseñas y tarjetas de crédito.
+	* SSH:
+		SSH (Secure Shell) es un protocolo de red que proporciona una forma segura de acceder y administrar sistemas remotos a través de una conexión cifrada. SSH se utiliza comúnmente para acceder a servidores y dispositivos de manera remota y segura, y también para transferir archivos de forma segura entre sistemas.
+
+		Aquí hay una explicación sencilla sobre SSH:
+			1. Acceso remoto seguro: SSH permite a los usuarios acceder a sistemas remotos a través de una conexión segura. A diferencia de los protocolos anteriores como Telnet, que transmitían información en texto claro, SSH cifra todos los datos transmitidos, incluidas las credenciales de inicio de sesión y los comandos enviados.
+			2. Cifrado: SSH cifra la comunicación entre el cliente y el servidor, lo que significa que incluso si alguien intercepta el tráfico, no podrá leer el contenido sin la clave de cifrado adecuada.
+			3. Autenticación: SSH utiliza varios métodos de autenticación para verificar la identidad del usuario que intenta acceder al sistema remoto. Esto puede incluir contraseñas, claves públicas/privadas y autenticación de dos factores.
+			4. Túneles seguros: SSH también permite la creación de túneles seguros, que son conexiones cifradas a través de las cuales se puede enrutar el tráfico. Esto es útil para acceder a servicios en redes locales a través de Internet de manera segura.
+			5. Protocolo de transferencia de archivos: Además de su uso para acceder a sistemas remotos, SSH también es utilizado para transferir archivos de forma segura mediante SFTP (SSH File Transfer Protocol) o SCP (Secure Copy Protocol).
+			6. Puertos de red: El puerto estándar para conexiones SSH es el 22. Sin embargo, es común cambiar este puerto para mejorar la seguridad, ya que muchas amenazas de seguridad escanean el puerto 22 en busca de posibles vulnerabilidades.
+			7. Puertas de enlace y salto de saltos: SSH se utiliza a menudo para administrar sistemas en redes complejas, incluidas configuraciones de salto de saltos (jump hosts) y puertas de enlace para administrar servidores a través de una serie de conexiones seguras.
+
+		En resumen, SSH es una herramienta esencial para la administración segura de sistemas remotos y la transferencia de archivos. Proporciona una capa de seguridad crucial para proteger la comunicación y la autenticación en un entorno en línea.
+	* SCP:
+		SCP (Secure Copy Protocol) es un protocolo que permite la transferencia segura de archivos entre sistemas remotos a través de una conexión SSH. SCP utiliza la misma infraestructura de seguridad proporcionada por SSH para cifrar y proteger los datos que se transfieren entre el cliente y el servidor.
+
+		Aquí hay una explicación sencilla sobre SCP:
+			1. Transferencia de archivos segura: SCP se utiliza para copiar archivos y directorios de forma segura entre sistemas remotos. A diferencia de las herramientas de transferencia de archivos más antiguas, SCP cifra los datos durante la transferencia, lo que evita que terceros puedan interceptar y acceder al contenido de los archivos.
+			2. Sintaxis similar a la de Unix: La sintaxis de SCP es similar a la de los comandos de Unix para copiar archivos ("cp"). Esto hace que sea relativamente fácil de usar para aquellos familiarizados con la línea de comandos de Unix/Linux.
+			3. Uso con SSH: SCP se basa en SSH para la autenticación y la seguridad. Cuando usas SCP, estás estableciendo una conexión SSH segura con el servidor remoto y, a través de esa conexión, copias los archivos de manera segura.
+			4. Comando de línea: Para utilizar SCP desde la línea de comandos, generalmente usas el comando "scp" seguido de la ubicación del archivo de origen y la ubicación de destino en la forma: ~$ scp <origen> <destino>
+			5. Copiar directorios: SCP puede copiar tanto archivos individuales como directorios completos. Al copiar un directorio, se copiará todo su contenido, incluidos los subdirectorios y los archivos.
+			6. Puertos de red: Al igual que con SSH, el puerto por defecto para SCP es el 22. Puedes especificar un puerto diferente si es necesario.
+
+		En resumen, SCP es una herramienta útil para transferir archivos de forma segura entre sistemas remotos utilizando la seguridad proporcionada por SSH. Es una forma confiable de mover datos de manera segura en entornos en línea.
+	* DNS:
+		DNS (Domain Name System) es un sistema que traduce nombres de dominio legibles por humanos en direcciones IP numéricas utilizadas por las computadoras para identificar y comunicarse entre sí en Internet. En esencia, DNS actúa como una especie de "libro de teléfonos" de Internet, permitiendo a las personas acceder a sitios web utilizando nombres fáciles de recordar en lugar de tener que recordar las direcciones IP numéricas correspondientes.
+
+		Aquí hay una explicación sencilla sobre DNS:
+			1. Resolución de nombres: Cuando ingresas una URL (como "www.ejemplo.com") en el navegador, el navegador envía una solicitud a un servidor DNS para resolver ese nombre en una dirección IP. Esto se llama "resolución de nombres".
+			2. Jerarquía de dominios: Los nombres de dominio se organizan en una jerarquía de niveles. Por ejemplo, "www.ejemplo.com" tiene tres niveles: "www" (subdominio), "ejemplo" (nombre de dominio) y "com" (dominio de nivel superior).
+			3. Registros DNS: Los servidores DNS contienen registros que mapean nombres de dominio a direcciones IP. Los registros DNS también pueden contener otra información, como registros MX para el correo electrónico y registros TXT para proporcionar información adicional.
+			4. Caché DNS: Para acelerar las resoluciones de nombres y reducir la carga en los servidores DNS, los resultados de las consultas DNS se almacenan en caché en los sistemas y servidores locales. Esto evita tener que realizar una consulta DNS cada vez que se accede a un sitio web.
+			5. Servidores DNS autorizados: En la jerarquía de DNS, hay servidores autorizados para cada dominio. Los servidores DNS autorizados contienen la información más actualizada y precisa sobre los registros de ese dominio.
+			6. Ruta de consulta: Cuando se realiza una consulta DNS, el proceso de resolución implica varios servidores DNS, comenzando con el servidor DNS local del usuario, luego siguiendo una serie de consultas a servidores autorizados hasta que se obtiene la dirección IP correcta.
+			7. IPv4 e IPv6: DNS no solo maneja resoluciones para direcciones IPv4, sino también para direcciones IPv6, que son la próxima generación de direcciones IP.
+			8. Puertos de red: El puerto estándar utilizado para el protocolo DNS (Domain Name System) es el puerto 53. Tanto las consultas DNS (solicitudes para traducir nombres de dominio en direcciones IP) como las respuestas del servidor DNS se transmiten a través del puerto 53.
+
+		Es importante señalar que el tráfico DNS puede estar expuesto a riesgos de seguridad y a ataques de envenenamiento de caché DNS si no se protege adecuadamente. Por esta razón, es una buena práctica implementar medidas de seguridad, como el uso de servidores DNS seguros y la configuración adecuada de firewalls y filtros para prevenir ataques maliciosos.
+
+		En resumen, DNS es una parte esencial de la infraestructura de Internet que permite que las personas accedan a recursos en línea utilizando nombres de dominio fáciles de recordar. Sin DNS, tendríamos que recordar direcciones IP numéricas para acceder a sitios web y otros servicios en línea.
+	* FTP:
+		FTP (File Transfer Protocol) es un protocolo estándar utilizado para la transferencia de archivos entre sistemas en una red. FTP permite a los usuarios cargar, descargar y administrar archivos en servidores remotos de manera eficiente. Aunque FTP ha sido ampliamente utilizado en el pasado, en la actualidad se prefiere el uso de protocolos más seguros y modernos, como SFTP y FTPS, que agregan capas de seguridad a la transferencia de archivos.
+
+		Aquí hay una explicación sencilla sobre FTP:
+			1. Transferencia de archivos: FTP se utiliza para mover archivos entre un cliente (por lo general, una computadora local) y un servidor remoto. Los archivos pueden ser documentos, imágenes, videos y cualquier otro tipo de archivo digital.
+			2. Modos de FTP: FTP opera en dos modos principales: el modo activo y el modo pasivo. En el modo activo, el cliente inicia la conexión al servidor para transferir datos. En el modo pasivo, el servidor inicia la conexión.
+			3. Comandos FTP: Los clientes y servidores FTP se comunican mediante comandos específicos. Los comandos permiten al usuario navegar por el sistema de archivos remoto, subir y descargar archivos, crear y eliminar directorios, etc.
+			4. Inseguro por defecto: FTP envía datos en texto claro, lo que significa que las contraseñas y otros datos confidenciales pueden ser interceptados si se captura el tráfico. Esto hace que FTP sea inseguro para su uso en redes públicas o no confiables.
+			5. Alternativas seguras: Para abordar las preocupaciones de seguridad, se desarrollaron protocolos seguros basados en FTP: SFTP (SSH File Transfer Protocol) y FTPS (FTP Secure). Estos protocolos utilizan conexiones seguras cifradas mediante SSH o TLS/SSL, lo que protege los datos y las credenciales durante la transferencia.
+			6. Puerto de red: El puerto estándar para FTP es el 21. Sin embargo, al utilizar protocolos seguros como SFTP o FTPS, los puertos pueden variar según la configuración.
+			7. Consideraciones de seguridad: Dado que FTP no cifra los datos de forma predeterminada, se recomienda encarecidamente el uso de SFTP o FTPS cuando se trata de transferencias de archivos, especialmente en entornos donde la seguridad es una preocupación.
+
+		En resumen, FTP es un protocolo utilizado para transferir archivos entre sistemas en una red. Sin embargo, debido a las preocupaciones de seguridad, es más seguro utilizar alternativas como SFTP o FTPS para garantizar la protección de los datos durante la transferencia.
+	* SFTP
+	* FTPS
+	* P2P
+	* POP:
+		POP (Post Office Protocol) es un protocolo utilizado para la recepción de correos electrónicos desde un servidor de correo electrónico a un cliente de correo. El protocolo POP permite que los usuarios descarguen los mensajes de su servidor de correo electrónico a sus dispositivos locales, como computadoras o dispositivos móviles, para que puedan leerlos incluso sin estar conectados a Internet. Sin embargo, en la mayoría de los casos, POP no se utiliza tanto como en el pasado debido a sus limitaciones y a la preferencia por protocolos más avanzados, como IMAP.
+
+		Aquí hay una explicación sencilla sobre POP:
+			1. Descarga de correos: POP se utiliza para descargar correos electrónicos desde el servidor de correo electrónico del proveedor hacia el cliente de correo del usuario. Esto permite que los usuarios lean sus correos electrónicos incluso cuando no tienen acceso a Internet.
+			2. Comandos POP: Los clientes de correo utilizan comandos POP para comunicarse con el servidor de correo. Los comandos POP permiten al usuario autenticarse, recuperar listas de correos electrónicos y descargar mensajes específicos.
+			3. Modo de operación: En la configuración POP estándar, los correos electrónicos se descargan desde el servidor y se almacenan localmente en el dispositivo del usuario. Por defecto, los mensajes también se eliminan del servidor después de la descarga, lo que significa que solo estarán disponibles en el dispositivo donde se descargaron.
+			4. Limitaciones: Una de las limitaciones principales de POP es que no permite mantener los correos electrónicos sincronizados en varios dispositivos. Si un usuario lee o elimina un correo electrónico en un dispositivo, esos cambios no se reflejarán en otros dispositivos.
+			5. Alternativas: Dado que muchas personas utilizan múltiples dispositivos para acceder a sus correos electrónicos, el protocolo IMAP (Internet Message Access Protocol) se ha vuelto más popular. IMAP permite mantener los correos electrónicos sincronizados en todos los dispositivos y ofrece una mayor flexibilidad en la organización de los mensajes.
+			6. Puerto de red: El puerto estándar utilizado para POP es el puerto 110.
+
+		En resumen, POP es un protocolo que permite descargar correos electrónicos desde un servidor de correo electrónico a un cliente local. Aunque ha sido utilizado en el pasado, IMAP es ahora una opción más común para acceder a correos electrónicos de manera más flexible y sincronizada en múltiples dispositivos.
+	* IMAP:
+		IMAP (Internet Message Access Protocol) es un protocolo utilizado para acceder y administrar correos electrónicos almacenados en un servidor de correo electrónico. A diferencia de POP (Post Office Protocol), IMAP ofrece una experiencia más rica y flexible al permitir a los usuarios acceder a sus correos electrónicos desde múltiples dispositivos mientras mantiene los mensajes sincronizados en el servidor.
+
+		Aquí hay una explicación sencilla sobre IMAP:
+			1. Acceso remoto: IMAP permite a los usuarios acceder a sus correos electrónicos almacenados en un servidor de correo electrónico desde cualquier lugar y a través de múltiples dispositivos, como computadoras, teléfonos móviles y tabletas.
+			2. Mantener sincronización: Cuando un usuario interactúa con sus correos electrónicos a través de IMAP, los cambios realizados en un dispositivo se reflejan en otros dispositivos. Por ejemplo, si un correo electrónico se marca como leído en un dispositivo, también se mostrará como leído en otros dispositivos.
+			3. Estructura de carpetas: IMAP permite a los usuarios crear, organizar y gestionar carpetas en el servidor de correo electrónico. Esto facilita la organización de correos electrónicos en diferentes categorías.
+			4. No descarga completa: A diferencia de POP, IMAP no descarga automáticamente todos los correos electrónicos al dispositivo del usuario. En su lugar, los correos electrónicos permanecen en el servidor y se descargan a medida que el usuario los abre.
+			5. Mayor flexibilidad: IMAP permite a los usuarios realizar búsquedas avanzadas, filtrar correos electrónicos, marcarlos con etiquetas y realizar otras acciones para administrar su bandeja de entrada.
+			6. Seguridad: Dado que los correos electrónicos permanecen en el servidor y no se descargan por completo, IMAP puede ser más seguro en caso de pérdida o robo del dispositivo.
+			7. Puerto de red: El puerto estándar utilizado para IMAP es el puerto 143. Para conexiones seguras IMAP sobre SSL/TLS, se utiliza el puerto 993.
+
+		En resumen, IMAP es un protocolo de acceso a correos electrónicos que ofrece una experiencia más rica y flexible en comparación con POP. Permite a los usuarios mantener sincronizados sus correos electrónicos en diferentes dispositivos y administrarlos de manera más eficiente.
+	* SMTP:
+		SMTP (Simple Mail Transfer Protocol) es un protocolo utilizado para enviar correos electrónicos desde un cliente de correo electrónico o una aplicación a un servidor de correo electrónico para su posterior entrega. SMTP es fundamental en el proceso de envío de correos electrónicos y se utiliza en conjunto con otros protocolos, como POP3 o IMAP, para la recepción y lectura de correos electrónicos.
+
+		Aquí hay una explicación sencilla sobre SMTP:
+			1. Envío de correos electrónicos: SMTP se utiliza para transmitir correos electrónicos desde el cliente de correo electrónico del remitente hasta el servidor de correo del destinatario. Este proceso implica la transferencia del mensaje y la información relacionada (como asunto, remitente, destinatario) entre servidores.
+			2. Entrega al servidor de destino: El servidor de correo del remitente contacta con el servidor de correo del destinatario a través del protocolo SMTP para entregar el mensaje. El servidor de destino luego almacena el mensaje en el buzón del destinatario.
+			3. Formato del mensaje: Los mensajes de correo electrónico en SMTP están formateados en texto plano y siguen una estructura específica. Incluyen información del remitente, destinatario, asunto, cuerpo del mensaje y cualquier archivo adjunto.
+			4. Relés de correo: Los servidores SMTP también pueden actuar como relés de correo, que reenvían el mensaje a otros servidores si el destinatario no está en el mismo dominio o servidor.
+			5. Autenticación: En algunos casos, se requiere autenticación para enviar correos electrónicos a través de servidores SMTP. Esto ayuda a prevenir el envío de correos no autorizados (correo no deseado o spam) y garantiza que solo los usuarios legítimos puedan utilizar el servidor para enviar correos.
+			6. Puertos de red: El puerto estándar utilizado para el envío de correos electrónicos a través de SMTP es el puerto 25. Sin embargo, para conexiones seguras SMTP sobre SSL/TLS, se utiliza el puerto 465 o el puerto 587.
+
+		En resumen, SMTP es un protocolo esencial para el envío de correos electrónicos, permitiendo que los mensajes sean transmitidos de manera efectiva desde los clientes de correo electrónico a los servidores de correo y, finalmente, a los destinatarios.
+	* Telnet
+	* MAC/LLC
+		Funciones y responsabilidades de la subcapa MAC:
+			1. Control de acceso al medio: La subcapa MAC se encarga de coordinar cómo los dispositivos compiten por el uso del medio de transmisión compartido, como un cable Ethernet. Esto se hace para evitar colisiones y asegurar un acceso ordenado y justo al medio.
+			2. Direcciones MAC: La subcapa MAC asigna y gestiona direcciones MAC (Media Access Control), que es una dirección única y exclusiva que se asigna a cada tarjeta de red (Ethernet) o adaptador de red en un dispositivo. Esta dirección se utiliza para identificar de manera única un dispositivo en una red de área local (LAN) o en una red más amplia.
+				Aquí hay algunas características clave de las direcciones MAC:
+					1. Unicidad: Cada dirección MAC es única en todo el mundo. Esto significa que no debería haber dos dispositivos con la misma dirección MAC en una red o en Internet. La unicidad se garantiza mediante la asignación controlada de direcciones MAC por parte de los fabricantes de dispositivos de red.
+					2. Longitud y formato: Las direcciones MAC estan formadas por 48 bits, traducido a 12 caracteres hexadecimales (números del 0 al 9 y letras de la A a la F) y se dividen en seis pares separados por dos puntos o guiones.
+						Ejemplo: "00:1A:2B:3C:4D:5E".
+						1. Los 3 primeros digitos hexadecimales, identifican a la OUI, Identificador Único Organizacional y son asignados por la IEEE (Institute of Electrical and Electronics Engineers): "00:1A:2B"
+						2. Los 3 segundos digitos hexadecimales, identificador unico de la tarjeta de red y son asignados por su fabricante: "3C:4D:5E"
+					3. Capa de enlace: La dirección MAC opera en la capa de enlace de datos del modelo OSI y es específica de esa capa. Se utiliza para la comunicación en la LAN y es independiente de las direcciones IP que operan en capas superiores.
+					4. Comunicación en la LAN: Cuando un dispositivo en una LAN desea enviar datos a otro dispositivo en la misma red, utiliza la dirección MAC de destino para asegurarse de que los datos lleguen al dispositivo correcto. El switch o el router de la red utilizan la dirección MAC para dirigir los datos al destino correcto.
+					5. Modificación limitada: En circunstancias normales, las direcciones MAC no se modifican y son asignadas permanentemente al hardware de la tarjeta de red. Sin embargo, en algunas situaciones, como en las redes virtualizadas, es posible que se pueda cambiar la dirección MAC.
+					6. Control de acceso al medio: Las direcciones MAC también desempeñan un papel en el control de acceso al medio (MAC) en redes Ethernet. Ayudan a determinar qué dispositivo tiene acceso al medio compartido en una LAN y cuándo puede transmitir datos.
+				En resumen, la dirección MAC es una identificación única asignada a cada tarjeta de red o adaptador de red en un dispositivo. Se utiliza para garantizar que los datos se envíen al dispositivo correcto en una LAN y desempeña un papel importante en el control de acceso al medio en redes Ethernet.
+			3. Detección de colisiones: Cuando dos dispositivos intentan transmitir datos simultáneamente y se produce una colisión, la subcapa MAC se encarga de detectar la colisión y tomar medidas para resolverla, como la retransmisión de los datos.
+			4. Priorización de tráfico: En algunas redes Ethernet, la subcapa MAC puede asignar prioridades a los paquetes de datos, lo que garantiza que algunos paquetes se transmitan antes que otros, lo que es útil para aplicaciones que requieren baja latencia.
+		Funciones y responsabilidades de la subcapa LLC:
+			1. Control de flujo: La subcapa LLC se encarga de administrar el flujo de datos entre dos dispositivos en la red. Esto asegura que un dispositivo no abrume a otro con datos demasiado rápido y evita la pérdida de datos debido a un desbordamiento de búfer.
+			2. Administración de errores: La subcapa LLC supervisa la integridad de los datos transmitidos. Si se detectan errores, como paquetes dañados, la subcapa LLC puede solicitar la retransmisión de esos datos para garantizar que lleguen de manera confiable.
+		Direcciones MAC y cómo se utilizan:
+			* Las direcciones MAC son únicas y se asignan a cada tarjeta de red o adaptador Ethernet. Estas direcciones se utilizan para dirigir los paquetes de datos a dispositivos específicos en la misma red local. Son parte fundamental de la dirección de destino en un paquete Ethernet.
+		Control de acceso al medio (MAC) y cómo evita colisiones:
+			* El control de acceso al medio se basa en protocolos como CSMA/CD (Carrier Sense Multiple Access with Collision Detection) en Ethernet. Antes de transmitir, un dispositivo escucha el medio para detectar si está ocupado. Si está ocupado, espera. Si dos dispositivos intentan transmitir al mismo tiempo y detectan una colisión, ambos se retrasan antes de intentar nuevamente para evitar futuras colisiones.
+		Control de flujo y administración de errores (LLC):
+			* El control de flujo en la subcapa LLC garantiza que la velocidad de transmisión sea compatible entre dos dispositivos para evitar problemas de congestión o pérdida de datos.
+			* La administración de errores en la subcapa LLC supervisa la integridad de los datos y puede solicitar retransmisiones si se detectan errores para garantizar la entrega confiable de los datos.
+	* Tablas de enrutamiento y métricas:
+		Las tablas de enrutamiento y las métricas son conceptos clave en el ámbito de las redes de computadoras y enrutamiento. Se utilizan para determinar cómo se enruta el tráfico de datos en una red y para tomar decisiones sobre la mejor ruta para que los paquetes lleguen a su destino.
+			1. Tablas de enrutamiento: Las tablas de enrutamiento son listas de rutas que indican cómo deben enviarse los paquetes de datos desde un origen hasta un destino en una red. Estas tablas contienen información sobre las direcciones de red, las interfaces de salida y otros parámetros necesarios para determinar la ruta adecuada. Cada dispositivo de enrutamiento, como un router, mantiene su propia tabla de enrutamiento.
+			2. Rutas y destinos: En una tabla de enrutamiento, cada entrada especifica una ruta que debe seguirse para llegar a un destino específico. La ruta puede consistir en una serie de saltos (routers intermedios) que el paquete debe atravesar antes de llegar a su destino final.
+			3. Métricas: Las métricas son valores numéricos utilizados para determinar la calidad de una ruta o la preferencia de una ruta sobre otra. Una métrica puede ser cualquier cosa que indique la "mejor" ruta en función de ciertos criterios, como la velocidad, la latencia, el costo o la distancia. Diferentes protocolos de enrutamiento utilizan diferentes métricas para tomar decisiones de enrutamiento.
+			4. Protocolos de enrutamiento: Los protocolos de enrutamiento son conjuntos de reglas y algoritmos utilizados por los routers para intercambiar información y construir tablas de enrutamiento. Ejemplos de protocolos de enrutamiento incluyen RIP (Routing Information Protocol), OSPF (Open Shortest Path First) y BGP (Border Gateway Protocol).
+			5. Selección de ruta: Cuando un paquete de datos se envía a través de una red, los routers utilizan las tablas de enrutamiento y las métricas para determinar la ruta óptima. La ruta óptima suele ser la que tiene la métrica más baja, lo que indica la mejor calidad de ruta según los criterios específicos.
+			6. Actualización de tablas: Las tablas de enrutamiento se actualizan dinámicamente a medida que cambia la topología de la red o se producen fallas en las conexiones. Los routers intercambian información entre sí para mantener las tablas actualizadas y asegurarse de que se elijan las rutas más eficientes.
+
+		En resumen, las tablas de enrutamiento y las métricas son fundamentales para el funcionamiento de las redes de computadoras. Permiten que los routers tomen decisiones informadas sobre cómo enrutar el tráfico de datos a través de la red para que los paquetes lleguen a su destino de manera eficiente y confiable.
+
+
+
+9. Seguridad en redes:
+	* Firewalls y su función.
+	* VPNs (Redes Privadas Virtuales) y cifrado.
+
+
+
+10. Servicios de red:
+	* DHCP (Protocolo de Configuración Dinámica de Hosts).
+	* DNS (Sistema de Nombres de Dominio).
+	* NAT (Traducción de Direcciones de Red).
+
+
+
+Nivel Avanzado:
+11. Redes inalámbricas:
+	* Estándares Wi-Fi (802.11).
+	* Configuración y seguridad en redes Wi-Fi.
+
+
+
+12. Virtualización de redes:
+	* Conceptos de SDN (Redes Definidas por Software).
+	* Creación y administración de redes virtuales.
+
+
+
+13. Administración de redes:
+	* Monitoreo de redes y diagnóstico de problemas.
+	* Herramientas de administración y gestión de red.
+
+
+
+14. Redes de área amplia (WAN):
+	* Tecnologías y protocolos utilizados en redes WAN.
+	* Configuración de enlaces WAN.
+
+
+
+15. Arquitecturas emergentes en redes:
+	* IoT (Internet de las Cosas) y sus implicaciones en redes.
+	* Edge Computing y su relación con la infraestructura de red.
+	* Internet Cuántico
+
+Este temario es una guía general y la profundidad de cada tema puede variar según el nivel del curso y la audiencia. La administración y configuración de redes es una habilidad esencial en el mundo de la tecnología, ya que las redes son fundamentales para la conectividad y el intercambio de información en entornos empresariales y domésticos.
+
+
+
+
+
+
+
+
+
+Convertir Binario a Decimal
+1010101     85
+7654321
+
+1x2^6 =  64
+0x2^5 =   0
+1x2^4 =  16
+0x2^3 =   0
+1x2^2 =   4
+0x2^1 =   0
+1x2^0 =   1
+===========
+         85
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://youtu.be/SHbBso63X38
+https://www.youtube.com/playlist?list=PL-Ml_Z_JW-XvN-lRknroVzL1kKL924dXm
+Direccionamiento IPv4 y Subneteo
+
+Subnetear
+1. Tener la Ip
+230.230.230.0
+
+
+2. Obtener la mascara de red
+/24
+11111111.11111111.11111111.00000000       = 255.255.255.0
+24 bits de Red             8 bits de Host
+
+/9
+11111111.10000000.00000000.00000000       = 255.128.0.0
+ 9 bits de Red            23 bits de Host
+
+
+3. Calcular la cantidad de direcciones de red y direcciones de host
+Cuantas Direcciones Redes = 2^n; n = Cantidad de bits de la parte de la red
+Cuantas Direcciones Host = (2^n)-2; n = Cantidad de bits de la parte del host; -2 porque se quita la direccion de red y la del broadcast
+
+32 bits de los 4 octetos = 4,294,967,296 IPv4's
+Dentro de esas 4,294,967,296 IPs, se existen las clases A,B,C,D,E
+La clase A: 7 bits de red + 24 bits de hosts, lo cual son 2^7 = 128 redes y (2^24)-2 = 16,777,214 hosts; ideal para empresas grandes
+La clase B: 14 bits de red + 16 bits de hosts, lo cual son 2^14 = 16,384 redes y (2^16)-2 = 65,534 hosts; ideal para empresas medianas
+La clase C: 24 bits de red + 8 bits de hosts, lo cual son 2^24 = 16,777,216 redes y (2^8)-2 = 254 hosts; ideal para empresas chicas
+
+Dentro de la clase A: 7 bits de red + 24 bits de hosts, lo que son 31 bits
+Dentro de la clase B: 14 bits de red + 16 bits de hosts, lo que son 30 bits
+Dentro de la clase C: 24 bits de red + 8 bits de hosts, lo que son 29 bits
+
+
+
+Perspectiva de Diseño:
+1. Analizar las necesidades de (la empresa) direccionamiento y subneteo
+	* ¿Cuáles hosts deben ser agrupados en una misma subred?
+		Las IPs de los hosts deben ser contiguas: .1 .2 .3 .4 etc.
+		IPs en una misma red, no seran separadas por un router.
+		IPs en distintas subredes, seran separadas por un router.
+	* ¿Cuántas subredes necesita la red empresarial?
+		Contar con:
+			* Diagramas de red
+			* Detalles de las VLANs
+			* Detalles de los enlaces WAN
+		Se debe crear 1 subred para cada VLAN
+		Se debe crear 1 subred para cada enlace Punto-Punto entre Routers
+		Se debe crear 1 subred para los enlaces ethernet
+	* ¿Cuántas direcciones de host requiere cada subred?
+	* ¿Usaremos subredes de un mismo tamaño, por motivos de simplicidad o no?
+1.1. Determinar el numero de subredes
+1.2. Determinar el numero de hosts por subred
+1.3. Determinar si todas las subredes seran del mismo tamaño
+2. Diseñar las subredes
+2.1. Seleccionar la red
+2.2. Elegir la mascara
+2.3. Listas las subredes
+3. Plan de implementación
+3.1. Elegir el sitio de implementación
+3.2. Planear que subdirecciones de cada subred seran asignadas estaticamente o dinamicamente a cada nodo
+
+Perspectiva Operacional: Analizar e interpretar la red que otra persona diseño para esa empresa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

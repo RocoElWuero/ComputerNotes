@@ -1973,7 +1973,7 @@ Restriccion (operador del algebra relacional), WHERE
 			Saturacion es el numero de repeticion de Valores
 				Alta: Genero
 				Bajo: Id, UNIQUE
-			El GROUP BY es valido para alta Saturacion (muchos valores diferentes).
+			El GROUP BY es valido para la alta Saturacion (muchos valores diferentes).
 			No es valido si en el SELECT ya solo devuelve un solo dato o muchos valores iguales.
 			No es valido si no se hacen operaciones en el SELECT:
 				SELECT sexo FROM empleado GROUP BY sexo;
@@ -2186,7 +2186,7 @@ Restriccion (operador del algebra relacional), WHERE
 			SELECT *
 			FROM empleado
 				WHERE nombre = 'Ana'; -- 89
-			No son lo mismo, ya que el LIKE es como un Regex.
+			No son lo mismo, ya que el LIKE es como un Regex, pero funciona diferente, otro tipo de patrones.
 			SELECT *
 			FROM empleado
 				WHERE nombre LIKE '%na%'; -- 92
@@ -2306,6 +2306,17 @@ Pedido-PedidoCancela (Supertipo-Subtipo)
 No hay recursiva, entonces que hay?
 Tablas Binarias (son las que tiene dos relaciones de los mismos dos dominios y las mismas llaves), Ternarias
 
+ON DELETE/UPDATE RESTRICT/CASCADE
+En una relación de base de datos, puede haber una tabla padre y una tabla hija, donde la tabla hija tiene una clave externa que hace referencia a la clave primaria de la tabla padre. Cuando ocurre una acción de eliminación o actualización en la tabla padre, las opciones "ON DELETE" y "ON UPDATE" determinan cómo se manejarán los registros relacionados en la tabla hija.
+
+Aquí están las opciones más comunes para "ON DELETE" y "ON UPDATE":
+1. RESTRICT: Esto impide la eliminación o actualización de un registro en la tabla padre si hay registros relacionados en la tabla hija. Es decir, si se intenta eliminar o actualizar un registro en la tabla padre que tiene registros relacionados en la tabla hija, se generará un error y la operación no se llevará a cabo.
+2. CASCADE: Esta opción permite la eliminación o actualización en cascada, lo que significa que si se elimina o actualiza un registro en la tabla padre, los registros relacionados en la tabla hija también se eliminarán o actualizarán automáticamente. En otras palabras, la eliminación o actualización en la tabla padre se propaga a la tabla hija.
+3. SET NULL: Con esta opción, si se elimina o actualiza un registro en la tabla padre, la clave externa correspondiente en la tabla hija se establece en NULL. Esto significa que los registros relacionados en la tabla hija todavía existen, pero su referencia al registro padre se pierde.
+4. SET DEFAULT: Similar a "SET NULL", esta opción establece la clave externa correspondiente en la tabla hija en un valor predeterminado definido por el usuario en lugar de NULL. Esto implica que si se elimina o actualiza un registro en la tabla padre, la clave externa en la tabla hija se establece en un valor predeterminado.
+
+Es importante tener cuidado al utilizar las opciones "CASCADE", "SET NULL" y "SET DEFAULT", ya que pueden tener un impacto significativo en la integridad y consistencia de los datos en la base de datos. Se debe tener una comprensión clara de las relaciones y dependencias entre las tablas antes de usar estas opciones.
+
 CONSTRAINT pkPedido
 PRIMARY KEY (idPedido)
 
@@ -2413,7 +2424,7 @@ Relacionales:
 	RESTRICCIÓN (WHERE, HAVING, σ)
 	PROYECCIÓN (SELECT, π, Pi): Operación que altera el grado o el orden del grado de una relación.
 	JOIN (JOIN, ⋈): Operación (compuesta: PRODUCTO CARTESIANO + RESTRICCIÓN) que junta las tuplas de dos relaciones mediante el atributo en común (que es del mismo tipo de dato o mapeable, entre dos tablas y que las referencía).
-	DIVISIÓN
+	DIVISIÓN (÷): Se utiliza para encontrar registros en una tabla que estén relacionados con todos los valores de otra tabla.
 
 SELECT * FROM <tabla>; -- Es la unica que no utiliza el algebra relacional. Porque muestra absolutamente todo.
 
@@ -2424,7 +2435,7 @@ Operaciones de Conjuntos
 			UNION
 			SELECT * FROM departamento;
 			idcargo, nombre, iddepartamento, nombre. => idcargo, nombre
-		2. Grado y cardinalidad: El numero de atributos/columnas deben ser del mismo grado, las dos tablas a operar.
+		2. Grado y cardinalidad: El numero de atributos/columnas deben ser del mismo grado, de las dos tablas a operar.
 			-- Sintaxis
 			SELECT [*|atributo,...]
 			FROM <tabla>
@@ -2478,6 +2489,12 @@ Operaciones de Conjuntos
 			UNION
 			SELECT sexo
 			FROM empleado;
+
+			SELECT sexo
+			FROM empleado
+			UNION
+			SELECT nombre
+			FROM cargo;
 
 			O sea que el sexo que es un texto de 1 caracter (CHAR(1)) y el nombre que es un texto de 255 caracteres (VARCHAR(255)), sexo cabe dentro del nombre. O sea sus valores pueden ser un subconjunto del otro, dentro de la vista generada.
 			sexo ⊆ nombre
@@ -2789,7 +2806,7 @@ Operaciones Relacionales
 		SELECT nombre, idcargo
 		FROM cargo;
 
-	JOIN (⋈): Operación (compuesta: PRODUCTO CARTESIANO + RESTRICCIÓN) que junta las tuplas de dos relaciones mediante el atributo en común (que es del mismo tipo de dato o mapeable, entre dos tablas y que las referencía).
+	JOIN (⋈): Operación compuesta: (PRODUCTO CARTESIANO + RESTRICCIÓN) que junta las tuplas de dos relaciones mediante el atributo en común (que es del mismo tipo de dato o mapeable, entre dos tablas y que las referencía).
 		* Operación compuesta: PRODUCTO CARTESIANO + RESTRICCIÓN
 		* Restricción: Atributo común idóneo/referencia
 		* Referencia: Trigger de integridad referencial y los CONSTRAINT Pk y Fk
@@ -2807,10 +2824,11 @@ Operaciones Relacionales
 		El '.' es el operador de extensión/miembro/añadido.
 
 		Atributo común
-		cargo.idcargo = departamento.iddepartamento
-		cargo.nombre = departamento.nombre
+			cargo.idcargo = departamento.iddepartamento
+			cargo.nombre = departamento.nombre
 
 		Atributo común idóneo (refencia)
+			cargo.idcargo = departamento.iddepartamento
 
 		SELECT *
 		FROM cargo INNER JOIN departamento
@@ -2999,6 +3017,20 @@ Operaciones Relacionales
 			2. Solo puedo hacer busquedas, proyecciones y restricciones sobre la tabla de prioridad
 			3. Cuidar/revisar que las restricciones (WHERE, HAVING) de los atributos tengan que ver con la prioridad que se establecio (de la relación con prioridad), sino es un INNER JOIN.
 
+		Las diferencias entre INNER JOIN y los tipos de OUTER JOIN (LEFT, RIGHT y FULL) se relacionan con cómo se combinan las filas de las tablas en la consulta JOIN.
+			1. INNER JOIN: Un INNER JOIN devuelve únicamente las filas que tienen una correspondencia en ambas tablas que se están uniendo. Solo las filas que cumplen la condición de unión se incluyen en el resultado final. Si no hay una correspondencia entre las tablas, las filas no se mostrarán en el resultado.
+			2. LEFT OUTER JOIN (también conocido como LEFT JOIN): Un LEFT JOIN devuelve todas las filas de la tabla izquierda (la primera tabla mencionada en la cláusula JOIN) y las filas coincidentes de la tabla derecha (la segunda tabla mencionada). Si no hay una correspondencia, se utilizan valores NULL para las columnas de la tabla derecha en el resultado.
+			3. RIGHT OUTER JOIN (también conocido como RIGHT JOIN): Un RIGHT JOIN es similar a un LEFT JOIN, pero invierte el orden de las tablas. Devuelve todas las filas de la tabla derecha y las filas coincidentes de la tabla izquierda. Las filas sin correspondencia de la tabla izquierda tendrán valores NULL para las columnas de la tabla izquierda en el resultado.
+			4. FULL OUTER JOIN (también conocido como FULL JOIN): Un FULL JOIN devuelve todas las filas de ambas tablas. Combina las filas de un LEFT JOIN y un RIGHT JOIN. Si no hay una correspondencia entre las tablas, se utilizan valores NULL en las columnas correspondientes.
+
+			En resumen:
+				* INNER JOIN devuelve solo las filas coincidentes entre las tablas.
+				* LEFT OUTER JOIN devuelve todas las filas de la tabla izquierda y las coincidentes de la tabla derecha.
+				* RIGHT OUTER JOIN devuelve todas las filas de la tabla derecha y las coincidentes de la tabla izquierda.
+				* FULL OUTER JOIN devuelve todas las filas de ambas tablas, incluyendo las no coincidentes.
+
+			La elección entre INNER JOIN y los tipos de OUTER JOIN depende de los datos que deseas obtener y cómo quieres combinar las filas de las tablas en tu consulta.
+
 		Nombre del cargo y el nombre de todas las mujeres que sean de un departamento de finanzas.
 		SELECT c.nombre AS cargo, e.nombre AS empleado
 		FROM cargo AS c RIGHT OUTER JOIN empleado AS e --Right: ... y el nombre de todas ...
@@ -3066,7 +3098,6 @@ Operaciones Relacionales
 			FROM empleado AS e FULL OUTER JOIN departamento AS d
 				USING(iddepartamento);
 
-
 		SELF*		Es estandar 92
 			SELECT *
 			FROM <tablaA> AS a [IJ|ROJ|FOJ|LOJ] <tablaA> AS b
@@ -3102,11 +3133,59 @@ Operaciones Relacionales
 
 			Pero se recomienda salir del estándar y utilizar los objetos avanzados de cada manejador, porque son mas eficientes, y en RAM se evitan los Hacking de stackoverflow.
 
+		GPT:
+			Las diferencias entre INNER JOIN y los tipos de OUTER JOIN (LEFT, RIGHT y FULL) se relacionan con cómo se combinan las filas de las tablas en la consulta JOIN.
+			1. INNER JOIN: Un INNER JOIN devuelve únicamente las filas que tienen una correspondencia en ambas tablas que se están uniendo. Solo las filas que cumplen la condición de unión se incluyen en el resultado final. Si no hay una correspondencia entre las tablas, las filas no se mostrarán en el resultado.
+			2. LEFT OUTER JOIN (también conocido como LEFT JOIN): Un LEFT JOIN devuelve todas las filas de la tabla izquierda (la primera tabla mencionada en la cláusula JOIN) y las filas coincidentes de la tabla derecha (la segunda tabla mencionada). Si no hay una correspondencia, se utilizan valores NULL para las columnas de la tabla derecha en el resultado.
+			3. RIGHT OUTER JOIN (también conocido como RIGHT JOIN): Un RIGHT JOIN es similar a un LEFT JOIN, pero invierte el orden de las tablas. Devuelve todas las filas de la tabla derecha y las filas coincidentes de la tabla izquierda. Las filas sin correspondencia de la tabla izquierda tendrán valores NULL para las columnas de la tabla izquierda en el resultado.
+			4. FULL OUTER JOIN (también conocido como FULL JOIN): Un FULL JOIN devuelve todas las filas de ambas tablas. Combina las filas de un LEFT JOIN y un RIGHT JOIN. Si no hay una correspondencia entre las tablas, se utilizan valores NULL en las columnas correspondientes.
+			En resumen:
+			- INNER JOIN devuelve solo las filas coincidentes entre las tablas.
+			- LEFT OUTER JOIN devuelve todas las filas de la tabla izquierda y las coincidentes de la tabla derecha.
+			- RIGHT OUTER JOIN devuelve todas las filas de la tabla derecha y las coincidentes de la tabla izquierda.
+			- FULL OUTER JOIN devuelve todas las filas de ambas tablas, incluyendo las no coincidentes.
+			La elección entre INNER JOIN y los tipos de OUTER JOIN depende de los datos que deseas obtener y cómo quieres combinar las filas de las tablas en tu consulta.
+
+	DIVISIÓN (÷): Se utiliza para encontrar registros en una tabla que estén relacionados con todos los valores de otra tabla.
+		En SQL, no existe un operador de división directo como en el álgebra relacional. Sin embargo, es posible simular la operación de división utilizando otras consultas y operaciones disponibles en SQL. Esto puede requerir consultas más complejas.
+
+		La operación de división en SQL puede ser replicada usando subconsultas, joins y condiciones de filtro. Aquí hay un ejemplo simplificado para ilustrar cómo se puede hacer:
+			Supongamos que tenemos dos tablas: "Estudiantes" y "Cursos".
+				CREATE TABLE Estudiantes (
+					EstudianteID INT PRIMARY KEY,
+					Nombre VARCHAR(50)
+				);
+				CREATE TABLE Cursos (
+					CursoID INT PRIMARY KEY,
+					NombreCurso VARCHAR(50)
+				);
+				CREATE TABLE Matriculas (
+					EstudianteID INT,
+					CursoID INT,
+					PRIMARY KEY (EstudianteID, CursoID),
+					FOREIGN KEY (EstudianteID) REFERENCES Estudiantes(EstudianteID),
+					FOREIGN KEY (CursoID) REFERENCES Cursos(CursoID)
+				);
+			Para encontrar los estudiantes que han tomado todos los cursos, puedes usar una consulta similar a esta:
+				SELECT E.EstudianteID, E.Nombre
+				FROM Estudiantes E
+				WHERE NOT EXISTS (
+					SELECT C.CursoID
+					FROM Cursos C
+					EXCEPT
+					SELECT M.CursoID
+					FROM Matriculas M
+					WHERE M.EstudianteID = E.EstudianteID
+				);
+			Esta consulta seleccionará los estudiantes que no tienen ningún curso que no hayan tomado. En otras palabras, solo seleccionará estudiantes que hayan tomado todos los cursos.
+
+		Ten en cuenta que este es solo un ejemplo simplificado y que la implementación de la división en SQL puede volverse más compleja dependiendo de la estructura de tus tablas y la lógica específica que estés utilizando.
+
 
 
 Subconsultas: Una o varias consultas anidadas dentro de otra.
 	Tipos:
-	1. WHERE (Restricción)
+	1. Restricción: WHERE (SELECT)
 		Reglas:
 			1. Toda subconsulta debe tener grado 1.
 				SELECT * FROM empleado WHERE idcargo = (SELECT idCargo, nombre FROM cargo); --ERROR:  subquery must return only one column
@@ -3115,7 +3194,6 @@ Subconsultas: Una o varias consultas anidadas dentro de otra.
 				SELECT * FROM empleado WHERE idCargo IN (SELECT idCargo FROM cargo);
 				SELECT * FROM empleado WHERE idCargo = (SELECT MAX(idCargo) FROM cargo);
 				SELECT * FROM empleado WHERE idCargo IN (SELECT MAX(idCargo) FROM cargo); --Muy estupida, porque en el IN solo tiene un valor
-
 
 				SELECT * FROM empleado WHERE idCargo IN (SELECT idCargo FROM cargo);
 				SELECT idCargo FROM cargo;
@@ -3139,7 +3217,6 @@ Subconsultas: Una o varias consultas anidadas dentro de otra.
 				SELECT * FROM empleado WHERE idCargo = (1);
 				SELECT * FROM empleado WHERE idCargo = 1;
 
-
 		SELECT *
 		FROM empleado
 		WHERE sueldo = (SELECT MAX(sueldo)
@@ -3162,45 +3239,63 @@ Subconsultas: Una o varias consultas anidadas dentro de otra.
 			FROM cargo
 			WHERE idCargo = 19
 		) AND sexo = 'H';
-	2. Tablas Temporales FROM (SELECT...)
-	3. Queries Correlacionales SELECT (SELECT...)
 
-	--Si en el los JOINs, no se ocupta al menos UN ATRIBUTO de cada TABLA, sustituye eso por una subconsulta.
-	Nombre del cargo y el nombre de todas las mujeres que sean de un departamento de finanzas.
-	SELECT c.nombre AS cargo, e.nombre AS empleado
-	FROM cargo AS c RIGHT OUTER JOIN empleado AS e --Right: ... y el nombre de todas ...
-		ON(c.idcargo = e.idcargo)
-			LEFT OUTER JOIN departamento AS d ON (e.iddepartamento = d.iddepartamento)
-	WHERE e.sexo = 'M' AND d.nombre = 'Finanzas'; --En este JOIN no ocupo los atributos de departamento
-	--Por lo tanto:
-	SELECT c.nombre AS cargo, e.nombre AS empleado
-	FROM cargo AS c RIGHT OUTER JOIN empleado AS e --Right: ... y el nombre de todas ...
-		ON(c.idcargo = e.idcargo)
-	WHERE e.sexo = 'M' AND e.iddepartamento = (SELECT idDepartamento
-		FROM departamento
-		WHERE nombre = 'Finanzas');
+		--Si en el los JOINs, no se ocupta al menos UN ATRIBUTO de cada TABLA, sustituye eso por una subconsulta.
+		Nombre del cargo y el nombre de todas las mujeres que sean de un departamento de finanzas.
+		SELECT c.nombre AS cargo, e.nombre AS empleado
+		FROM cargo AS c RIGHT OUTER JOIN empleado AS e --Right: ... y el nombre de todas ...
+			ON(c.idcargo = e.idcargo)
+				LEFT OUTER JOIN departamento AS d ON (e.iddepartamento = d.iddepartamento)
+		WHERE e.sexo = 'M' AND d.nombre = 'Finanzas'; --En este JOIN no ocupo los atributos de departamento
+		--Por lo tanto:
+		SELECT c.nombre AS cargo, e.nombre AS empleado
+		FROM cargo AS c RIGHT OUTER JOIN empleado AS e --Right: ... y el nombre de todas ...
+			ON(c.idcargo = e.idcargo)
+		WHERE e.sexo = 'M' AND e.iddepartamento = (SELECT idDepartamento
+			FROM departamento
+			WHERE nombre = 'Finanzas');
 
-	Nivel leve: Mostrar el nombre de la mujer que gane más que el sueldo promedio de los hombres de cargo 1.
-		SELECT nombre
-		FROM empleado
-		WHERE sexo = 'M' AND sueldo > (SELECT AVG(sueldo)
+		Nivel leve: Mostrar el nombre de la mujer que gane más que el sueldo promedio de los hombres de cargo 1.
+			SELECT nombre
+			FROM empleado
+			WHERE sexo = 'M' AND sueldo > (SELECT AVG(sueldo)
+					FROM empleado
+					WHERE sexo = 'H' AND idCargo = 1);
+
+		Nivel medio: Mostrar el nombre del empleado hombre que tenga la edad más pequeña y la más grande de las mujeres
+			SELECT nombre
+			FROM empleado
+			WHERE sexo = 'H' AND edad BETWEEN (SELECT MIN(edad)
 				FROM empleado
-				WHERE sexo = 'H' AND idCargo = 1);
+				WHERE sexo = 'M') AND (SELECT MAX(edad)
+				FROM empleado
+				WHERE sexo = 'M');
+	2. Tablas Temporales: FROM (SELECT...)
+		GPT: Puedes utilizar una subconsulta en la cláusula FROM para crear una tabla temporal y utilizarla en la consulta principal. Aquí tienes un ejemplo de sintaxis genérica:
+		SELECT columna1, columna2, ...
+		FROM (SELECT columna1, columna2, ...
+			FROM tabla_principal
+			WHERE condicion) AS tabla_temporal;
 
-	Nivel medio: Mostrar el nombre del empleado hombre que tenga la edad más pequeña y la más grande de las mujeres
-		SELECT nombre, edad
-		FROM empleado
-		WHERE sexo = 'H' AND edad BETWEEN (SELECT MIN(edad)
-			FROM empleado
-			WHERE sexo = 'M') AND (SELECT MAX(edad)
-			FROM empleado
-			WHERE sexo = 'M');
+		En este ejemplo, la subconsulta se utiliza para filtrar los datos de la tabla principal y se almacenan en una tabla temporal llamada "tabla_temporal". Luego, la consulta principal se ejecuta utilizando la tabla temporal como origen de datos.
+		Recuerda que estos ejemplos son solo representativos de la sintaxis general y pueden variar según la base de datos que estés utilizando. Siempre es recomendable consultar la documentación específica del sistema de gestión de bases de datos que estés utilizando para obtener información más precisa sobre cómo utilizar subconsultas en diferentes contextos.
+
+		Casos comunes de uso:
+			* Creación de tablas derivadas: Cuando necesitas realizar una operación en una tabla antes de unir o relacionar sus datos con otra(s) tabla(s).
+			* Resumen de datos: Puedes usar subconsultas para calcular agregaciones como la suma, el promedio, etc.
+			* Filtrado avanzado: Puedes aplicar filtrado complejo y condiciones a la tabla temporal generada por la subconsulta.
+	3. Queries Correlacionales: SELECT (SELECT...)
+		GPT: En esta sección, puedes utilizar una subconsulta dentro de la cláusula SELECT para realizar cálculos o recuperar valores relacionados con cada fila de la consulta principal. Aquí tienes un ejemplo de sintaxis genérica:
+		SELECT columna1, columna2, ..., (SELECT columna FROM tabla_secundaria WHERE condicion) AS columna_nueva
+		FROM tabla_principal;
+		En este ejemplo, la subconsulta se encuentra dentro de la cláusula SELECT y se utiliza para recuperar un valor relacionado con cada fila de la tabla principal. El resultado de la subconsulta se muestra como una columna adicional llamada "columna_nueva" en la consulta principal.
+		Recuerda que estos ejemplos son solo representativos de la sintaxis general y pueden variar según la base de datos que estés utilizando. Siempre es recomendable consultar la documentación específica del sistema de gestión de bases de datos que estés utilizando para obtener información más precisa sobre cómo utilizar subconsultas en diferentes contextos.
 
 
 		
 
 Objetos avanzados:
-	TRIGERRS
+	TRIGERRS/Guardian de la BD que reacciona ante nuevos,cambios y borrado de datos.
 		DE INTEGRIDAD REFENCIAL
 	PROCEDIMIENTOS ALMACENADOS
 	CURSORES
@@ -3294,6 +3389,295 @@ PROGRAMACIÓN AVANZADA DE BASES DE DATOS
 5.2. Tipos de datos complejos
 5.2.1. Manejo de arreglos
 5.3. Tipos de datos definidos por el usuario
+
+-----------Esquema.sql-----------
+DROP DATABASE IF EXISTS "<bd>";
+CREATE DATABASE "<bd>";
+USE "TSqlTest"; --SqlServer
+\c "pgSqlTest" --PostgreSql
+
+DROP TABLE IF EXISTS productos;
+CREATE TABLE productos (categoriaId NUMERIC(2,0), productoId NUMERIC(2,0), nombre VARCHAR(30), precio NUMERIC(10,2));
+
+EXECUTE sp_columns productos; --SqlServer
+\d+ productos --PostgreSql
+-----------Esquema.sql-----------
+
+-----------Datos.sql-----------
+TRUNCATE TABLE productos;
+INSERT INTO productos (categoriaId, productoId, nombre, precio) VALUES(1,1,'Nombre1',1),(2,2,'Nombre2',2),(3,3,'Nombre3',3);
+SELECT * FROM productos;
+-----------Datos.sql-----------
+
+Aquí tienes una tabla comparativa entre PostgreSQL, SQL Server y MySQL en relación a las características solicitadas:
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| Característica    | PostgreSQL (PL/pgSQL)                     | SQL Server (Transact-SQL)                 | MySQL (SQL)                               |
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| Function          | Compatible con la creación de funciones,  | Compatible con la creación de funciones,  | Compatible con la creación de funciones,  |
+|                   | tanto en lenguajes de programación como   | tanto en lenguajes de programación como   | tanto en lenguajes de programación como   |
+|                   | en SQL.                                   | en SQL.                                   | en SQL.                                   |
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| Procedure         | Compatible con la creación de             | Compatible con la creación de             | Compatible con la creación de             |
+|                   | procedimientos almacenados (Stored        | procedimientos almacenados (Stored        | procedimientos almacenados (Stored        |
+|                   | Procedures).                              | Procedures).                              | Procedures).                              |
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| Trigger           | Compatible con la creación de triggers    | Compatible con la creación de triggers    | Compatible con la creación de triggers    |
+|                   | (disparadores) para realizar acciones     | (disparadores) para realizar acciones     | (disparadores) para realizar acciones     |
+|                   | automáticas en respuesta a eventos.       | automáticas en respuesta a eventos.       | automáticas en respuesta a eventos.       |
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| Cursor            | Compatible con cursores, permitiendo      | Compatible con cursores, permitiendo      | Compatible con cursores, permitiendo      |
+|                   | iterar a través de resultados de          | iterar a través de resultados de          | iterar a través de resultados de          |
+|                   | consultas.                                | consultas.                                | consultas.                                |
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| If, else if, else | Compatible con estructuras condicionales. | Compatible con estructuras condicionales. | Compatible con estructuras condicionales. |
+|                   | Puede usar CASE dentro de consultas SQL.  | Puede usar CASE dentro de consultas SQL.  | Puede usar CASE dentro de consultas SQL.  | 
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| Switch Case       | No cuenta con una estructura de control   | Cuenta con la estructura Switch Case.     | No cuenta con una estructura de control   |
+|                   | Switch Case.                              | Puede ser utilizada en consultas SQL.     | Switch Case.                              |
+|                   | Es posible emularla con múltiples         |                                           | Es posible emularla con múltiples         |
+|                   | condicionales IF.                         |                                           | condicionales IF.                         |
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| For               | Compatible con la estructura de control   | Compatible con la estructura de control   | Compatible con la estructura de control   | 
+|                   | FOR LOOP para iterar en consultas SQL.    | FOR para iterar en consultas SQL.         | FOR para iterar en consultas SQL.         |
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+| While             | Compatible con la estructura de control   | Compatible con la estructura de control   | Compatible con la estructura de control   |
+|                   | WHILE LOOP para iterar en consultas SQL.  | WHILE para iterar en consultas SQL.       | WHILE para iterar en consultas SQL.       |
+|-------------------|-------------------------------------------|-------------------------------------------|-------------------------------------------|
+
+Functions - PostgreSQL
+
+	Las funciones almacenadas en pgSQL te permiten definir bloques de código reutilizables que se pueden invocar desde consultas o desde otras funciones.
+
+	Hay dos tipos de funciones almacenadas en Pl/Pgsql:
+	a) Funciones escalares: Devuelven un solo valor y se utilizan como parte de una expresión, utilizando la cláusula "RETURNS <tipoDato> AS $$" y la declaración "RETURN" para retornar el dato. Para invocar dicha función es con el "SELECT".
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS duplicar;
+		CREATE FUNCTION duplicar(numero NUMERIC(2,0))
+		RETURNS NUMERIC(2,0) AS $$
+		BEGIN
+			RETURN numero * 2;
+		END;
+		$$ LANGUAGE plpgsql;
+		SELECT duplicar(5);
+		-- Devuelve
+		-- | 10 |
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS calcularPrecioTotal;
+		CREATE FUNCTION calcularPrecioTotal(precioUnitario NUMERIC(10,2), cantidad NUMERIC(2,0))
+		RETURNS NUMERIC(10,2) AS $$
+		DECLARE precioTotal NUMERIC(10,2);
+		BEGIN
+			precioTotal := precioUnitario * cantidad;
+			RETURN precioTotal;
+		END;
+		$$ LANGUAGE plpgsql;
+		SELECT calcularPrecioTotal(2,2);
+		-- Devuelve 
+		-- | 4.00 |
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS obtenerUnNombre;
+		CREATE FUNCTION obtenerUnNombre()
+		RETURNS VARCHAR(30) AS $$
+		DECLARE miNombre VARCHAR(30);
+		BEGIN
+			SELECT nombre INTO miNombre FROM productos;
+			RETURN miNombre;
+		END;
+		$$ LANGUAGE plpgsql;
+		SELECT obtenerUnNombre();
+		-- Devuelve
+		-- | Nombre1 |
+		----------------------------------------------------
+	b) Funciones de tabla en línea: Devuelven una tabla resultante utilizando la cláusula "RETURNS <tipoDato> AS $$" o "RETURNS SETOF <tabla> AS $$" y la declaración "RETURN <variable>" o "RETURN QUERY <consulta>" para especificar el dato o los datos que se van a devolver. Para invocar dicha función es con el "SELECT".
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS obtenerProductosPorCategoria;
+		CREATE FUNCTION obtenerProductosPorCategoria(miCategoriaId NUMERIC(10,2))
+		RETURNS SETOF productos AS $$
+		BEGIN
+			RETURN QUERY SELECT * FROM productos WHERE categoriaId = miCategoriaId;
+		END;
+		$$ LANGUAGE plpgsql;
+		SELECT * FROM obtenerProductosPorCategoria(2);
+		-- Devuelve
+		-- | 2 | 2 | Nombre2 | 2.00
+		----------------------------------------------------
+	c) Funciones de tabla con valores: Devuelven una tabla como resultado utilizando la cláusula "RETURNS TABLE (<structureTable>) AS $$" y la declaración "RETURN" para especificar los datos (mediante una consulta) de la tabla que se van a devolver. Para invocar dicha función es con el "SELECT".
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS obtenerProductosCaros;
+		CREATE FUNCTION obtenerProductosCaros(precioLimite NUMERIC(10,2))
+		RETURNS TABLE (miProductoId NUMERIC(2,0), miNombre VARCHAR(30), miPrecio NUMERIC(10,2)) AS $$
+		BEGIN
+			RETURN QUERY SELECT productoId, nombre, precio FROM productos WHERE precio > precioLimite;
+		END;
+		$$ LANGUAGE plpgsql;
+		SELECT * FROM obtenerProductosCaros(1);
+		-- Devuelve
+		-- | 2 | Nombre2 | 2.00
+		-- | 3 | Nombre3 | 3.00
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS obtenerNombres;
+		CREATE FUNCTION obtenerNombres()
+		RETURNS TABLE (miNombre VARCHAR(30)) AS $$
+		BEGIN
+			RETURN QUERY SELECT nombre FROM productos;
+		END;
+		$$ LANGUAGE plpgsql;
+		SELECT obtenerNombres();
+		-- Devuelve
+		-- | Nombre1 |
+		-- | Nombre2 |
+		-- | Nombre3 |
+		----------------------------------------------------
+
+
+Functions - SQL Server
+
+	Las funciones almacenadas son bloques de código T-SQL que se pueden invocar para realizar cálculos o procesamientos y devolver un valor. Estas funciones pueden aceptar parámetros de entrada y pueden ser utilizadas en expresiones T-SQL en consultas SELECT, WHERE, JOIN, etc.
+
+	Hay dos tipos de funciones almacenadas en T-SQL:
+	a) Funciones escalares: Devuelven un solo valor y se utilizan como parte de una expresión, utilizando la cláusula "RETURNS <tipoDato>" y la declaración "RETURN" para retornar el dato. Para invocar dicha función se puede hacer de dos formas, con el "SELECT" o con el "PRINT".
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS dbo.duplicar;
+		GO;
+		CREATE FUNCTION duplicar(@numero NUMERIC(2,0))
+		RETURNS NUMERIC(2,0)
+		AS
+		BEGIN
+			RETURN @numero * 2;
+		END;
+		GO;
+		SELECT dbo.duplicar(5);
+		-- Devuelve 
+		-- | 10 |
+		PRINT dbo.duplicar(5);
+		-- Devuelve
+		-- 10
+		GO;
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS dbo.calcularPrecioTotal;
+		GO;
+		CREATE FUNCTION dbo.calcularPrecioTotal(@precioUnitario NUMERIC(10,2), @cantidad NUMERIC(2,0))
+		RETURNS NUMERIC(10,2)
+		AS
+		BEGIN
+			DECLARE @precioTotal NUMERIC(10,2);
+			SET @precioTotal = @precioUnitario * @cantidad;
+			RETURN @precioTotal;
+		END;
+		GO;
+		SELECT dbo.calcularPrecioTotal(2,2);
+		-- Devuelve
+		-- | 4.00 |
+		PRINT dbo.calcularPrecioTotal(2,2);
+		-- Devuelve
+		-- 4.00
+		GO;
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS dbo.obtenerUnNombre;
+		GO;
+		CREATE FUNCTION dbo.obtenerUnNombre()
+		RETURNS VARCHAR(30)
+		AS
+		BEGIN
+			DECLARE @miNombre VARCHAR(30);
+			SET @miNombre = (SELECT nombre FROM productos WHERE productoId = 1);
+			RETURN @miNombre;
+		END;
+		GO;
+		SELECT dbo.obtenerUnNombre();
+		-- Devuelve
+		-- | Nombre1 |
+		PRINT dbo.obtenerUnNombre();
+		-- Devuelve
+		-- Nombre1
+		GO;
+		----------------------------------------------------
+	b) Funciones de tabla en línea: Devuelven una tabla resultante utilizando la cláusula "RETURNS TABLE" o "RETURNS <tipoDato>" y la declaración "RETURN" para especificar la estructura de la tabla y los datos que se van a devolver. Para invocar dicha función es con el "SELECT".
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS dbo.obtenerProductosPorCategoria;
+		GO;
+		CREATE FUNCTION dbo.obtenerProductosPorCategoria(@miCategoriaId NUMERIC(10,2))
+		RETURNS TABLE
+		AS
+		RETURN
+		(
+			SELECT *
+			FROM productos
+			WHERE categoriaId = @miCategoriaId
+		);
+		GO;
+		SELECT * FROM dbo.obtenerProductosPorCategoria(2);
+		-- Devuelve
+		-- | 2 | 2 | Nombre2 | 2.00 |
+		GO;
+		----------------------------------------------------
+	c) Funciones de tabla con valores: Devuelven una tabla como resultado utilizando la cláusula "RETURNS @table_variable" y la declaración "INSERT" para llenar la variable de tabla con los datos que se van a devolver.
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS dbo.obtenerProductosCaros;
+		GO;
+		CREATE FUNCTION dbo.obtenerProductosCaros(@precioLimite NUMERIC(10,2))
+		RETURNS @ProductosCaros TABLE
+		(
+			productoId NUMERIC(2,0),
+			nombre VARCHAR(30),
+			precio NUMERIC(10,2)
+		)
+		AS
+		BEGIN
+			INSERT INTO @ProductosCaros
+			SELECT productoId, nombre, precio
+			FROM productos
+			WHERE precio > @precioLimite;
+		    RETURN;
+		END;
+		GO;
+		SELECT * FROM dbo.obtenerProductosCaros(1);
+		-- Devuelve
+		-- | 2 | Nombre2 | 2.00 |
+		-- | 3 | Nombre3 | 3.00 |
+		GO;
+		----------------------------------------------------
+		DROP FUNCTION IF EXISTS dbo.obtenerNombres;
+		GO;
+		CREATE FUNCTION dbo.obtenerNombres()
+		RETURNS TABLE
+		AS
+		RETURN
+		(
+			SELECT nombre
+			FROM productos
+		);
+		GO;
+		SELECT * FROM dbo.obtenerNombres();
+		-- Devuelve
+		-- | Nombre1 |
+		-- | Nombre2 |
+		-- | Nombre3 |
+		GO;
+		----------------------------------------------------
+
+
+Functions - MySQL
+
+
+Procedures - PostgreSQL
+
+
+Procedures - SQL Server
+
+
+Procedures - MySQL
+
+
+Triggers - PostgreSQL
+
+
+Triggers - SQL Server
+
+
+Triggers - MySQL
+
+
 
 20% Tareas
 	1. 25 enero, antes de las 17
