@@ -40,10 +40,42 @@ Nivel Básico:
 					FLOAT, DECIMAL, MONEY, CURRENCY... (Propios de los Manejadores)
 		Todos los datos no Numeros, llevan ''.
 	* Tipos de bases de datos relacionales.
-		Tabla comparativa entre las versiones de PostgreSQL: https://www.postgresql.org/about/featurematrix/
-		Tablas comparativas entre las versiones de SQL Server:
-			https://www.microsoft.com/es-mx/sql-server/sql-server-2022-comparison
-			https://www.microsoft.com/es-mx/sql-server/sql-server-2019-comparison
+		PostgreSQL:
+			Tabla comparativa entre las versiones de PostgreSQL: https://www.postgresql.org/about/featurematrix/
+		SQL Server:
+			Tablas comparativas entre las versiones de SQL Server:
+				https://learn.microsoft.com/es-es/troubleshoot/sql/releases/download-and-install-latest-updates
+				https://www.microsoft.com/es-mx/sql-server/sql-server-2022-comparison
+				https://www.microsoft.com/es-mx/sql-server/sql-server-2019-comparison
+			T-SQL vs CLR:
+				T-SQL (Transact-SQL) y CLR (Common Language Runtime) son dos tecnologías utilizadas en el entorno de bases de datos de Microsoft SQL Server, pero tienen propósitos y características bastante diferentes.
+				T-SQL (Transact-SQL):
+					1. Propósito:
+						* T-SQL es un lenguaje de consulta y programación específico para bases de datos relacionales. Es el lenguaje estándar de SQL Server y se utiliza para interactuar con bases de datos, realizar consultas, manipular datos y programar lógica de base de datos.
+					2. Funcionalidades:
+						* Permite realizar consultas SELECT, INSERT, UPDATE, DELETE para manipular datos.
+						* Soporta procedimientos almacenados, funciones definidas por el usuario, disparadores (triggers), cursores, entre otras características de programación de bases de datos.
+						* No es un lenguaje de programación completo y no permite construcciones de control de flujo complejas.
+					3. Seguridad:
+						* T-SQL se ejecuta dentro del contexto del motor de base de datos, lo que significa que hereda la seguridad y permisos de la base de datos en la que se está ejecutando.
+					4. Desempeño:
+						* T-SQL está altamente optimizado para operaciones de bases de datos y está altamente integrado con el motor de bases de datos de SQL Server, lo que significa que puede tener un buen desempeño en operaciones de bases de datos estándar.
+				CLR (Common Language Runtime):
+					1. Propósito:
+						* CLR permite a los desarrolladores escribir código en lenguajes de programación .NET (como C# o VB.NET) y ejecutarlo dentro del entorno de SQL Server. Esto significa que puedes utilizar toda la potencia y flexibilidad de .NET en tu base de datos.
+					2. Funcionalidades:
+						* Permite a los desarrolladores crear y ejecutar funciones y procedimientos almacenados en lenguajes .NET.
+						* Ofrece acceso a bibliotecas y clases .NET, lo que puede ser muy útil para operaciones complejas y personalizadas dentro de la base de datos.
+					3. Seguridad:
+						* CLR tiene su propio sistema de seguridad y permisos, lo que significa que puedes controlar de manera más fina qué operaciones y recursos están disponibles para el código .NET en tu base de datos.
+					4. Desempeño:
+						* El código CLR puede tener un poco de sobrecarga debido a la necesidad de interactuar con el entorno .NET. Sin embargo, para operaciones complejas que requieren la flexibilidad de .NET, puede ser mucho más eficiente que intentar realizar la misma operación en T-SQL.
+				Cuándo usar cada uno:
+					* T-SQL: Es la elección predeterminada y generalmente más eficiente para la mayoría de las operaciones de bases de datos estándar. Debe ser tu primera opción para consultas, manipulación de datos y muchas operaciones de bases de datos.
+					* CLR: Deberías considerar el uso de CLR cuando necesitas realizar operaciones extremadamente complejas, como algoritmos de cálculos complejos, operaciones de archivos, interacción con APIs externas, o cuando tienes una base de código en .NET que deseas reutilizar en tu base de datos.
+				En resumen, T-SQL es la herramienta principal para operaciones de bases de datos estándar, mientras que CLR proporciona una forma de extender la funcionalidad de tu base de datos utilizando .NET. La elección entre ambos dependerá de las necesidades específicas de tu aplicación y base de datos.
+		Oracle:
+			Oracle Database 23c Free For Developers: https://www.youtube.com/watch?v=ea30EsVYdXU&t=4s
 
 2. DQL: Consultas de datos, restricciones (filtrados) y operadores de busqueda, lógicos y relacionales:
 	* SELECT, FROM y WHERE.
@@ -1503,7 +1535,7 @@ Nivel Básico:
 		* Propósito: Se utiliza para cambiar el nombre de un objeto de base de datos existente, como una tabla o columna.
 	TRUNCATE
 		* Estándar: SQL:1999 (SQL3) y versiones posteriores.
-		* Propósito: Se utiliza para eliminar todos los registros de una tabla y libera el espacio asignado para ellos ( pero mantener la estructura de la tabla intacta).
+		* Propósito: Se utiliza para eliminar todos los registros de una tabla y libera el espacio asignado para ellos (pero mantener la estructura de la tabla intacta).
 	COMMENT
 		* Estándar: SQL:1999 (también conocido como SQL3).
 		* Propósito: Se utiliza para agregar comentarios o notas a objetos de la base de datos (en el diccionario de datos), como tablas o columnas, para proporcionar información adicional sobre ellos.
@@ -1708,12 +1740,52 @@ Nivel Básico:
 					WHERE Country = "Brazil";
 
 			Para PostgreSQL:
+				CREATE [ OR REPLACE ] [ TEMP | TEMPORARY ] [ RECURSIVE ] VIEW name [ ( column_name [, ...] ) ]
+					[ WITH ( view_option_name [= view_option_value] [, ... ] ) ]
+					AS query
+					[ WITH [ CASCADED | LOCAL ] CHECK OPTION ]
 				https://www.postgresql.org/docs/current/sql-createview.html
 			Para SQL Server:
+				-- Syntax for SQL Server and Azure SQL Database
+				CREATE [ OR ALTER ] VIEW [ schema_name . ] view_name [ (column [ ,...n ] ) ]
+				[ WITH <view_attribute> [ ,...n ] ]
+				AS select_statement
+				[ WITH CHECK OPTION ]
+				[ ; ]
+				<view_attribute> ::=
+				{
+					[ ENCRYPTION ]
+					[ SCHEMABINDING ]
+					[ VIEW_METADATA ]
+				}
+
+				-- Syntax for Azure Synapse Analytics and Parallel Data Warehouse
+				CREATE VIEW [ schema_name . ] view_name [  ( column_name [ ,...n ] ) ]
+				AS <select_statement>
+				[;]
+				<select_statement> ::=
+					[ WITH <common_table_expression> [ ,...n ] ]
+					SELECT <select_criteria>
+
+				-- Syntax for [!INCLUDE [fabric](../../includes/fabric.md)]
+				CREATE [ OR ALTER ] VIEW [ schema_name . ] view_name [  ( column_name [ ,...n ] ) ]
+				AS <select_statement>
+				[;]
+				<select_statement> ::=
+					[ WITH <common_table_expression> [ ,...n ] ]
+					SELECT <select_criteria>
 				https://learn.microsoft.com/es-es/sql/t-sql/statements/create-view-transact-sql?view=sql-server-ver16
 			Para Oracle:
 				https://docs.oracle.com/javadb/10.6.2.1/ref/rrefsqlj15446.html
 			Para MySQL:
+				CREATE
+					[OR REPLACE]
+					[ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
+					[DEFINER = user]
+					[SQL SECURITY { DEFINER | INVOKER }]
+					VIEW view_name [(column_list)]
+					AS select_statement
+					[WITH [CASCADED | LOCAL] CHECK OPTION]
 				https://dev.mysql.com/doc/refman/8.0/en/create-view.html
 		CREATE OR REPLACE VIEW
 			El comando CREATE OR REPLACE VIEW actualiza una vista.
@@ -1734,6 +1806,546 @@ Nivel Básico:
 					GO;
 			Ejecute el procedimiento almacenado anterior de la siguiente manera:
 				EXEC SelectAllCustomers;
+
+			Para PostgreSQL:
+				Sintaxis:
+					CREATE [ OR REPLACE ] PROCEDURE
+						name ( [ [ argmode ] [ argname ] argtype [ { DEFAULT | = } default_expr ] [, ...] ] )
+						{ LANGUAGE lang_name
+							| TRANSFORM { FOR TYPE type_name } [, ... ]
+							| [ EXTERNAL ] SECURITY INVOKER | [ EXTERNAL ] SECURITY DEFINER
+							| SET configuration_parameter { TO value | = value | FROM CURRENT }
+							| AS 'definition'
+							| AS 'obj_file', 'link_symbol'
+							| sql_body
+						} ...
+				Ejemplos:
+					CREATE PROCEDURE insert_data(a integer, b integer)
+					LANGUAGE SQL
+					AS $$
+						INSERT INTO tbl VALUES (a);
+						INSERT INTO tbl VALUES (b);
+					$$;
+					CALL insert_data(1, 2);
+
+					CREATE PROCEDURE insert_data(a integer, b integer)
+					LANGUAGE SQL
+					BEGIN ATOMIC
+						INSERT INTO tbl VALUES (a);
+						INSERT INTO tbl VALUES (b);
+					END;
+					CALL insert_data(1, 2);
+				https://www.postgresql.org/docs/current/sql-createprocedure.html
+
+				En PostgreSQL puedes crear procedimientos almacenados utilizando diferentes lenguajes, como SQL, PL/pgSQL (similar a PL/SQL de Oracle), PL/Python, PL/Perl, etc. Cada lenguaje tiene sus propias ventajas y puede ser más adecuado para diferentes situaciones.
+				Aquí te muestro cómo crear un procedimiento almacenado utilizando diferentes lenguajes en PostgreSQL:
+				1. SQL:
+					CREATE OR REPLACE PROCEDURE nombre_procedimiento(param1 tipo1, param2 tipo2) AS
+					$$
+					BEGIN
+						-- Código SQL del procedimiento aquí
+					END;
+					$$
+					LANGUAGE sql;
+					CALL nombre_procedimiento(param1_value, param2_value);
+				2. PL/pgSQL (similar a PL/SQL):
+					CREATE OR REPLACE PROCEDURE nombre_procedimiento(param1 tipo1, param2 tipo2) AS
+					$$
+					DECLARE
+						-- Declaraciones de variables aquí
+					BEGIN
+						-- Código PL/pgSQL del procedimiento aquí
+					END;
+					$$
+					LANGUAGE plpgsql;
+					CALL nombre_procedimiento(param1_value, param2_value);
+				3. PL/Python:
+					Primero, asegúrate de que la extensión PL/Python esté instalada. Luego, puedes crear un procedimiento almacenado en PL/Python.
+					CREATE OR REPLACE PROCEDURE nombre_procedimiento(param1 tipo1, param2 tipo2) AS
+					$$
+						-- Código PL/Python del procedimiento aquí
+					$$
+					LANGUAGE plpythonu;
+					CALL nombre_procedimiento(param1_value, param2_value);
+				4. PL/Perl:
+					Primero, asegúrate de que la extensión PL/Perl esté instalada. Luego, puedes crear un procedimiento almacenado en PL/Perl.
+					CREATE OR REPLACE PROCEDURE nombre_procedimiento(param1 tipo1, param2 tipo2) AS
+					$$
+						-- Código PL/Perl del procedimiento aquí
+					$$
+					LANGUAGE plperl;
+					CALL nombre_procedimiento(param1_value, param2_value);
+				Recuerda que la elección del lenguaje dependerá de tus necesidades y de tu familiaridad con cada uno. Cada lenguaje tiene sus propias capacidades y ventajas, por lo que es recomendable elegir el que mejor se adapte a tus requerimientos específicos.
+				GPT
+			Para SQL Server:
+				USE AdventureWorks2022;  
+				GO;
+				CREATE PROCEDURE HumanResources.uspGetEmployeesTest2   
+					@LastName nvarchar(50),   
+					@FirstName nvarchar(50)   
+				AS
+					SET NOCOUNT ON;  
+					SELECT FirstName, LastName, Department  
+					FROM HumanResources.vEmployeeDepartmentHistory  
+					WHERE FirstName = @FirstName AND LastName = @LastName  
+					AND EndDate IS NULL;  
+				GO;
+				EXECUTE HumanResources.uspGetEmployeesTest2 N'Ackerman', N'Pilar';
+				-- Or
+				EXEC HumanResources.uspGetEmployeesTest2 @LastName = N'Ackerman', @FirstName = N'Pilar';
+				GO;
+				-- Or
+				EXECUTE HumanResources.uspGetEmployeesTest2 @FirstName = N'Pilar', @LastName = N'Ackerman';
+				GO;
+				https://learn.microsoft.com/en-us/sql/relational-databases/stored-procedures/create-a-stored-procedure?view=sql-server-ver16
+				https://learn.microsoft.com/es-mx/sql/relational-databases/stored-procedures/create-a-stored-procedure?view=sql-server-ver16
+
+				En Microsoft SQL Server, puedes crear procedimientos almacenados utilizando Transact-SQL (T-SQL). Hay varias formas de hacerlo. Aquí te muestro tres de las formas más comunes:
+					1. Crear un Procedimiento Almacenado Básico:
+						Sintaxis:
+							CREATE PROCEDURE nombre_procedimiento
+							AS
+							BEGIN
+								-- Código del procedimiento aquí
+							END;
+						Ejemplo:
+							CREATE PROCEDURE obtener_nombre
+							AS
+							BEGIN
+								SELECT nombre FROM personas WHERE id = @id_persona;
+							END;
+					2. Crear un Procedimiento Almacenado con Parámetros:
+						Sintaxis:
+							CREATE PROCEDURE nombre_procedimiento
+								@param1 tipo1,
+								@param2 tipo2
+							AS
+							BEGIN
+								-- Código del procedimiento aquí
+							END;
+						Ejemplo:
+							CREATE PROCEDURE obtener_nombre
+								@id_persona INT
+							AS
+							BEGIN
+								SELECT nombre FROM personas WHERE id = @id_persona;
+							END;
+					3. Crear un Procedimiento Almacenado con Parámetros de Salida:
+						Sintaxis:
+							CREATE PROCEDURE nombre_procedimiento
+								@param1 tipo1,
+								@param2 tipo2,
+								@param3 tipo3 OUTPUT
+							AS
+							BEGIN
+								-- Código del procedimiento aquí
+							END;
+						Ejemplo:
+							CREATE PROCEDURE obtener_nombre
+								@id_persona INT,
+								@nombre_persona VARCHAR(50) OUTPUT
+							AS
+							BEGIN
+								SELECT @nombre_persona = nombre FROM personas WHERE id = @id_persona;
+							END;
+				Estos son solo ejemplos básicos. Puedes agregar más complejidad y funcionalidades según tus necesidades. Recuerda ajustar los nombres, tipos y lógica de tus procedimientos según tus requisitos específicos.
+				GPT
+			Para Oracle:
+			Para MySQL:
+				CREATE
+					[DEFINER = user]
+					PROCEDURE [IF NOT EXISTS] sp_name ([proc_parameter[,...]])
+					[characteristic ...] routine_body
+
+				proc_parameter: [ IN | OUT | INOUT ] param_name type
+
+				type: Any valid MySQL data type
+
+				characteristic: {
+					COMMENT 'string'
+					| LANGUAGE SQL
+					| [NOT] DETERMINISTIC
+					| { CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }
+					| SQL SECURITY { DEFINER | INVOKER }
+				}
+
+				routine_body: Valid SQL routine statement
+				https://dev.mysql.com/doc/refman/8.0/en/create-procedure.html
+
+				En MySQL, puedes crear procedimientos almacenados utilizando el lenguaje de programación PL/SQL. Aquí te muestro dos formas comunes de crear procedimientos almacenados en MySQL:
+					1. Crear un Procedimiento Almacenado Básico:
+						Sintaxis:
+							DELIMITER //
+							CREATE PROCEDURE nombre_procedimiento()
+							BEGIN
+								-- Código del procedimiento aquí
+							END //
+							DELIMITER ;
+						Ejemplo:
+							DELIMITER //
+							CREATE PROCEDURE obtener_nombre()
+							BEGIN
+								SELECT nombre FROM personas WHERE id = @id_persona;
+							END //
+							DELIMITER ;
+					2. Crear un Procedimiento Almacenado con Parámetros:
+						Sintaxis:
+							DELIMITER //
+							CREATE PROCEDURE nombre_procedimiento(param1 tipo1, param2 tipo2)
+							BEGIN
+								-- Código del procedimiento aquí
+							END //
+							DELIMITER ;
+						Ejemplo:
+							DELIMITER //
+							CREATE PROCEDURE obtener_nombre(IN id_persona INT)
+							BEGIN
+								SELECT nombre FROM personas WHERE id = id_persona;
+							END //
+							DELIMITER ;
+				Estos son solo ejemplos básicos. Puedes agregar más complejidad y funcionalidades según tus necesidades. Recuerda ajustar los nombres, tipos y lógica de tus procedimientos según tus requisitos específicos.
+				Recuerda que en MySQL, debes cambiar el delimitador antes y después de la definición del procedimiento almacenado. Esto se debe a que el punto y coma (;) es utilizado para finalizar comandos en MySQL, y si no cambias el delimitador, el motor de base de datos interpretará incorrectamente el final del procedimiento.
+				GPT
+		CREATE FUNCTION
+			Para PostgreSQL:
+				CREATE [ OR REPLACE ] FUNCTION
+					name ( [ [ argmode ] [ argname ] argtype [ { DEFAULT | = } default_expr ] [, ...] ] )
+					[ RETURNS rettype | RETURNS TABLE ( column_name column_type [, ...] ) ]
+					{ LANGUAGE lang_name
+						| TRANSFORM { FOR TYPE type_name } [, ... ]
+						| WINDOW
+						| { IMMUTABLE | STABLE | VOLATILE }
+						| [ NOT ] LEAKPROOF
+						| { CALLED ON NULL INPUT | RETURNS NULL ON NULL INPUT | STRICT }
+						| { [ EXTERNAL ] SECURITY INVOKER | [ EXTERNAL ] SECURITY DEFINER }
+						| PARALLEL { UNSAFE | RESTRICTED | SAFE }
+						| COST execution_cost
+						| ROWS result_rows
+						| SUPPORT support_function
+						| SET configuration_parameter { TO value | = value | FROM CURRENT }
+						| AS 'definition'
+						| AS 'obj_file', 'link_symbol'
+						| sql_body
+					} ...
+				https://www.postgresql.org/docs/current/sql-createfunction.html
+
+				En PostgreSQL, puedes crear funciones utilizando varios lenguajes, incluido PL/pgSQL (similar a PL/SQL en Oracle), SQL, PL/Python, PL/Perl, entre otros. A continuación, te mostraré cómo crear funciones en PostgreSQL utilizando diferentes lenguajes:
+					1. Usando PL/pgSQL (Similar a PL/SQL en Oracle):
+						Sintaxis:
+							CREATE OR REPLACE FUNCTION nombre_funcion(param1 tipo1, param2 tipo2)
+							RETURNS tipo_retorno AS
+							$$
+							DECLARE
+								-- Declaraciones de variables aquí
+							BEGIN
+								-- Código de la función aquí
+							END;
+							$$
+							LANGUAGE plpgsql;
+
+							CREATE OR REPLACE FUNCTION nombre_funcion()
+							RETURNS tipo_retorno AS
+							$$
+							DECLARE
+								-- Declaraciones de variables aquí
+							BEGIN
+								-- Código de la función aquí
+							END;
+							$$
+							LANGUAGE plpgsql;
+						Ejemplo:
+							CREATE OR REPLACE FUNCTION obtener_nombre(id_persona INT)
+							RETURNS TEXT AS
+							$$
+							DECLARE
+								nombre_persona TEXT;
+							BEGIN
+								SELECT nombre INTO nombre_persona FROM personas WHERE id = id_persona;
+								RETURN nombre_persona;
+							END;
+							$$
+							LANGUAGE plpgsql;
+					2. Usando SQL:
+						Sintaxis:
+							CREATE OR REPLACE FUNCTION nombre_funcion(param1 tipo1, param2 tipo2)
+							RETURNS tipo_retorno AS
+							$$
+								-- Código de la función en SQL aquí
+							$$
+							LANGUAGE sql;
+
+							CREATE OR REPLACE FUNCTION nombre_funcion()
+							RETURNS tipo_retorno AS
+							'
+								-- Código del procedimiento aquí
+							'
+							LANGUAGE sql;
+						Ejemplo:
+							CREATE OR REPLACE FUNCTION obtener_nombre(id_persona INT)
+							RETURNS TEXT AS
+							'
+								SELECT nombre FROM personas WHERE id = $1;
+							'
+							LANGUAGE sql;
+						Recuerda que el lenguaje SQL tiene algunas limitaciones en comparación con PL/pgSQL. Por ejemplo, no puedes utilizar estructuras de control como bucles o condicionales en una función escrita en SQL. Sin embargo, es muy útil para funciones más simples que consisten principalmente en consultas SQL.
+					3. Usando PL/Python:
+						Para usar otros lenguajes, primero necesitas instalar las extensiones correspondientes y luego puedes crear procedimientos almacenados con esos lenguajes. Por ejemplo, para PL/Python.
+						Primero, instala la extensión PL/Python:
+							CREATE EXTENSION plpythonu;
+						Luego, puedes crear una función en PL/Python:
+							CREATE OR REPLACE FUNCTION nombre_funcion(param1 tipo1, param2 tipo2)
+							RETURNS tipo_retorno AS
+							$$
+								-- Código en PL/Python aquí
+							$$
+							LANGUAGE plpythonu;
+
+							CREATE OR REPLACE FUNCTION nombre_funcion()
+							RETURNS tipo_retorno AS
+							$$
+								-- Código en PL/Python aquí
+							$$
+							LANGUAGE plpythonu;
+					4. Usando PL/Perl:
+						Primero, asegúrate de que la extensión PL/Perl esté instalada:
+							CREATE EXTENSION plperl;
+						Luego, puedes crear una función en PL/Perl:
+							CREATE OR REPLACE FUNCTION nombre_funcion(param1 tipo1, param2 tipo2)
+							RETURNS tipo_retorno AS
+							$$
+								-- Código de la función en PL/Perl aquí
+							$$
+							LANGUAGE plperl;
+					5. Usando otros lenguajes:
+						Para utilizar otros lenguajes, primero necesitas instalar las extensiones correspondientes y luego puedes crear funciones con esos lenguajes.
+					Y para invocar a cualquier tipo de función, es con un SELECT:
+						SELECT nombre_funcion(param1_value, param2_value);
+
+				NOTA: Es importante mencionar que en PostgreSQL, las funciones pueden ser utilizadas en consultas SQL como cualquier otra expresión. Puedes usar el resultado de la función en una consulta, asignarlo a una variable, o incluso utilizarlo como parte de una instrucción más compleja.
+				NOTA: Es importante mencionar que, aunque PostgreSQL soporta múltiples lenguajes de programación para la creación de funciones, PL/pgSQL es el lenguaje nativo y proporciona la mayoría de las funcionalidades y características. Otros lenguajes son útiles cuando necesitas integrar código externo o tienes experiencia previa en un lenguaje específico.
+				Recuerda ajustar los nombres, tipos y lógica de tus funciones según tus requisitos específicos.
+			Para SQL Server:
+				Crea una función definida por el usuario. Una función definida por el usuario es una rutina de Transact-SQL o Common Language Runtime (CLR) que acepta parámetros, realiza una acción, como un cálculo complejo, y devuelve el resultado de esa acción como valor. El valor devuelto puede ser un valor escalar (único) o una tabla. Utilice esta instrucción para crear una rutina reutilizable que se pueda utilizar de estas formas:
+					* En instrucciones Transact-SQL como SELECT
+					* En las aplicaciones que llaman a la función
+					* En la definición de otra función definida por el usuario
+					* Para parametrizar una vista o mejorar la funcionalidad de una vista indizada
+					* Para definir una columna en una tabla
+					* Para definir una restricción CHECK en una columna
+					* Para reemplazar un procedimiento almacenado
+					* Usar una función insertada como predicado de filtro de la directiva de seguridad
+				Las 3 formas comunes para las funciones:
+					1. Función Escalar:
+						Una función escalar devuelve un solo valor basado en los parámetros de entrada.
+						Sintaxis:
+							-- Transact-SQL Scalar Function Syntax
+							CREATE [ OR ALTER ] FUNCTION [ schema_name. ] function_name
+							( [ { @parameter_name [ AS ][ type_schema_name. ] parameter_data_type [ NULL ] [ = default ] [ READONLY ] }
+								[ ,...n ]
+							] )
+							RETURNS return_data_type
+								[ WITH <function_option> [ ,...n ] ]
+								[ AS ]
+								BEGIN
+									function_body
+									RETURN scalar_expression
+								END
+							[ ; ]
+
+							CREATE FUNCTION nombre_funcion (@param1 tipo1, @param2 tipo2)
+							RETURNS tipo_retorno
+							AS
+							BEGIN
+								-- Código de la función aquí
+								RETURN valor_resultado;
+							END;
+						Ejemplo:
+							CREATE FUNCTION obtener_nombre (@id_persona INT)
+							RETURNS NVARCHAR(50)
+							AS
+							BEGIN
+								DECLARE @nombre NVARCHAR(50);
+								SELECT @nombre = nombre FROM personas WHERE id = @id_persona;
+								RETURN @nombre;
+							END;
+					2. Función de Tabla Inline:
+						Una función de tabla inline devuelve una tabla (o conjunto de filas) como resultado.
+						Sintaxis:
+							-- Transact-SQL Inline Table-Valued Function Syntax
+							CREATE [ OR ALTER ] FUNCTION [ schema_name. ] function_name
+							( [ { @parameter_name [ AS ] [ type_schema_name. ] parameter_data_type [ NULL ] [ = default ] [ READONLY ] }
+								[ ,...n ]
+							] )
+							RETURNS TABLE
+								[ WITH <function_option> [ ,...n ] ]
+								[ AS ]
+								RETURN [ ( ] select_stmt [ ) ]
+							[ ; ]
+
+							CREATE FUNCTION nombre_funcion (@param1 tipo1, @param2 tipo2)
+							RETURNS TABLE
+							AS
+							RETURN (
+								-- Código de la función aquí
+								SELECT columna1, columna2 FROM tabla WHERE condicion
+							);
+						Ejemplo:
+							CREATE FUNCTION obtener_personas_en_ciudad (@ciudad NVARCHAR(50))
+							RETURNS TABLE
+							AS
+							RETURN (
+								SELECT nombre, edad FROM personas WHERE ciudad = @ciudad
+							);
+					3. Función de Tabla Multiline:
+					Una función de tabla multiline también devuelve una tabla, pero permite más lógica y operaciones dentro de la función.
+					Sintaxis:
+						-- Transact-SQL Multi-Statement Table-Valued Function Syntax
+						CREATE [ OR ALTER ] FUNCTION [ schema_name. ] function_name
+						( [ { @parameter_name [ AS ] [ type_schema_name. ] parameter_data_type [ NULL ] [ = default ] [READONLY] }
+							[ ,...n ]
+						] )
+						RETURNS @return_variable TABLE <table_type_definition>
+							[ WITH <function_option> [ ,...n ] ]
+							[ AS ]
+							BEGIN
+								function_body
+								RETURN
+							END
+						[ ; ]
+
+						CREATE FUNCTION nombre_funcion (@param1 tipo1, @param2 tipo2)
+						RETURNS @tabla_resultado TABLE (columna1 tipo1, columna2 tipo2)
+						AS
+						BEGIN
+							-- Código de la función aquí
+							INSERT INTO @tabla_resultado (columna1, columna2) VALUES (valor1, valor2);
+							RETURN;
+						END;
+					Ejemplo:
+						CREATE FUNCTION obtener_personas_jovenes ()
+						RETURNS @tabla_resultado TABLE (nombre NVARCHAR(50), edad INT)
+						AS
+						BEGIN
+							INSERT INTO @tabla_resultado (nombre, edad)
+							SELECT nombre, edad FROM personas WHERE edad < 30;
+							RETURN;
+						END;
+				https://learn.microsoft.com/en-us/sql/t-sql/statements/create-function-transact-sql?view=sql-server-ver16
+				https://learn.microsoft.com/es-mx/sql/t-sql/statements/create-function-transact-sql?view=sql-server-ver16
+			Para Oracle:
+				https://docs.oracle.com/en/database/oracle/oracle-database/12.2/lnpls/CREATE-FUNCTION-statement.html
+			Para MySQL:
+				CREATE
+					[DEFINER = user]
+					FUNCTION [IF NOT EXISTS] sp_name ([func_parameter[,...]])
+					RETURNS type
+					[characteristic ...] routine_body
+
+				func_parameter: param_name type
+
+				type: Any valid MySQL data type
+
+				characteristic: {
+					COMMENT 'string'
+					| LANGUAGE SQL
+					| [NOT] DETERMINISTIC
+					| { CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA }
+					| SQL SECURITY { DEFINER | INVOKER }
+				}
+
+				routine_body: Valid SQL routine statement
+				https://dev.mysql.com/doc/refman/8.0/en/create-function.html
+					https://dev.mysql.com/doc/refman/8.0/en/create-procedure.html
+					https://dev.mysql.com/doc/refman/8.0/en/create-function-loadable.html
+
+				En MySQL, puedes crear funciones utilizando el lenguaje SQL o utilizando un lenguaje de programación como PL/pgSQL, PL/Python, entre otros. A continuación, te mostraré cómo crear funciones en MySQL utilizando diferentes métodos:
+					1. Crear una Función en SQL:
+						Sintaxis:
+							CREATE FUNCTION nombre_funcion(param1 tipo1, param2 tipo2)
+							RETURNS tipo_retorno
+							BEGIN
+								-- Código de la función aquí
+								RETURN valor_resultado;
+							END;
+						Ejemplo:
+							CREATE FUNCTION obtener_nombre(id_persona INT)
+							RETURNS VARCHAR(50)
+							BEGIN
+								DECLARE nombre_persona VARCHAR(50);
+								SELECT nombre INTO nombre_persona FROM personas WHERE id = id_persona;
+								RETURN nombre_persona;
+							END;
+					2. Crear una Función con PL/pgSQL:
+						Sintaxis:
+							DELIMITER //
+							CREATE FUNCTION nombre_funcion(param1 tipo1, param2 tipo2)
+							RETURNS tipo_retorno
+							BEGIN
+								-- Código de la función aquí
+								RETURN valor_resultado;
+							END //
+							DELIMITER ;
+						Ejemplo:
+							DELIMITER //
+							CREATE FUNCTION obtener_nombre(id_persona INT)
+							RETURNS VARCHAR(50)
+							BEGIN
+								DECLARE nombre_persona VARCHAR(50);
+								SELECT nombre INTO nombre_persona FROM personas WHERE id = id_persona;
+								RETURN nombre_persona;
+							END //
+							DELIMITER ;
+					3. Crear una Función con PL/Python:
+						Sintaxis:
+							DELIMITER //
+							CREATE FUNCTION nombre_funcion(param1 tipo1, param2 tipo2)
+							RETURNS tipo_retorno
+							BEGIN
+								-- Código de la función aquí
+								RETURN valor_resultado;
+							END //
+							DELIMITER ;
+						Ejemplo:
+							DELIMITER //
+							CREATE FUNCTION obtener_nombre(id_persona INT)
+							RETURNS VARCHAR(50)
+							BEGIN
+								DECLARE nombre_persona VARCHAR(50);
+								SELECT nombre INTO nombre_persona FROM personas WHERE id = id_persona;
+								RETURN nombre_persona;
+							END //
+							DELIMITER ;
+					4. Crear una Función con PL/Perl:
+						Sintaxis:
+							DELIMITER //
+							CREATE FUNCTION nombre_funcion(param1 tipo1, param2 tipo2)
+							RETURNS tipo_retorno
+							BEGIN
+								-- Código de la función aquí
+								RETURN valor_resultado;
+							END //
+							DELIMITER ;
+						Ejemplo:
+							DELIMITER //
+							CREATE FUNCTION obtener_nombre(id_persona INT)
+							RETURNS VARCHAR(50)
+							BEGIN
+								DECLARE nombre_persona VARCHAR(50);
+								SELECT nombre INTO nombre_persona FROM personas WHERE id = id_persona;
+								RETURN nombre_persona;
+							END //
+							DELIMITER ;
+				Recuerda que los nombres, tipos y lógica de tus funciones deben adaptarse a tus necesidades específicas. Estos son solo ejemplos básicos para darte una idea de cómo crear funciones en MySQL.
+				GPT
+		CREATE TRIGGER
+			Para PostgreSQL:
+				https://www.postgresql.org/docs/current/sql-createtrigger.html
+			Para SQL Server:
+				https://learn.microsoft.com/es-es/sql/t-sql/statements/create-trigger-transact-sql?view=sql-server-ver16
+			Para Oracle:
+				https://docs.oracle.com/cd/E11882_01/appdev.112/e25519/create_trigger.htm
+			Para MySQL:
+				https://dev.mysql.com/doc/refman/8.0/en/create-trigger.html
 		https://www.w3schools.com/sql/sql_ref_create.asp
 
 	* Relaciones entre tablas (uno a uno, uno a muchos, muchos a muchos):
