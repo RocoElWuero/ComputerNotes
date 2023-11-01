@@ -2339,6 +2339,42 @@ Nivel Básico:
 				GPT
 		CREATE TRIGGER
 			Para PostgreSQL:
+				CREATE [ OR REPLACE ] [ CONSTRAINT ] TRIGGER name { BEFORE | AFTER | INSTEAD OF } { event [ OR ... ] }
+					ON table_name
+					[ FROM referenced_table_name ]
+					[ NOT DEFERRABLE | [ DEFERRABLE ] [ INITIALLY IMMEDIATE | INITIALLY DEFERRED ] ]
+					[ REFERENCING { { OLD | NEW } TABLE [ AS ] transition_relation_name } [ ... ] ]
+					[ FOR [ EACH ] { ROW | STATEMENT } ]
+					[ WHEN ( condition ) ]
+					EXECUTE { FUNCTION | PROCEDURE } function_name ( arguments )
+				where "event" can be one of:
+					INSERT
+					UPDATE [ OF column_name [, ... ] ]
+					DELETE
+					TRUNCATE
+				La siguiente tabla resume qué tipos de activadores se pueden usar en tablas, vistas y tablas externas:
+					┌──────────┬────────┬───────────────────┬──────────────────────────┐
+					│  Cuando  │ Evento │ Nivel de registro │ Nivel de declaración     │
+					├──────────┼────────┼───────────────────┼──────────────────────────┤
+					│          │ INSERT │ Tablas y tablas   │ Tablas, vistas y tablas  │
+					│          │ UPDATE │ foráneas.         │ foráneas.                │
+					│          │ DELETE │                   │                          │
+					│  BEFORE  ├────────┼───────────────────┼──────────────────────────┤
+					│          │TRUNCATE│         —         │ Tablas y tablas foráneas.│
+					├──────────┼────────┼───────────────────┼──────────────────────────┤
+					│          │ INSERT │ Tablas y tablas   │ Tablas, vistas y tablas  │
+					│          │ UPDATE │ foráneas.         │ foráneas.                │
+					│          │ DELETE │                   │                          │
+					│  AFTER   ├────────┼───────────────────┼──────────────────────────┤
+					│          │TRUNCATE│         —         │ Tablas y tablas foráneas.│
+					├──────────┼────────┼───────────────────┼──────────────────────────┤
+					│          │ INSERT │                   │                          │
+					│          │ UPDATE │       Vistas      │             —            │
+					│          │ DELETE │                   │                          │
+					│INSTEAD OF├────────┼───────────────────┼──────────────────────────┤
+					│          │TRUNCATE│         —         │             —            │
+					└──────────┴────────┴───────────────────┴──────────────────────────┘
+				BEFORE/AFTER/INSTEAD OF: Determina si la función se llama antes, después o en lugar del evento. Un desencadenador de restricción solo se puede especificar como AFTER.
 				https://www.postgresql.org/docs/current/sql-createtrigger.html
 			Para SQL Server:
 				https://learn.microsoft.com/es-es/sql/t-sql/statements/create-trigger-transact-sql?view=sql-server-ver16
@@ -2347,6 +2383,11 @@ Nivel Básico:
 			Para MySQL:
 				https://dev.mysql.com/doc/refman/8.0/en/create-trigger.html
 		https://www.w3schools.com/sql/sql_ref_create.asp
+	DECLARE CURSOR
+		https://www.postgresql.org/docs/current/plpgsql-cursors.html
+		https://learn.microsoft.com/es-es/sql/relational-databases/cursors?view=sql-server-ver16
+		https://learn.microsoft.com/es-es/sql/t-sql/language-elements/declare-cursor-transact-sql?view=sql-server-ver16
+		https://dev.mysql.com/doc/refman/8.0/en/cursors.html
 
 	* Relaciones entre tablas (uno a uno, uno a muchos, muchos a muchos):
 		En SQL, las relaciones entre tablas son fundamentales para organizar y relacionar datos de manera eficiente. Existen tres tipos principales de relaciones:
