@@ -2481,34 +2481,216 @@ Nivel Básico:
 	En MySQL:
 
 	GRANT:
-		Ejemplos para PostgreSQL:
-		Ejemplo para SQL Server:
+		Para PostgreSQL:
+		Para SQL Server:
 			-- Syntax for SQL Server and Azure SQL Database
 			-- Simplified syntax for GRANT
 			GRANT { ALL [ PRIVILEGES ] }
 				| permission [ ( column [ ,...n ] ) ] [ ,...n ]
 				[ ON [ class :: ] securable ] TO principal [ ,...n ]
 				[ WITH GRANT OPTION ] [ AS principal ]
+
+			Argumentos:
+				ALL
+					Esta opción ha quedado desusada y solo se mantiene por razones de compatibilidad con versiones anteriores. No concede todos los permisos posibles. Conceder ALL es equivalente a conceder los siguientes permisos:
+						* Si el elemento protegible es una base de datos, ALL significa BACKUP DATABASE, BACKUP LOG, CREATE DATABASE, CREATE DEFAULT, CREATE FUNCTION, CREATE PROCEDURE, CREATE RULE, CREATE TABLE y CREATE VIEW.
+						* Si el elemento protegible es una función escalar, ALL significa EXECUTE y REFERENCES.
+						* Si el elemento protegible es una función con valores de tabla, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+						* Si el elemento protegible es un procedimiento almacenado, ALL significa EXECUTE.
+						* Si el elemento protegible es una tabla, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+						* Si el elemento protegible es una vista, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+				PRIVILEGES
+					Incluido por compatibilidad con ISO. No cambia el comportamiento de ALL.
+				permission
+					Es el nombre de un permiso. Las asignaciones de permisos válidas a elementos protegibles se describen en los subtemas que se muestran a continuación.
+				column
+					Especifica el nombre de una columna de una tabla en la que se van a conceder los permisos. Los paréntesis () son obligatorios.
+				class
+					Especifica la clase del elemento protegible en el que se va a conceder el permiso. El calificador de ámbito :: es obligatorio.
+				securable
+					Especifica el elemento protegible para el que se va a conceder el permiso.
+				TO principal
+					Es el nombre de una entidad de seguridad. Las entidades de seguridad a las que se pueden conceder permisos para un elemento protegible varían según el elemento protegible. Vea los subtemas enumerados a continuación para comprobar las combinaciones válidas.
+				GRANT OPTION
+					Indica que el receptor también podrá conceder el permiso especificado a otras entidades de seguridad.
+				AS principal
+					Use la cláusula AS de la entidad de seguridad para indicar que la entidad de seguridad registrada como el otorgante del permiso debe ser una entidad de seguridad distinta de la persona que ejecuta la instrucción. Por ejemplo, suponga que la usuaria María tiene el principal_id 12 y el usuario Raúl tiene el principal_id 15. Mary ejecuta GRANT SELECT ON OBJECT::X TO Steven WITH GRANT OPTION AS Raul;. Ahora, la tabla sys.database_permissions indicará que el grantor_principal_id era 15 (Raul), aunque la instrucción realmente la ejecutó el usuario 13 (Mary).
+					Normalmente, el uso de la cláusula AS no se suele recomendar, a menos que necesite definir explícitamente la cadena de permisos. Para más información, vea la sección Resumen del algoritmo de comprobación de permiso de Permisos (motor de base de datos).
+					El uso de AS en esta instrucción no implica la capacidad de suplantar a otro usuario.
 			https://learn.microsoft.com/es-es/sql/t-sql/statements/grant-transact-sql?view=sql-server-ver16
-		Ejemplo para Oracle:
-		Ejemplo para MySQL:
+		Para Oracle:
+		Para MySQL:
 	REVOKE:
-		Ejemplos para PostgreSQL:
-		Ejemplo para SQL Server:
+		Para PostgreSQL:
+		Para SQL Server:
 			-- Syntax for SQL Server and Azure SQL Database
 			-- Simplified syntax for REVOKE
 			REVOKE [ GRANT OPTION FOR ]
 				{
 					[ ALL [ PRIVILEGES ] ]
-					|
-					permission [ ( column [ ,...n ] ) ] [ ,...n ]
+					| permission [ ( column [ ,...n ] ) ] [ ,...n ]
 				}
 				[ ON [ class :: ] securable ]
 				{ TO | FROM } principal [ ,...n ]
 				[ CASCADE] [ AS principal ]
+
+			Argumentos:
+				GRANT OPTION FOR
+					Indica que se revocará la capacidad de conceder el permiso especificado. Se requiere cuando se utiliza el argumento CASCADE.
+					Importante:
+						Si la entidad de seguridad dispone del permiso especificado sin la opción GRANT, se revocará el permiso.
+				ALL
+					Se aplica a: SQL Server 2008 (10.0.x) y versiones posteriores
+					Esta opción no revoca todos los permisos posibles. Revocar ALL es equivalente a revocar los siguientes permisos:
+						* Si el elemento protegible es una base de datos, ALL significa BACKUP DATABASE, BACKUP LOG, CREATE DATABASE, CREATE DEFAULT, CREATE FUNCTION, CREATE PROCEDURE, CREATE RULE, CREATE TABLE y CREATE VIEW.
+						* Si el elemento protegible es una función escalar, ALL significa EXECUTE y REFERENCES.
+						* Si el elemento protegible es una función con valores de tabla, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+						* Si el elemento protegible es un procedimiento almacenado, ALL significa EXECUTE.
+						* Si el elemento protegible es una tabla, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+						* Si el elemento protegible es una vista, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+					Nota:
+						La sintaxis de REVOKE ALL ha quedado desusada. Esta característica se quitará en una versión futura de Microsoft SQL Server. Evite utilizar esta característica en nuevos trabajos de desarrollo y tenga previsto modificar las aplicaciones que actualmente la utilizan. En su lugar, revoque permisos concretos.
+				PRIVILEGES
+					Incluido por compatibilidad con ISO. No cambia el comportamiento de ALL.
+				permission
+					Es el nombre de un permiso. Las asignaciones válidas de permisos a elementos protegibles se describen en los temas de la sección "Sintaxis específica de los elementos protegibles" ("https://learn.microsoft.com/es-es/sql/t-sql/statements/revoke-transact-sql?view=sql-server-ver16#securable"), más adelante en este tema.
+				column
+					Especifica el nombre de una columna de una tabla en la que se van a revocar los permisos. Es obligatorio utilizar paréntesis.
+				class
+					Especifica la clase del elemento protegible para el que se va a revocar el permiso. El calificador de ámbito :: es obligatorio.
+				securable
+					Especifica el elemento protegible para el que se va a revocar el permiso.
+				TO | FROM principal
+					Es el nombre de una entidad de seguridad. Las entidades de seguridad de las que se pueden revocar permisos para un elemento protegible varían según el elemento. Para más información sobre las combinaciones válidas, vea los temas que se muestran en "Sintaxis específica de los elementos protegibles" ("https://learn.microsoft.com/es-es/sql/t-sql/statements/revoke-transact-sql?view=sql-server-ver16#securable") más adelante en este tema.
+				CASCADE
+					Indica que el permiso que se va a revocar también se revocará de otras entidades de seguridad a las que se han concedido permisos por esta entidad de seguridad. Cuando se utiliza el argumento CASCADE, también se debe incluir el argumento GRANT OPTION FOR.
+					Precaución:
+						Una revocación en cascada de un permiso concedido WITH GRANT OPTION revocará tanto GRANT como DENY de dicho permiso.
+				AS principal
+					Use la cláusula AS principal para indicar que se va a revocar un permiso que ha sido concedido por una entidad de seguridad distinta de usted. Por ejemplo, imagine que la usuaria María tiene el valor principal_id 12 y el usuario Raúl tiene el valor principal_id 15. Tanto María como Raúl conceden el mismo permiso a un usuario llamado Carlos. La tabla sys.database_permissions indicará los permisos dos veces, pero cada uno tendrá un valor de grantor_principal_id diferente. María podría revocar el permiso mediante la cláusula AS RAUL para quitar la concesión del permiso de Raúl.
+					El uso de AS en esta instrucción no implica la capacidad de suplantar a otro usuario.
 			https://learn.microsoft.com/es-es/sql/t-sql/statements/revoke-transact-sql?view=sql-server-ver16
-		Ejemplo para Oracle:
-		Ejemplo para MySQL:
+		Para Oracle:
+		Para MySQL:
+	DENY:
+		El comando "DENY" es parte del estándar SQL y está definido por el ANSI SQL (American National Standards Institute Structured Query Language). Sin embargo, la implementación específica de ciertos comandos y su semántica puede variar entre diferentes sistemas de gestión de bases de datos (DBMS).
+		Para PostgreSQL:
+			Sí, PostgreSQL también implementa el comando "DENY". Sin embargo, en PostgreSQL, la gestión de permisos es un poco diferente y se hace mediante el uso de cláusulas como "REVOKE".
+		Para SQL Server:
+			En SQL Server, el comando "DENY" se utiliza para denegar explícitamente permisos a un usuario, rol o función. Al denegar un permiso, estás previniendo que el principal de seguridad (usuario, rol o función) realice una acción específica en un objeto de la base de datos.
+			-- Syntax for SQL Server and Azure SQL Database
+			-- Simplified syntax for DENY
+			DENY { ALL [ PRIVILEGES ] }
+				| <permission> [ ( column [ ,...n ] ) ] [ ,...n ]
+				[ ON [ <class> :: ] securable ]
+				TO principal [ ,...n ]
+				[ CASCADE] [ AS principal ]
+			[;]
+
+			<permission> ::=  
+			{ see the tables below }  
+			  
+			<class> ::=  
+			{ see the tables below }
+
+			Argumentos:
+				ALL
+					Esta opción no deniega todos los permisos posibles. Al denegar ALL se deniegan los permisos siguientes:
+						* Si el elemento protegible es una base de datos, ALL significa BACKUP DATABASE, BACKUP LOG, CREATE DATABASE, CREATE DEFAULT, CREATE FUNCTION, CREATE PROCEDURE, CREATE RULE, CREATE TABLE y CREATE VIEW.
+						* Si el elemento protegible es una función escalar, ALL significa EXECUTE y REFERENCES.
+						* Si el elemento protegible es una función con valores de tabla, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+						* Si el elemento protegible es un procedimiento almacenado, ALL significa EXECUTE.
+						* Si el elemento protegible es una tabla, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+						* Si el elemento protegible es una vista, ALL significa DELETE, INSERT, REFERENCES, SELECT y UPDATE.
+					Nota: La sintaxis de "DENY ALL" está desusada. Esta característica se quitará en una versión futura de Microsoft SQL Server. Evite utilizar esta característica en nuevos trabajos de desarrollo y tenga previsto modificar las aplicaciones que actualmente la utilizan. En su lugar, deniegue permisos concretos.
+				PRIVILEGES
+					Incluido por compatibilidad con ISO. No cambia el comportamiento de ALL.
+				permission
+					Es el nombre de un permiso. Las asignaciones de permisos válidas a elementos protegibles se describen en los subtemas que se muestran a continuación.
+				column
+					Especifica el nombre de una columna de una tabla para la que se deniegan los permisos. Los paréntesis () son obligatorios.
+				class
+					Especifica la clase de elemento protegible para el que se deniega el permiso. El calificador de ámbito :: es obligatorio.
+				securable
+					Especifica el elemento protegible para el que se deniega el permiso.
+				TO principal
+					Es el nombre de una entidad de seguridad. Las entidades de seguridad para las que se pueden denegar permisos sobre un elemento protegible varían en función de este elemento protegible. Vea los temas sobre elementos protegibles enumerados más abajo para obtener combinaciones válidas.
+				CASCADE
+					Indica que el permiso se deniega para la entidad de seguridad especificada y para el resto de entidades de seguridad a las que ésta concedió el permiso. Es obligatorio cuando la entidad de seguridad tiene el permiso con GRANT OPTION.
+				AS principal
+					Especifica la entidad de seguridad de la que la entidad de seguridad que ejecuta esta consulta deriva su derecho de denegar el permiso. Use la cláusula AS de la entidad de seguridad para indicar que la entidad de seguridad registrada como el denegador del permiso debe ser una entidad de seguridad distinta de la persona que ejecuta la instrucción. Por ejemplo, suponga que la usuaria María tiene el principal_id 12 y el usuario Raúl tiene el principal_id 15. María ejecuta DENY SELECT ON OBJECT::X TO Steven WITH GRANT OPTION AS Raul;. Ahora bien, la tabla sys.database_permissions indicará que grantor_principal_id de la instrucción DENY fue 15 (Raul), aunque la instrucción realmente la ejecutó el usuario 13 (María).
+					El uso de AS en esta instrucción no implica la capacidad de suplantar a otro usuario.
+
+			Aquí tienes un ejemplo básico:
+				DENY INSERT ON dbo.TuTabla TO [RolOUsuario];
+			Este comando deniega el permiso de inserción (INSERT) en la tabla TuTabla del esquema "dbo" al rol o usuario especificado. Al utilizar "DENY", estás anulando cualquier permiso de inserción que podría haber sido otorgado previamente.
+			Algunas consideraciones importantes sobre "DENY":
+				1. Prioridad de "DENY": El comando "DENY" tiene una prioridad mayor que "GRANT". Si un usuario tiene un permiso otorgado mediante "GRANT" y también un permiso denegado mediante "DENY", la denegación tiene prioridad.
+				2. Conflictos con "GRANT": Si hay conflictos entre permisos otorgados y denegados, la denegación prevalecerá. Esto significa que aunque un usuario tenga un permiso otorgado, si ese mismo permiso está denegado a través de "DENY", el usuario no podrá realizar la acción.
+				3. Revocación de "DENY": Puedes revertir un "DENY" utilizando el comando "REVOKE". Al igual que con "GRANT", "REVOKE" elimina explícitamente los permisos denegados.
+					REVOKE INSERT ON dbo.TuTabla TO [RolOUsuario];
+			Es importante usar DENY con precaución, ya que puede afectar la funcionalidad de los usuarios. Asegúrate de comprender completamente el impacto antes de denegar permisos. Además, mantén un registro de los cambios en los permisos para facilitar la administración y auditoría de la seguridad en la base de datos.
+
+			https://learn.microsoft.com/es-es/sql/t-sql/statements/deny-transact-sql?view=sql-server-ver16
+		Para Oracle:
+			Oracle Database utiliza la cláusula "REVOKE" para revocar privilegios en lugar de "DENY". La lógica es similar, pero la sintaxis puede variar.
+		Para MySQL:
+			MySQL utiliza el comando "REVOKE" para revocar privilegios en lugar de "DENY". La sintaxis y la lógica son similares a Oracle.
+	DENY vs REVOKE:
+		Para PostgreSQL:
+		Para SQL Server:
+			Los comandos "DENY" y "REVOKE" se utilizan para propósitos similares, pero hay algunas diferencias clave en su comportamiento:
+				1. DENY:
+					"DENY" niega explícitamente un permiso a un principal de seguridad (usuario, rol o función).
+					"DENY" tiene una prioridad más alta que "GRANT", lo que significa que si un usuario tiene un permiso otorgado ("GRANT") y también un permiso denegado ("DENY") para la misma acción, la denegación prevalecerá.
+					"DENY" puede afectar directamente la capacidad de un principal para realizar una acción específica.
+						DENY INSERT ON dbo.TuTabla TO [RolOUsuario];
+				2. REVOKE:
+					"REVOKE" se utiliza para revocar (eliminar) un permiso previamente otorgado a un principal.
+					"REVOKE" elimina explícitamente un permiso previamente otorgado mediante "GRANT".
+					Si no hay un permiso otorgado previamente, "REVOKE" no tiene ningún efecto.
+						REVOKE INSERT ON dbo.TuTabla TO [RolOUsuario];
+			En resumen, ambos comandos son equivalentes en el sentido de que ambos retiran el permiso de inserción (INSERT) en la tabla "TuTabla" del esquema "dbo" para el rol o usuario especificado. Sin embargo, ten en cuenta las diferencias en el comportamiento descritas anteriormente. Si no hay un permiso otorgado previamente, ambos comandos tendrán el mismo resultado.
+
+	Ejemplos para PostgreSQL:
+	Ejemplos para SQL Server:
+		El usuario "Pepe" que esta en el grupo "newData", solo pueda insertar y actualizar:
+			1. Crear el Rol "newData" (si no existe):
+				CREATE ROLE newData;
+			2. Conceder Permisos de Inserción y Actualización al Rol "newData", para las tablas o esquemas pertinentes:
+				GRANT INSERT, UPDATE ON dbo.TuTabla TO newData;
+			3. Agregar Usuario "Pepe" al Rol "newData", mediante la creación de un procedimiento almacenado:
+				CREATE PROCEDURE sp_AddUserToRole
+					@UserName NVARCHAR(100),
+					@RoleName NVARCHAR(100)
+				AS
+				BEGIN
+					-- Verificar si el usuario existe
+					IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = @UserName)
+					BEGIN
+						PRINT 'El usuario ' + @UserName + ' no existe.';
+						RETURN;
+					END
+					-- Verificar si el rol existe
+					IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = @RoleName AND type_desc = 'DATABASE_ROLE')
+					BEGIN
+						PRINT 'El rol ' + @RoleName + ' no existe.';
+						RETURN;
+					END
+					-- Agregar Usuario "Pepe" al Rol "newData"
+					EXEC sp_addrolemember @RoleName, @UserName;
+					-- El procedimiento almacenado "sp_addrolemember", ya existe en SQL Server
+					PRINT 'El usuario ' + @UserName + ' ha sido agregado al rol ' + @RoleName + '.';
+				END;
+			4. Invocar el procedimiento almacenado:
+				EXEC sp_AddUserToRole 'Pepe' 'newData';
+			5. Revocar Otros Permisos (Opcional):
+				Si el usuario "Pepe" ya tiene otros permisos que no deseas que tenga en las tablas, puedes revocar esos permisos. Por ejemplo, si tienes un permiso de DELETE que no deseas que "Pepe" tenga, puedes hacer lo siguiente:
+						REVOKE DELETE ON dbo.TuTabla TO Pepe;
+				Ajusta estos comandos según las necesidades específicas de tu base de datos.
+			Es crucial entender que estos comandos son genéricos y deben adaptarse a la estructura y requisitos específicos de tu base de datos. Además, es importante realizar estas acciones con un usuario que tenga los privilegios adecuados, como un administrador de base de datos.
+	Ejemplos para Oracle:
+	Ejemplos para MySQL:
 
 7. Tuning:
 	El "tuning" o "ajuste" en bases de datos se refiere al proceso de optimización y ajuste de una base de datos y su configuración para mejorar el rendimiento y la eficiencia en el manejo de consultas y operaciones. Este proceso implica una serie de acciones destinadas a maximizar la eficiencia del sistema de gestión de bases de datos (DBMS) y su interacción con el hardware subyacente.
@@ -2545,14 +2727,275 @@ Nivel Básico:
 	A continuación, te proporciono algunas estrategias y prácticas comunes para el hardening de bases de datos:
 		1. Actualizaciones y Parches:
 			* Mantén la base de datos y el sistema de gestión de bases de datos (DBMS) actualizados con las últimas actualizaciones y parches de seguridad.
+			En PostgreSQL:
+			En SQL Server:
+				Las actualizaciones y parches en SQL Server son fundamentales para garantizar la seguridad, estabilidad y rendimiento de tu base de datos. Microsoft regularmente publica Service Packs, Cumulative Updates y actualizaciones de seguridad para SQL Server. Aquí hay algunos puntos clave sobre las actualizaciones y parches en SQL Server:
+					1. Service Packs (SP): Microsoft suele lanzar Service Packs para corregir problemas y mejorar la estabilidad y seguridad de SQL Server. Estos packs incluyen todas las actualizaciones anteriores y, a veces, algunas nuevas características. Es recomendable instalar el Service Pack más reciente para tu versión de SQL Server.
+					2. Cumulative Updates (CU): Además de los Service Packs, se lanzan Cumulative Updates que contienen correcciones adicionales y mejoras. Los CUs son acumulativos, lo que significa que cada CU incluye todas las correcciones de los Service Packs y CUs anteriores. Puedes optar por instalar el último CU o un CU específico según tus necesidades y requisitos de estabilidad.
+					3. Actualizaciones de Seguridad: Microsoft también publica actualizaciones de seguridad para abordar vulnerabilidades específicas. Estas actualizaciones son críticas para proteger tu sistema contra amenazas de seguridad. Asegúrate de aplicar estas actualizaciones tan pronto como estén disponibles.
+					4. Actualizaciones automáticas: SQL Server Management Studio (SSMS) y otras herramientas pueden tener actualizaciones independientes. Mantente al tanto de las actualizaciones de todas las herramientas que utilizas en tu entorno SQL Server.
+					5. Planificación y Pruebas: Antes de aplicar cualquier actualización o parche en un entorno de producción, es fundamental realizar pruebas exhaustivas en un entorno de desarrollo o de pruebas. Esto ayuda a identificar posibles problemas de compatibilidad o cambios en el comportamiento de las consultas antes de implementar las actualizaciones en un entorno de producción.
+					6. Respaldo: Antes de realizar cualquier actualización o parche, asegúrate de realizar un respaldo completo de tus bases de datos. Esto te permite revertir a un estado funcional anterior en caso de cualquier problema durante la actualización.
+					7. Documentación: Mantén un registro de las actualizaciones y parches aplicados, junto con cualquier problema conocido y soluciones. Esto facilitará la gestión del entorno y la resolución de problemas futuros.
+				Para obtener las actualizaciones más recientes y detalles específicos sobre parches, siempre es recomendable consultar el sitio web oficial de Microsoft o los recursos de soporte técnico.
+			En Oracle:
+			En MySQL:
 		2. Limitar Privilegios de Usuario:
 			* Asigna permisos y privilegios mínimos necesarios para cada usuario o rol. Evita otorgar privilegios excesivos.
+			En PostgreSQL:
+			En SQL Server:
+				Limitar los privilegios de usuario en SQL Server es una buena práctica de seguridad para garantizar que los usuarios solo tengan acceso a los recursos y acciones necesarios para realizar sus tareas sin otorgar permisos innecesarios. Aquí hay algunas estrategias que puedes utilizar para limitar los privilegios de usuario en SQL Server:
+					0. Obtener todos los permisos de un usuario determinado:
+						Para obtener información completa sobre los permisos que tiene el usuario "Pepe" en todas las bases de datos, tablas, roles, etc., puedes utilizar consultas en el catálogo de seguridad del sistema de SQL Server.
+						Aquí hay un Procedure que puedes crear:
+							CREATE PROCEDURE sp_GetCurrentUserPermissions
+							AS
+							BEGIN
+								DECLARE @UserName NVARCHAR(100);
+
+								-- Obtener el nombre del usuario actual
+								SET @UserName = SUSER_SNAME();
+
+								-- Obtener permisos en bases de datos
+								SELECT 
+									DP.class_desc AS [Clase],
+									DB_NAME() AS [Base de Datos],
+									DP.permission_name AS [Permiso],
+									DP.state_desc AS [Estado]
+								FROM sys.database_permissions DP
+								INNER JOIN sys.database_principals DU ON DP.grantee_principal_id = DU.principal_id
+								WHERE DU.name = @UserName;
+
+								-- Obtener permisos en tablas
+								SELECT 
+									TABLE_SCHEMA,
+									TABLE_NAME,
+									COLUMN_NAME,
+									DP.permission_name AS [Permiso],
+									DP.state_desc AS [Estado]
+								FROM INFORMATION_SCHEMA.COLUMNS C
+								INNER JOIN sys.database_permissions DP ON OBJECT_ID(TABLE_SCHEMA + '.' + TABLE_NAME) = DP.major_id
+								INNER JOIN sys.database_principals DU ON DP.grantee_principal_id = DU.principal_id
+								WHERE DU.name = @UserName;
+
+								-- Obtener permisos en procedimientos almacenados
+								SELECT 
+									ROUTINE_SCHEMA,
+									ROUTINE_NAME,
+									DP.permission_name AS [Permiso],
+									DP.state_desc AS [Estado]
+								FROM INFORMATION_SCHEMA.ROUTINES R
+								INNER JOIN sys.database_permissions DP ON OBJECT_ID(ROUTINE_SCHEMA + '.' + ROUTINE_NAME) = DP.major_id
+								INNER JOIN sys.database_principals DU ON DP.grantee_principal_id = DU.principal_id
+								WHERE DU.name = @UserName;
+
+								-- Obtener pertenencia a roles
+								SELECT 
+									R.name AS [Rol]
+								FROM sys.database_role_members RM
+								INNER JOIN sys.database_principals U ON RM.member_principal_id = U.principal_id
+								INNER JOIN sys.database_principals R ON RM.role_principal_id = R.principal_id
+								WHERE U.name = @UserName;
+							END;
+							EXEC sp_GetCurrentUserPermissions;
+						Este script realiza consultas en varias vistas del catálogo de seguridad del sistema para obtener información detallada sobre los permisos del usuario "Pepe" en la base de datos actual. Asegúrate de ejecutar este script en el contexto de la base de datos en la que deseas obtener la información.
+
+						Este script puede ser un buen punto de partida, pero ten en cuenta que puede ser necesario ajustarlo según las necesidades específicas de tu entorno y las configuraciones de seguridad particulares.
+					1. Principios del menor privilegio:
+						* Otorga a los usuarios solo los privilegios mínimos necesarios para realizar sus tareas.
+						* Evita otorgar privilegios de administrador a menos que sea absolutamente necesario.
+					2. Roles de servidor y roles de base de datos:
+						* Utiliza roles de servidor y roles de base de datos para agrupar permisos y simplificar la administración.
+						* Asigna usuarios a roles en lugar de otorgar permisos directamente.
+					3. Permisos a nivel de bases de datos, esquemas y objetos:
+						* La asignación de permisos en SQL Server puede realizarse a diferentes niveles: bases de datos, esquemas y objetos individuales. La elección del nivel depende de tus necesidades específicas y del grado de granularidad que desees en el control de acceso.
+							Aquí hay una descripción de cada nivel y cuándo podría ser apropiado utilizarlo:
+								1. Base de Datos Completa:
+									* Asignar permisos a nivel de base de datos te permite controlar el acceso general a la base de datos entera.
+									* Esto es útil si deseas otorgar permisos a un usuario o rol para realizar acciones en cualquier objeto dentro de la base de datos.
+										GRANT SELECT, INSERT, UPDATE ON DATABASE::TuBaseDeDatos TO [RolOUsuario];
+								2. Esquemas:
+									* Los esquemas son contenedores lógicos dentro de una base de datos y te permiten organizar objetos.
+									* Puedes asignar permisos a un esquema específico, lo que se aplicará a todos los objetos dentro de ese esquema.
+										GRANT SELECT, INSERT, UPDATE ON SCHEMA::TuEsquema TO [RolOUsuario];
+								3. Objetos Individuales:
+									* Asignar permisos a objetos individuales (tablas, vistas, procedimientos almacenados, etc.) te brinda el mayor nivel de granularidad.
+									* Esto es útil cuando deseas controlar de manera precisa quién puede realizar acciones específicas en un objeto particular.
+										GRANT SELECT, INSERT, UPDATE ON dbo.TuTabla TO [RolOUsuario];
+
+							En general, se recomienda seguir el principio de privilegios mínimos necesarios. Esto significa asignar permisos solo en el nivel más bajo necesario para que los usuarios realicen sus tareas. Si un usuario solo necesita acceder a ciertas tablas, otorga permisos solo en esas tablas en lugar de en toda la base de datos.
+
+							La elección del nivel de asignación de permisos también puede depender de la estructura y diseño de tu base de datos, así como de los requisitos de seguridad específicos de tu aplicación.
+						* Utiliza GRANT y DENY para especificar permisos y restricciones.
+					4. Revocar privilegios innecesarios:
+						* Revisa y revoca cualquier privilegio que no sea necesario para el usuario.
+						* Utiliza la instrucción REVOKE para eliminar privilegios específicos.
+					5. Control de acceso basado en funciones (RBAC):
+						* Define funciones con permisos específicos y asigna usuarios a esas funciones.
+						* Limita la cantidad de usuarios que tienen privilegios elevados.
+					6. Auditoría:
+						* Implementa auditoría para realizar un seguimiento de las actividades de los usuarios y detectar cualquier comportamiento sospechoso.
+					7. Contraseñas seguras:
+						* Asegúrate de que los usuarios utilicen contraseñas seguras y cámbialas regularmente.
+						* Considera la posibilidad de implementar políticas de contraseña.
+					8. Seguridad a nivel de red:
+						* Configura la seguridad a nivel de red para limitar el acceso desde direcciones IP específicas si es posible.
+						* Utiliza conexiones seguras mediante SSL si es necesario.
+					9. Revisión periódica:
+						* Realiza revisiones periódicas de los privilegios de usuario para asegurarte de que sigan siendo apropiados y necesarios.
+				Recuerda que la implementación de estas prácticas debe basarse en los requisitos específicos de seguridad de tu aplicación y entorno. Además, es esencial documentar y mantener actualizadas las políticas de seguridad.
+			En Oracle:
+			En MySQL:
 		3. Usar Contraseñas Fuertes:
 			* Exige contraseñas seguras y fomenta prácticas de gestión de contraseñas robustas.
+			En PostgreSQL:
+			En SQL Server:
+				Utilizar contraseñas fuertes en SQL Server es esencial para fortalecer la seguridad de tu base de datos y protegerla contra posibles amenazas. Aquí hay algunas prácticas recomendadas para establecer contraseñas fuertes en SQL Server:
+					1. Longitud:
+						* Las contraseñas deben ser lo suficientemente largas para complicar su descifrado. Se recomienda una longitud mínima de al menos 12 caracteres.
+						Para crear un nuevo usuario en SQL Server y especificar que la contraseña debe tener al menos 12 caracteres, puedes utilizar la instrucción CREATE LOGIN junto con la cláusula CHECK para imponer la restricción de longitud de la contraseña. Aquí tienes un ejemplo:
+							CREATE LOGIN NombreDeUsuario
+								WITH PASSWORD = 'TuContraseña'
+								CHECK_POLICY = ON, 
+								CHECK_EXPIRATION = OFF;
+						La cláusula "CHECK_POLICY = ON" activa la política de contraseñas, y la cláusula "CHECK_EXPIRATION = OFF" evita que la contraseña expire.
+						Sin embargo, SQL Server no proporciona una forma directa de verificar la longitud exacta de la contraseña utilizando la cláusula CHECK en la instrucción CREATE LOGIN. Para imponer una longitud mínima de 12 caracteres, es posible que necesites hacerlo a nivel de aplicación o mediante procedimientos almacenados adicionales después de la creación del usuario.
+						Por ejemplo, podrías implementar un trigger que se active después de crear el usuario y que verifique la longitud de la contraseña, generando un error si no cumple con los requisitos. Esto proporcionaría una capa adicional de control sobre la longitud de la contraseña.
+						Aquí tienes un ejemplo de cómo podrías implementar un trigger que verifique la longitud de la contraseña después de crear un usuario en SQL Server. Este trigger se activará después de una operación de inserción en la tabla sys.server_principals, que es donde se almacenan los inicios de sesión (logins).
+							CREATE TRIGGER trg_ValidarLongitudContraseña
+							ON ALL SERVER
+							AFTER CREATE_LOGIN
+							AS
+							BEGIN
+								SET NOCOUNT ON;
+
+								DECLARE @NombreDeUsuario NVARCHAR(100);
+								DECLARE @Contraseña NVARCHAR(255);
+
+								SELECT @NombreDeUsuario = EVENTDATA().value('(/EVENT_INSTANCE/ObjectName)[1]', 'NVARCHAR(100)'),
+									@Contraseña = EVENTDATA().value('(/EVENT_INSTANCE/TSQLCommand/CommandText)[1]', 'NVARCHAR(MAX)');
+
+								IF LEN(@Contraseña) < 12
+								BEGIN
+									RAISEERROR('La contraseña debe tener al menos 12 caracteres.', 16, 1);
+									ROLLBACK; -- Deshace la transacción si la contraseña no cumple con los requisitos
+								END
+							END;
+							En este ejemplo:
+								* El trigger se activará después de la creación de un login (CREATE_LOGIN).
+								* Se utiliza la función EVENTDATA() para obtener información sobre el evento, como el nombre del usuario y la contraseña.
+								* Se verifica la longitud de la contraseña, y si es menor que 12 caracteres, se genera un error y se deshace la transacción.
+							Ten en cuenta que este trigger es un ejemplo básico y puede requerir ajustes según tus necesidades específicas. Además, este tipo de verificación se hace a nivel de servidor y se aplica a todos los inicios de sesión (logins) creados, por lo que debes asegurarte de que no afecte otras operaciones legítimas.
+					2. Complejidad:
+						* Incluye una combinación de letras mayúsculas y minúsculas, números y caracteres especiales. Cuanta más variedad haya en la contraseña, más difícil será para un atacante descifrarla.
+					3. Evitar información personal:
+						* Evita el uso de información personal como nombres, fechas de nacimiento, nombres de usuarios o palabras del diccionario en las contraseñas.
+					4. Cambios periódicos:
+						* Establece políticas para cambiar las contraseñas periódicamente. Esto reduce el riesgo de que una contraseña comprometida permanezca válida durante mucho tiempo.
+						Para implementar un cambio periódico de la contraseña de un usuario en SQL Server, puedes utilizar la opción `CHECK_EXPIRATION` al crear o modificar el login. La opción `CHECK_EXPIRATION` permite especificar si las contraseñas deben caducar después de un período específico. Aquí tienes un ejemplo:
+							CREATE LOGIN NombreDeUsuario
+							WITH PASSWORD = 'TuContraseña',
+							CHECK_POLICY = ON, 
+							CHECK_EXPIRATION = ON, 
+							MUST_CHANGE = OFF; -- Esto puede ser ON o OFF dependiendo de tus necesidades
+
+						En este ejemplo:
+							* "CHECK_EXPIRATION = ON" habilita la política de caducidad de la contraseña.
+							* "MUST_CHANGE = OFF" significa que el usuario no está obligado a cambiar su contraseña en el próximo inicio de sesión, pero la contraseña caducará según la política de caducidad configurada.
+
+						Después de esta configuración, el usuario deberá cambiar su contraseña según la política de caducidad que hayas establecido. La política exacta de caducidad depende de la configuración a nivel de servidor y base de datos.
+
+						Además, si deseas establecer un período específico para el cambio de contraseña, puedes utilizar la opción `LOGINPROPERTY` para establecer la política de caducidad de la contraseña en días. Por ejemplo:
+
+							USE master;
+
+							ALTER LOGIN NombreDeUsuario
+							WITH PASSWORD = 'TuContraseña';
+
+							ALTER LOGIN NombreDeUsuario
+							WITH CHECK_EXPIRATION = ON,
+								CHECK_POLICY = ON,
+								PASSWORD_EXPIRATION = 90; -- Cambiar la contraseña cada 90 días
+
+						En este caso, "PASSWORD_EXPIRATION = 90" establece que la contraseña del usuario debe cambiarse cada 90 días. Ajusta este valor según tus políticas de seguridad específicas.
+					5. No reutilizar contraseñas:
+						* Asegúrate de que los usuarios no reutilicen contraseñas en diferentes sistemas o servicios.
+					6. Protección de credenciales:
+						* Almacena las credenciales de forma segura y utiliza medidas de seguridad adicionales, como el cifrado, para protegerlas contra accesos no autorizados.
+					7. Políticas de contraseña:
+						* SQL Server permite configurar políticas de contraseña para imponer reglas específicas, como longitud mínima, complejidad y historial de contraseñas antiguas. Habilita estas políticas para reforzar la seguridad.
+					8. Autenticación de Windows:
+						* Si es posible, utiliza la autenticación de Windows en lugar de la autenticación de SQL Server. La autenticación de Windows es generalmente más segura y menos propensa a ataques de fuerza bruta.
+					9. Bloqueo de cuentas:
+						* Configura reglas para bloquear cuentas después de un número específico de intentos fallidos. Esto ayuda a prevenir ataques de fuerza bruta.
+						En SQL Server, puedes configurar reglas para bloquear cuentas después de un número específico de intentos fallidos utilizando las políticas de bloqueo de cuenta. Estas políticas están relacionadas con la seguridad de inicio de sesión y te permiten especificar cuántos intentos fallidos de inicio de sesión son permitidos antes de que la cuenta se bloquee.
+
+						Aquí hay un ejemplo de cómo puedes configurar estas políticas:
+							1. Política de Bloqueo de Cuenta en SQL Server:
+
+								Puedes utilizar la siguiente secuencia de comandos para establecer una política de bloqueo de cuenta. En este ejemplo, la cuenta se bloqueará después de cinco intentos fallidos y se desbloqueará automáticamente después de un periodo de tiempo especificado (en este caso, 10 minutos).
+
+								USE master;
+
+								EXEC sp_configure 'show advanced options', 1;
+								RECONFIGURE;
+
+								EXEC sp_configure 'max failed logins', 5; -- Número de intentos fallidos antes del bloqueo
+								RECONFIGURE;
+
+								EXEC sp_configure 'login lockout duration', 600; -- Duración del bloqueo en segundos (600 segundos = 10 minutos)
+								RECONFIGURE;
+
+							2. Habilitar la Política de Bloqueo en un Inicio de Sesión Específico:
+
+								Para habilitar la política de bloqueo en un inicio de sesión específico, puedes utilizar la siguiente secuencia de comandos:
+
+									USE master;
+
+									ALTER LOGIN NombreDeUsuario
+									WITH CHECK_POLICY = ON;
+
+								Esto habilitará la política de bloqueo de cuenta para el usuario específico.
+
+						Recuerda ajustar "NombreDeUsuario" según el usuario para el que deseas habilitar la política de bloqueo.
+
+						Estas configuraciones proporcionarán un mecanismo de seguridad adicional para proteger las cuentas de usuario contra intentos de inicio de sesión no autorizados. Asegúrate de ajustar las configuraciones según tus requisitos de seguridad específicos.
+					10. Monitoreo y auditoría:
+				 		* Implementa un sistema de monitoreo y auditoría para detectar intentos de acceso no autorizado y otros comportamientos sospechosos.
+					11. Capas adicionales de seguridad:
+				 		* Considera la posibilidad de implementar medidas de seguridad adicionales, como la encriptación de datos, para proteger la información almacenada en la base de datos.
+				Recuerda que la seguridad es un esfuerzo conjunto que implica no solo contraseñas fuertes, sino también buenas prácticas de administración y políticas de seguridad robustas en todos los niveles de tu aplicación y entorno de base de datos.
+			En Oracle:
+			En MySQL:
 		4. Cifrado de Datos en Reposo:
 			* Utiliza cifrado para proteger los datos almacenados en disco para prevenir el acceso no autorizado en caso de robo o acceso físico.
+			En PostgreSQL:
+			En SQL Server:
+				El cifrado de datos en reposo es una práctica de seguridad esencial para proteger la información almacenada en una base de datos, evitando que sea accesible de manera no autorizada incluso si el almacenamiento físico de la base de datos es comprometido. SQL Server proporciona varias opciones para implementar el cifrado de datos en reposo. Aquí te presento algunas de las principales:
+					1. Transparent Data Encryption (TDE):
+						* TDE es una característica de SQL Server que cifra la totalidad de la base de datos en reposo. Cifra tanto los archivos de datos como los archivos de registro de transacciones. La clave de cifrado maestra se almacena en el servidor y está protegida por el servicio de clave maestra de la base de datos.
+					2. Always Encrypted:
+						* Always Encrypted permite cifrar columnas específicas de una tabla y asegura que solo las aplicaciones cliente autorizadas puedan descifrar y acceder a los datos. Las claves de cifrado se almacenan fuera de la base de datos, en un almacén de claves externo.
+					3. BitLocker:
+						* A nivel de sistema operativo, puedes usar BitLocker para cifrar la unidad que contiene los archivos de la base de datos. BitLocker es una característica de Windows que proporciona cifrado de disco completo.
+					4. File-Level Encryption:
+						* Puedes utilizar la encriptación a nivel de archivo para cifrar archivos de base de datos individuales (.mdf, .ndf) y archivos de registro de transacciones (.ldf). Esto permite un control más granular sobre qué partes de la base de datos están cifradas.
+					5. Azure SQL Database y SQL Managed Instance:
+						* Si estás utilizando Azure SQL Database o SQL Managed Instance, Microsoft proporciona automáticamente el cifrado de datos en reposo sin necesidad de configuración adicional. Esto se aplica tanto a la base de datos como a las copias de seguridad almacenadas en Azure Blob Storage.
+				Al implementar el cifrado de datos en reposo, es importante tener en cuenta las siguientes consideraciones:
+					* Rendimiento: Algunos métodos de cifrado pueden tener un impacto en el rendimiento. Realiza pruebas exhaustivas para evaluar el impacto antes de implementar en un entorno de producción.
+					* Claves y certificados: La administración de claves y certificados es crucial para el éxito del cifrado. Asegúrate de tener procedimientos sólidos para la gestión de claves y certificados, y protégelos adecuadamente.
+					* Backups: Asegúrate de que puedes restaurar copias de seguridad cifradas. Debes tener acceso a las claves y certificados necesarios para realizar restauraciones.
+					* Cumplimiento: Asegúrate de cumplir con las regulaciones y estándares de seguridad aplicables en tu industria al implementar cifrado de datos en reposo.
+				Ten en cuenta que la elección del método de cifrado dependerá de los requisitos de seguridad específicos de tu aplicación y entorno.
+			En Oracle:
+			En MySQL:
 		5. Cifrado de Datos en Tránsito:
 			* Habilita el uso de conexiones seguras (SSL/TLS) para proteger la comunicación entre la aplicación y la base de datos.
+			En PostgreSQL:
+			En SQL Server:
+			En Oracle:
+			En MySQL:
 		6. Auditoría y Registro de Eventos:
 			* Configura registros de auditoría para rastrear actividades en la base de datos y establecer alertas para eventos sospechosos.
 		7. Firewalls y Listas de Control de Acceso:
@@ -2563,10 +3006,177 @@ Nivel Básico:
 			* Restringe el acceso a los metadatos de la base de datos, como esquemas y nombres de tablas.
 		10. Monitorización y Alertas:
 			* Implementa sistemas de monitorización para supervisar el rendimiento, la disponibilidad y las actividades inusuales en la base de datos.
+			Ejemplos de Scripts de Monitoreo:
+				1. Monitorear el Espacio Libre en un Disco:
+					EXEC xp_cmdshell 'dir C:\ /-C';
+				2. Verificar la Última Hora de Inicio del Servicio de SQL Server:
+					SELECT servicename, startuptime FROM sys.dm_server_services;
+				3. Obtener el Último Respaldo Exitoso de la Base de Datos:
+					RESTORE HEADERONLY FROM DISK = 'C:\Ruta\Respaldos\Backup.bak';
+				4. Monitorear el Rendimiento de Consultas:
+					SELECT total_worker_time/execution_count AS AvgCPUTime,
+						total_elapsed_time/execution_count AS AvgElapsedTime,
+						total_logical_reads/execution_count AS AvgLogicalReads,
+						text
+					FROM sys.dm_exec_query_stats
+					CROSS APPLY sys.dm_exec_sql_text(sql_handle)
+					WHERE execution_count > 10
+					ORDER BY AvgCPUTime DESC;
+				5. Verificar el Estado de la Base de Datos:
+					SELECT name, state_desc FROM sys.databases;
 		11. Respaldo y Recuperación:
 			* Establece políticas de respaldo y recuperación robustas para proteger contra la pérdida de datos.
+			En PostgreSQL:
+			En SQL Server:
+				Establecer políticas de respaldo y recuperación robustas en SQL Server es fundamental para proteger tus datos contra pérdidas accidentales o daños en la base de datos. Aquí hay algunas prácticas recomendadas para garantizar una sólida política de respaldo y recuperación:
+					1. Realizar Copias de Seguridad Regularmente:
+						* Programa copias de seguridad regulares de tus bases de datos. La frecuencia dependerá de la cantidad de cambios en los datos y la importancia de la información.
+						-- Ejemplo de una copia de seguridad completa
+						BACKUP DATABASE TuBaseDeDatos TO DISK = 'Ruta\Archivo.bak';
+					2. Utilizar Diferentes Tipos de Copias de Seguridad:
+						* Combina copias de seguridad completas, diferenciales y de registros de transacciones según tus necesidades. Las copias de seguridad diferenciales pueden ayudar a reducir el tiempo de recuperación.
+						-- Ejemplo de una copia de seguridad diferencial
+						BACKUP DATABASE TuBaseDeDatos TO DISK = 'Ruta\ArchivoDiferencial.bak' WITH DIFFERENTIAL;
+						* "WITH DIFFERENTIAL": Esta cláusula indica que la copia de seguridad será diferencial. Una copia de seguridad diferencial incluye SOLO los datos que han cambiado desde la última copia de seguridad completa. Esto ayuda a reducir el tiempo y el espacio requerido para realizar copias de seguridad incrementales.
+					3. Almacenar Copias de Seguridad en Lugares Seguros:
+						* Guarda tus copias de seguridad en ubicaciones seguras, como unidades de red, dispositivos de cinta o servicios de almacenamiento en la nube.
+					4. Establecer Políticas de Retención:
+						* Define políticas de retención de copias de seguridad para gestionar la cantidad de tiempo durante el cual se deben retener las copias de seguridad.
+						-- Ejemplo de retención de copias de seguridad
+						BACKUP DATABASE TuBaseDeDatos TO DISK = 'Ruta\Archivo.bak' WITH RETAINDAYS = 30;
+						* "WITH RETAINDAYS = 30": Esta cláusula establece una política de retención para la copia de seguridad. Indica que la copia de seguridad se retendrá durante 30 días. Después de este período, la copia de seguridad podría ser eliminada automáticamente, según la configuración de retención.
+					5. Realizar Pruebas de Restauración:
+						* Regularmente, realiza pruebas de restauración de tus copias de seguridad para asegurarte de que puedas recuperar datos eficazmente cuando sea necesario.
+						* Para restaurar una copia de seguridad en SQL Server, puedes utilizar el siguiente script como ejemplo. Asegúrate de tener el archivo de copia de seguridad en la ruta especificada antes de ejecutar el script:
+							USE [master];
+							GO
+
+							-- Restaurar la copia de seguridad completa
+							RESTORE DATABASE [fifa] FROM DISK = 'Ruta\Archivo.bak'
+							WITH REPLACE, RECOVERY;
+
+							-- Restaurar la copia de seguridad diferencial
+							RESTORE DATABASE [fifa] FROM DISK = 'Ruta\ArchivoDiferencial.bak'
+							WITH REPLACE, RECOVERY;
+						Explicación de los comandos:
+							1. "USE [master];": Este comando cambia el contexto a la base de datos master, ya que necesitas estar en la base de datos master para realizar operaciones de restauración.
+							2. "RESTORE DATABASE [fifa] FROM DISK = 'Ruta\Archivo.bak' WITH REPLACE, RECOVERY;": Este comando restaura la copia de seguridad completa. La opción "WITH REPLACE" se utiliza para reemplazar la base de datos existente si ya existe. La opción "WITH RECOVERY" indica que la base de datos se debe dejar en un estado utilizable y no en un estado de restauración.
+							3. "RESTORE DATABASE [fifa] FROM DISK = 'Ruta\ArchivoDiferencial.bak' WITH REPLACE, RECOVERY;": Este comando restaura la copia de seguridad diferencial. Nuevamente, se utiliza "WITH REPLACE" para reemplazar la base de datos existente si ya existe, y "WITH RECOVERY" para dejar la base de datos en un estado utilizable.
+						Ten en cuenta que estos son ejemplos y debes adaptar las rutas de los archivos de copia de seguridad según tu entorno. Además, asegúrate de tener permisos suficientes para realizar operaciones de restauración y ten en cuenta que la restauración de una copia de seguridad puede sobrescribir datos existentes en la base de datos destino.
+					6. Medidas de precaución en la restauración:
+						Restaurar una base de datos desde una copia de seguridad es una operación crítica que puede afectar los datos existentes en la base de datos objetivo. Aquí hay algunas medidas de precaución que debes tener en cuenta antes de realizar una restauración:
+							1. Hacer Copias de Seguridad Adicionales:
+								* Antes de realizar cualquier operación de restauración, asegúrate de tener copias de seguridad actualizadas de la base de datos actual. Esto proporciona un punto de recuperación en caso de que algo salga mal durante la restauración.
+							2. Conocer el Estado Actual de la Base de Datos:
+								* Verifica el estado actual de la base de datos antes de la restauración. Asegúrate de comprender cualquier cambio significativo que se haya realizado en la base de datos desde la última copia de seguridad.
+							3. Documentación:
+								* Mantén una documentación detallada de los procedimientos de restauración que estás llevando a cabo. Esto facilita la identificación de cualquier problema y la revisión de los pasos realizados.
+								Formas para documentar:
+									1. Wiki o Documentación Interna:
+										* Utiliza un sistema de wiki interno o algún tipo de documentación compartida donde puedas detallar los procedimientos de respaldo y restauración. Incluye información sobre comandos SQL, ubicaciones de archivos de respaldo, y cualquier configuración específica.
+									2. Plantillas de Documentación:
+										* Crea plantillas estandarizadas para documentar cada procedimiento. Incluye secciones para la descripción del proceso, comandos utilizados, ubicaciones de archivos, fechas de respaldo, frecuencia, y cualquier nota relevante.
+									3. Diagramas de Flujo:
+										* Añade diagramas de flujo que representen visualmente los pasos de los procesos. Esto puede facilitar la comprensión rápida y proporcionar una referencia visual.
+									4. Registro de Cambios:
+										* Incluye un registro de cambios para documentar cualquier ajuste, mejora o cambio en los procedimientos. Esto ayuda a rastrear la evolución de los procesos a lo largo del tiempo.
+									5. Enlaces y Referencias:
+										* Agrega enlaces y referencias a documentación externa, guías de mejores prácticas, y recursos relevantes. Mantén la documentación actualizada con las últimas prácticas recomendadas.
+							4. Realizar Restauraciones en un Entorno de Pruebas:
+								* Si es posible, realiza las restauraciones primero en un entorno de pruebas para verificar que el proceso funcione como se espera. Esto te permite identificar posibles problemas antes de afectar la base de datos de producción.
+							5. Verificar la Integridad de la Copia de Seguridad:
+								* Antes de realizar la restauración, verifica la integridad de la copia de seguridad utilizando el comando "RESTORE VERIFYONLY". Esto asegura que la copia de seguridad esté en buen estado y se pueda restaurar correctamente.
+							6. Conocer las Opciones de Restauración:
+								* Comprende las opciones de restauración que estás utilizando, como "WITH REPLACE" y "WITH RECOVERY". Estas opciones pueden tener un impacto significativo en la base de datos existente.
+							7. Revisar los Mensajes de Error:
+								* Si algo sale mal durante la restauración, revisa detenidamente los mensajes de error proporcionados por SQL Server. Estos mensajes pueden ofrecer información valiosa sobre cualquier problema encontrado.
+							8. Comunicación con el Equipo:
+								* Comunica tus planes de restauración con el equipo de operaciones y cualquier otra persona que pueda verse afectada. Asegúrate de que todos estén al tanto de la operación planificada.
+							9. Hacer la Restauración Fuera de Horas Pico:
+								* Si es posible, realiza operaciones de restauración fuera de las horas pico de uso de la base de datos para minimizar el impacto en los usuarios.
+							10. Monitorear el Proceso:
+								* Monitorea de cerca el proceso de restauración para identificar cualquier problema inmediato. Utiliza herramientas de monitoreo y registros de SQL Server.
+								Formas para monitorear el proceso:
+									1. SQL Server Management Studio (SSMS):
+										* Utiliza SSMS para monitorear el progreso de las operaciones de respaldo y restauración. Puedes revisar la actividad reciente, consultar los mensajes de estado y ver el progreso en la ventana de mensajes.
+									2. SQL Server Agent:
+										* Configura trabajos de SQL Server Agent para las operaciones de respaldo y restauración. Esto te permitirá programar y monitorear las tareas automáticamente.
+									3. Alertas y Notificaciones:
+										* Configura alertas y notificaciones para recibir avisos en caso de que haya problemas durante las operaciones de respaldo o restauración. Utiliza SQL Server Agent para gestionar estas alertas.
+									4. Registros de Errores y Eventos de Windows:
+										* Examina los registros de errores de SQL Server y los eventos de Windows para obtener información detallada sobre cualquier problema o error que pueda ocurrir durante las operaciones.
+									5. Herramientas de Monitoreo Externas:
+										* Considera el uso de herramientas de monitoreo de terceros que puedan proporcionar informes más detallados y alertas personalizadas.
+									6. Scripts de Monitoreo Personalizados:
+										* Desarrolla scripts personalizados que puedan ejecutarse periódicamente para verificar el estado de las operaciones. Estos scripts pueden proporcionar métricas específicas que te interesen.
+									7. Dashboards de Monitoreo:
+										* Configura dashboards de monitoreo que te den una visión general del rendimiento y el estado de las operaciones de respaldo y restauración.
+								Recuerda que la clave para un monitoreo efectivo es la proactividad. Configura alertas para identificar problemas antes de que afecten significativamente la operación de la base de datos.
+						Siguiendo estas medidas de precaución, puedes minimizar los riesgos asociados con las operaciones de restauración y asegurarte de que la base de datos se restaure de manera segura y eficiente.
+					7. Habilitar el Modelo de Recuperación Apropiado:
+						* Configura el modelo de recuperación de la base de datos según tus necesidades (Simple, Completo, o Bulk-Logged). El modelo de recuperación afecta la forma en que se administran los registros de transacciones.
+						Simple:
+							Cuando se utiliza el modelo de recuperación Simple, la base de datos mantiene un número mínimo de registros de transacciones. Este modelo es apropiado para bases de datos donde no se requiere la capacidad de realizar restauraciones a un punto específico en el tiempo y donde la pérdida de datos desde el último respaldo no es crítica.
+
+							Para cambiar el modelo de recuperación de una base de datos a Simple, puedes utilizar la siguiente instrucción SQL: ALTER DATABASE TuBaseDeDatos SET RECOVERY SIMPLE;
+
+							Donde "TuBaseDeDatos" es el nombre de la base de datos a la que deseas cambiar el modelo de recuperación.
+
+							Recuerda que, al utilizar el modelo de recuperación Simple, no puedes realizar copias de seguridad de registros de transacciones. Los registros de transacciones se liberan automáticamente después de cada copia de seguridad completa de la base de datos. Esto puede simplificar la administración de la base de datos, pero también significa que no podrás realizar restauraciones a un punto específico en el tiempo más allá del último respaldo completo.
+
+							Si decides utilizar el modelo de recuperación Simple, asegúrate de comprender las implicaciones y de planificar copias de seguridad completas de manera regular según tus necesidades de retención de datos y capacidad de recuperación.
+						Completo:
+							-- Cambiar el modelo de recuperación a Completo
+							ALTER DATABASE TuBaseDeDatos SET RECOVERY FULL;
+							* "SET RECOVERY FULL": Esta cláusula establece el modelo de recuperación de la base de datos en "Completo". El modelo de recuperación determina cómo se gestionan los registros de transacciones y afecta las opciones de copia de seguridad y recuperación disponibles para la base de datos.
+							* En el modelo de recuperación "Completo", se pueden realizar copias de seguridad de registros de transacciones y copias de seguridad diferenciales. Esto permite una recuperación a un punto específico en el tiempo, lo que es útil para aplicaciones que requieren la capacidad de realizar recuperaciones precisas.
+							* Es importante mencionar que al cambiar el modelo de recuperación a "Completo", también se aumenta la complejidad de la administración, ya que es necesario realizar copias de seguridad regulares de los registros de transacciones para evitar el crecimiento no controlado del registro de transacciones. Además, la restauración a un punto específico en el tiempo requiere registros de transacciones de copias de seguridad. Por lo tanto, al cambiar el modelo de recuperación, debes asegurarte de tener una estrategia de copia de seguridad y restauración adecuada en su lugar.
+					8. Monitorizar y Gestionar el Espacio en Disco:
+						* Asegúrate de tener suficiente espacio en disco para almacenar copias de seguridad y registros de transacciones. Configura alertas para notificar sobre la falta de espacio.
+					9. Implementar Respaldo de la Base de Datos del Sistema (System Databases):
+						* Realiza copias de seguridad de las bases de datos del sistema (master, model, msdb) junto con las bases de datos de usuario.
+					10. Documentar y Automatizar:
+						* Documenta tus políticas de respaldo y recuperación y automatiza el proceso tanto como sea posible.
+
+				Recuerda que la implementación específica puede variar según tus requisitos y el entorno. Personaliza estas prácticas recomendadas según las necesidades de tu aplicación y tu política de recuperación.
+			En Oracle:
+			En MySQL:
 		12. Pruebas de Seguridad y Evaluaciones de Vulnerabilidad:
 			* Realiza pruebas de seguridad y evaluaciones de vulnerabilidad de manera regular para identificar y mitigar posibles amenazas.
+		13. Migraciones:
+			En PostgreSQL:
+			En SQL Server:
+				Las migraciones en el contexto de bases de datos se refieren al proceso de cambiar la estructura de una base de datos, ya sea para actualizarla a una nueva versión, agregar nuevas tablas o modificar las existentes. En SQL Server, una forma común de realizar migraciones es mediante el uso de scripts de SQL.
+
+				Aquí hay una guía general sobre cómo realizar migraciones en SQL Server:
+					1. Planificación:
+						* Antes de realizar cualquier cambio en la base de datos, es crucial realizar una planificación adecuada.
+						* Identifica los cambios que necesitas realizar y cómo afectarán a la estructura de la base de datos.
+					2. Backup:
+						* Antes de realizar cualquier migración, realiza una copia de seguridad completa de la base de datos. Esto es esencial en caso de que algo salga mal durante la migración.
+					3. Scripts de Migración:
+						* Crea scripts de SQL que contengan las instrucciones necesarias para realizar los cambios deseados en la base de datos.
+						* Estos scripts pueden incluir instrucciones como `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE`, etc.
+					4. Control de Versiones:
+						* Utiliza algún sistema de control de versiones para rastrear los cambios en tus scripts de migración. Esto facilita la colaboración y permite volver a versiones anteriores si es necesario.
+					5. Transacciones:
+						* Envuelve tus scripts de migración en transacciones. Esto asegura que todos los cambios se realicen de manera atómica; es decir, o se realizan todos los cambios o ninguno.
+					6. Pruebas:
+						* Realiza pruebas exhaustivas de tus scripts en un entorno de prueba antes de aplicarlos a la base de datos en producción.
+					7. Ejecución de Migración:
+						* Una vez que tus scripts hayan sido probados con éxito, ejecútalos en la base de datos en producción.
+						* Monitorea el proceso y verifica que todo se haya ejecutado según lo planeado.
+					8. Verificación:
+						* Después de la migración, verifica que la base de datos esté funcionando correctamente.
+						* Asegúrate de que las aplicaciones que utilizan la base de datos también funcionen como se espera.
+					9. Documentación:
+						* Actualiza la documentación de la base de datos para reflejar los cambios realizados.
+					10. Registro de Cambios:
+						* Lleva un registro de todos los cambios realizados en la base de datos. Esto es útil para futuras referencias y auditorías.
+
+				Es importante destacar que las migraciones de bases de datos deben realizarse con precaución, especialmente en entornos de producción. Realizar copias de seguridad, probar exhaustivamente y seguir buenas prácticas de desarrollo son pasos clave para garantizar el éxito de las migraciones en SQL Server.
+			En Oracle:
+			En MySQL:
 
 	Recuerda que el hardening de bases de datos es un proceso continuo y debe adaptarse a medida que evolucionan las amenazas y las necesidades de seguridad. Cada sistema de gestión de bases de datos puede tener configuraciones y características específicas, por lo que es importante conocerlas y aplicar las prácticas de hardening adecuadas a tu entorno particular.
 

@@ -1,7 +1,7 @@
 El AWK es un lenguaje de programación y una herramienta de procesamiento de texto muy útil en entornos Unix y Linux. Aquí tienes un temario básico y avanzado de AWK:
 
 Nivel Básico:
-1. Introducción a AWK
+1. Introducción a AWK:
 	* ¿Qué es AWK?
 		AWK es un lenguaje de programación y una herramienta de procesamiento de texto desarrollada principalmente para la manipulación y análisis de archivos de texto en sistemas operativos tipo Unix. Su nombre proviene de las iniciales de sus creadores: Alfred Aho, Peter Weinberger y Brian Kernighan. AWK es conocido por su capacidad para procesar y transformar datos de texto de manera eficiente.
 		AWK actúa como un filtro que toma datos de entrada, los procesa y produce resultados en función de patrones definidos por el usuario. Es especialmente útil para la extracción y presentación de información específica de conjuntos de datos estructurados, como archivos CSV y registros de texto.
@@ -10,7 +10,7 @@ Nivel Básico:
 		El propósito principal de AWK es permitir a los usuarios realizar tareas de procesamiento de datos de manera sencilla y efectiva. A lo largo de los años, AWK se ha convertido en una parte integral de los sistemas Unix y Linux, y su versatilidad lo hace valioso tanto para tareas simples como para manipulaciones de datos más complejas.
 		AWK se destaca por su sintaxis concisa y potente, lo que lo convierte en una opción popular para scripts y procesamiento de datos en la línea de comandos. Aunque ha sido superado en algunas capacidades por lenguajes más modernos, AWK sigue siendo una herramienta valiosa y se utiliza ampliamente en el desarrollo de scripts y en flujos de trabajo de administración de sistemas en entornos Unix y Linux.
 
-2. Estructura básica de un programa AWK
+2. Estructura básica de un programa AWK:
 	* Patrón-acción, y Reglas básicas.
 		Estructura Básica de un Programa AWK:
 			El código en AWK sigue una estructura básica que incluye patrones y acciones. Un programa AWK típicamente consiste en reglas que especifican patrones y las acciones asociadas a ejecutar cuando esos patrones coinciden con líneas en la entrada.
@@ -41,7 +41,7 @@ Nivel Básico:
 
 			Recuerda que el programa AWK puede tener múltiples reglas, y cada regla se evalúa para cada línea de entrada en el orden en que aparecen en el programa. La estructura básica de patrón y acción hace que AWK sea poderoso y flexible para manipular datos de texto de manera eficiente.
 
-3. Variables en AWK
+3. Variables en AWK:
 	En AWK, las variables son utilizadas para almacenar y manipular datos. Hay variables internas predefinidas que tienen valores específicos según el contexto en el que se utilizan. Además, puedes crear y asignar tus propias variables según sea necesario.
 	* Variables internas predefinidas.
 		* NF (Number of Fields): Almacena el número de campos (columnas) en la línea actual.
@@ -164,21 +164,153 @@ Nivel Básico:
 				print "La condición es falsa"
 			}
 
-5. Patrones y Acciones
+5. Patrones y Acciones:
+	En AWK, los patrones y acciones forman la base de las reglas que gobiernan el procesamiento de líneas. Los patrones se utilizan para seleccionar líneas específicas, y las acciones definen qué hacer con las líneas seleccionadas.
 	* Uso de patrones para seleccionar líneas.
+		1. Patrones Simples:
+			Selecciona líneas que coinciden exactamente con el patrón.
+			/patron/ {
+				# Acciones a realizar en las líneas que contienen "patron"
+			}
+		2. Expresiones Regulares:
+			Utiliza expresiones regulares para patrones más complejos.
+			/patron[0-9]+/ {
+				# Acciones a realizar en las líneas que contienen "patron" seguido de uno o más dígitos
+			}
+		3. Comparaciones Numéricas:
+			Selecciona líneas basadas en comparaciones numéricas.
+			$1 > 10 {
+				# Acciones a realizar en las líneas donde el primer campo es mayor que 10
+			}
 	* Ejecución de acciones en líneas seleccionadas.
+		Las acciones se definen dentro de llaves `{}` y se ejecutan en las líneas que coinciden con el patrón.
+		/patron/ {
+			# Acción 1
+			# Acción 2
+			# ...
+		}
+		Ejemplo Completo:
+			# Este programa AWK imprime las líneas que contienen la palabra "error" y muestra el número de línea.
+			/error/ {
+				print "Línea", NR, ":", $0
+			}
+			En este ejemplo:
+				* El patrón "/error/" selecciona líneas que contienen la palabra "error".
+				* La acción: print "Línea", NR, ":", $0; Imprime el número de línea ("NR") y la línea completa ("$0").
+			Para ejecutar este script en un archivo, puedes usar el siguiente comando:
+				awk -f script.awk archivo.txt
+			Reemplaza "script.awk" con el nombre de tu archivo AWK y "archivo.txt" con el nombre de tu archivo de datos real. Este script seleccionará y mostrará las líneas que contienen la palabra "error".
 
-6. Funciones en AWK
+6. Funciones en AWK:
+	AWK proporciona tanto funciones incorporadas como la capacidad de definir funciones personalizadas para realizar operaciones específicas en los datos procesados.
 	* Funciones incorporadas.
+		AWK incluye varias funciones incorporadas que puedes utilizar para realizar operaciones comunes en datos. Algunas de las funciones incorporadas más utilizadas incluyen:
+			1. length(string): Devuelve la longitud de la cadena.
+				cadena = "Hola, Mundo!"
+				longitud = length(cadena)
+				print "La longitud de la cadena es:", longitud
+			2. split(string, array, separator): Divide una cadena en un array utilizando un separador y devuelve el número de elementos.
+				frase = "Esto es una prueba"
+				num_palabras = split(frase, palabras, " ")
+				print "Número de palabras:", num_palabras
+			3. substr(string, start, length): Devuelve una subcadena de la cadena dada.
+				mensaje = "Bienvenido al mundo de AWK"
+				subcadena = substr(mensaje, 1, 9)
+				print "Subcadena:", subcadena
+			4. tolower(string) y toupper(string): Convierten una cadena a minúsculas o mayúsculas, respectivamente.
+				texto = "Mayúsculas y Minúsculas"
+				en_minusculas = tolower(texto)
+				en_mayusculas = toupper(texto)
 	* Definición de funciones propias.
+		Además de las funciones incorporadas, puedes definir tus propias funciones para realizar operaciones específicas. Aquí hay un ejemplo de cómo puedes definir una función propia en AWK:
+			# Definición de una función para calcular el área de un círculo
+			function calcular_area_radio(radio) {
+				return 3.14159265358979323846 * radio * radio
+			}
 
-7. Estructuras de Control
+			# Uso de la función
+			radio_circulo = 5
+			area_circulo = calcular_area_radio(radio_circulo)
+			print "El área del círculo con radio", radio_circulo, "es:", area_circulo
+		En este ejemplo, la función `calcular_area_radio` toma el radio como argumento y devuelve el área del círculo. La función se llama luego con un valor específico de radio.
+		Las funciones personalizadas en AWK se definen utilizando la palabra clave `function` seguida del nombre de la función y sus parámetros entre paréntesis. Puedes llamar a estas funciones en cualquier parte de tu programa AWK después de su definición.
+
+7. Estructuras de Control:
+	En AWK, puedes utilizar sentencias de control de flujo como "if-else" y bucles "while" y "for" para controlar el comportamiento de tu programa.
 	* Sentencias if-else.
+		La estructura básica de una sentencia "if-else" en AWK es la siguiente:
+			if (condición) {
+				# Acciones a realizar si la condición es verdadera
+			} else {
+				# Acciones a realizar si la condición es falsa
+			}
+		Ejemplo:
+			# Este programa AWK clasifica las líneas según si el primer campo es mayor, menor o igual a 5.
+			{
+				if ($1 > 5) {
+					print "Mayor que 5:", $0
+				} else if ($1 < 5) {
+					print "Menor que 5:", $0
+				} else {
+					print "Igual a 5:", $0
+				}
+			}
 	* Bucles while y for.
+		* Bucle "while":
+			La estructura básica de un bucle "while" en AWK es la siguiente:
+				while (condición) {
+					# Acciones a realizar mientras la condición sea verdadera
+				}
+			Ejemplo:
+				# Este programa AWK utiliza un bucle while para imprimir los números del 1 al 5.
+				contador = 1
+				while (contador <= 5) {
+					print contador
+					contador++
+				}
+		* Bucle "for":
+			La estructura básica de un bucle "for" en AWK es la siguiente:
+				for (inicialización; condición; actualización) {
+					# Acciones a realizar en cada iteración
+				}
+			Ejemplo:
+				# Este programa AWK utiliza un bucle for para imprimir los números del 1 al 5.
+				for (i = 1; i <= 5; i++) {
+					print i
+				}
 
-8. Trabajo con Campos y Delimitadores
+8. Trabajo con Campos y Delimitadores:
+	En AWK, las líneas de entrada se dividen en campos utilizando un delimitador por defecto (espacio en blanco) o un delimitador personalizado. Puedes acceder y manipular estos campos según tus necesidades.
 	* Separadores de campo.
+		Por defecto, AWK utiliza el espacio en blanco como separador de campo. Cada palabra o conjunto de caracteres separados por espacios se considera un campo.
+		Puedes cambiar el separador de campo utilizando la variable "FS" (Field Separator). Por ejemplo, para usar una coma como separador:
+			BEGIN {
+				FS = ","
+			}
 	* Acceso y manipulación de campos.
+		Puedes acceder a los campos utilizando las variables "$1", "$2", ..., "$NF", donde "NF" es el número total de campos en la línea.
+		Ejemplo:
+			# Este programa AWK imprime el segundo y cuarto campos de cada línea.
+			{
+				print "Segundo campo:", $2
+				print "Cuarto campo:", $4
+			}
+		Puedes manipular los campos de diversas maneras, como concatenarlos, modificar su contenido, etc.
+		Ejemplo:
+			# Este programa AWK concatena el segundo y tercer campos, y luego imprime la línea resultante.
+			{
+				nuevo_campo = $2 $3
+				print "Nueva línea:", $1, nuevo_campo, $4
+			}
+		Si has cambiado el separador de campo ("FS"), también puedes referenciar los campos utilizando el nombre de la variable delimitadora de campo ("$nombre"), donde "nombre" es el nombre del campo.
+		Ejemplo:
+			# Este programa AWK utiliza un punto y coma como separador de campo e imprime el segundo campo.
+			BEGIN {
+				FS = ";"
+			}
+			{
+				print "Segundo campo:", $2
+			}
 
 9. Impresión y Formateo de Salida
 	* Uso de "print" y "printf".
