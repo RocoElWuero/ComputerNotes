@@ -60,7 +60,7 @@ Nivel Básico:
 				Estos conceptos son fundamentales en lógica y razonamiento. Aquí te explico cada uno:
 					1. Proposición:
 						* Una proposición es una afirmación o enunciado que puede ser verdadero o falso, pero no ambas cosas al mismo tiempo. Por ejemplo, "El sol es una estrella" es una proposición porque puede ser evaluada como verdadera o falsa.
-						* Las proposiciones pueden ser simples (como el ejemplo anterior) o compuestas, lo que significa que están formadas por una combinación de proposiciones simples utilizando conectivos lógicos (como "y", "o", "no", "si...entonces", etc.).
+						* Las proposiciones pueden ser simples (como el ejemplo anterior) o compuestas, lo que significa que están formadas por una combinación de proposiciones simples utilizando conectivos lógicos (como 'y', 'o', "no", "si...entonces", etc.).
 					2. Premisas:
 						* Las premisas son proposiciones que se presentan como evidencia o información inicial en un argumento. Son las afirmaciones que se utilizan para respaldar o justificar una conclusión. En un argumento, las premisas se utilizan para llegar a una conclusión.
 					3. Conclusión:
@@ -89,9 +89,15 @@ Nivel Básico:
 						* Representa la equivalencia lógica entre dos proposiciones. Por ejemplo, "P ↔ Q" representa "P si y solo si Q", lo cual es verdadero si ambas proposiciones tienen el mismo valor de verdad.
 					6. Cuantificadores:
 						* ∃ (Existencial): Representa "existe al menos uno".
+							El cuantificador existencial (∃) se lee como "existe al menos un" o "hay algún". Cuando usamos el cuantificador existencial, estamos afirmando que hay al menos un elemento en el dominio que satisface cierta propiedad.
+							Ejemplo:
+								* "∃xP(x)" se lee como "Existe al menos un x tal que P(x)". Esto afirma que hay al menos un elemento 'x' en el dominio para el cual la propiedad "P(x)" es verdadera.
 						* ∀ (Universal): Representa "para todo" o "para cada uno".
+							El cuantificador universal (∀) se lee como "para todo" o "para cada". Cuando usamos el cuantificador universal, estamos afirmando que la propiedad en cuestión es verdadera para todos los elementos del dominio.
+							Ejemplo:
+								* "∀xP(x)" se lee como "Para todo x, P(x)". Esto afirma que la propiedad "P(x)" es verdadera para todos los elementos 'x' en el dominio.
 					7. Variables y Constantes:
-						* Las letras (por ejemplo, P, Q, R) se utilizan para representar proposiciones o variables.
+						* Las letras (por ejemplo, 'P', 'Q', 'R') se utilizan para representar proposiciones o variables.
 					8. Paréntesis ( ):
 						* Se utilizan para agrupar proposiciones y definir el orden de evaluación.
 					9. Puntuación:
@@ -99,12 +105,35 @@ Nivel Básico:
 					10. Igualdad (=):
 						* Representa la igualdad entre términos o expresiones.
 				Estos símbolos y conectores lógicos permiten construir expresiones y fórmulas que representan relaciones y estructuras lógicas de manera precisa y formal. Al aprender a utilizarlos, se pueden construir argumentos y demostraciones de manera rigurosa en lógica formal.
+				Aquí tienes un ejemplo utilizando símbolos y conectores lógicos en el lenguaje de la lógica formal, junto con su versión en español:
+					Con variables:
+						Lógica Formal:
+							"∀x(P(x)→Q(x))∧∃y¬R(y)"
+						Versión en Español:
+							`Para todo 'x', si "P(x)" entonces "Q(x)", y existe al menos un 'y' tal que no es el caso que "R(y)".`
+						En este ejemplo:
+							* "∀x" representa el cuantificador universal, indicando que la declaración siguiente es verdadera para todos los elementos 'x' en el dominio.
+							* "(P(x)→Q(x))" es una implicación, que se lee como "si P(x), entonces Q(x)".
+							* '∧' es el conector lógico de conjunción, que se lee como 'y'.
+							* "∃y" representa el cuantificador existencial, indicando que la declaración siguiente es verdadera para al menos un elemento 'y' en el dominio.
+							* "¬R(y)" es una negación, que se lee como "no es el caso que R(y)".
+						Este ejemplo es una afirmación lógica más compleja que involucra variables cuantificadas, conectores lógicos y negación.
+					Con proposiciones:
+						Lógica Formal:
+							"∀x(Hombre(x)→Mortal(x))∧∃y¬Rico(y)"
+						Versión en Español:
+							"Para todo 'x', si 'x' es un hombre, entonces 'x' es mortal, y existe al menos un 'y' tal que 'y' no es rico."
+						En este ejemplo:
+							* "Hombre(x)" representa la proposición "x es un hombre".
+							* "Mortal(x)" representa la proposición "x es mortal".
+							* "Rico(y)" representa la proposición "y es rico".
+						Entonces, la afirmación lógica en español ahora se lee como: "Para todo 'x', si 'x' es un hombre, entonces 'x' es mortal, y existe al menos un 'y' tal que 'y' no es rico."
 			* Construcción de tablas de verdad.
 				La construcción de tablas de verdad es una herramienta fundamental en la lógica formal que permite analizar y evaluar la validez de proposiciones compuestas o argumentos. Consiste en listar todas las posibles combinaciones de valores de verdad de las proposiciones simples involucradas y determinar el valor de verdad de la proposición compuesta en cada caso.
 
 				A continuación, te guiaré paso a paso en la construcción de una tabla de verdad:
 					Paso 1: Identificar las Proposiciones Simples
-						* Primero, identifica todas las proposiciones simples involucradas en la expresión lógica. Estas son las proposiciones que no están conectadas por operadores lógicos, como P, Q, R, etc.
+						* Primero, identifica todas las proposiciones simples involucradas en la expresión lógica. Estas son las proposiciones que NO están conectadas por operadores lógicos, como P, Q, R, etc.
 					Paso 2: Determinar el Número de Filas
 						* El número de filas en la tabla de verdad será igual a 2 elevado a la cantidad de proposiciones simples. Por ejemplo, si hay 3 proposiciones simples (P, Q, R), habrá 2^3 = 8 filas.
 					Paso 3: Listar Todas las Combinaciones
@@ -113,65 +142,104 @@ Nivel Básico:
 						* En las columnas siguientes, escribe las expresiones lógicas que deseas evaluar utilizando los conectores lógicos (¬, ∧, ∨, →, ↔) y las proposiciones simples. Por ejemplo, si tienes la expresión (P ∧ Q), escribe el resultado de la conjunción de "P y Q" para cada fila.
 					Paso 5: Determinar los Valores de Verdad
 						* Para cada fila, evalúa el valor de verdad de la expresión lógica según las combinaciones de verdad y falsedad de las proposiciones simples. Puedes usar las reglas de evaluación de operadores lógicos.
-
-					A continuación, te proporciono algunos ejemplos de tablas de verdad para diferentes tipos de expresiones:
-						Ejemplo 1: Conjunción "(P ∧ Q)"
-							| P | Q | P ∧ Q |
-							|---|---|-------|
-							| 0 | 0 |   0   |
-							| 0 | 1 |   0   |
-							| 1 | 0 |   0   |
-							| 1 | 1 |   1   |
-						Ejemplo 2: Disyunción "(P ∨ Q)"
-							| P | Q | P ∨ Q |
-							|---|---|-------|
-							| 0 | 0 |   0   |
-							| 0 | 1 |   1   |
-							| 1 | 0 |   1   |
-							| 1 | 1 |   1   |
-						Ejemplo 3: Negación "(¬P)"
-							| P | ¬P |
-							|---|----|
-							| 0 |  1 |
-							| 1 |  0 |
-						Ejemplo 4: Implicación "(P → Q)"
-							| P | Q | P → Q |
-							|---|---|-------|
-							| 0 | 0 |   1   |
-							| 0 | 1 |   1   |
-							| 1 | 0 |   0   |
-							| 1 | 1 |   1   |
-						Ejemplo 5: Equivalencia "(P ↔ Q)"
-							| P | Q | P ↔ Q |
-							|---|---|-------|
-							| 0 | 0 |   1   |
-							| 0 | 1 |   0   |
-							| 1 | 0 |   0   |
-							| 1 | 1 |   1   |
-						Ejemplo 6: Expresión Compuesta "((P ∧ Q) ∨ ¬R)"
-							| P | Q | R | (P ∧ Q) ∨ ¬R |
-							|---|---|---|---------------|
-							| 0 | 0 | 0 |       1       |
-							| 0 | 0 | 1 |       0       |
-							| 0 | 1 | 0 |       1       |
-							| 0 | 1 | 1 |       0       |
-							| 1 | 0 | 0 |       1       |
-							| 1 | 0 | 1 |       0       |
-							| 1 | 1 | 0 |       1       |
-							| 1 | 1 | 1 |       1       |
-						Ejemplo 7: Expresión Compuesta "(P ∧ Q) → R"
-							| P | Q | R | (P ∧ Q) → R |
-							|---|---|---|-------------|
-							| 0 | 0 | 0 |      1      |
-							| 0 | 0 | 1 |      1      |
-							| 0 | 1 | 0 |      1      |
-							| 0 | 1 | 1 |      1      |
-							| 1 | 0 | 0 |      1      |
-							| 1 | 0 | 1 |      1      |
-							| 1 | 1 | 0 |      0      |
-							| 1 | 1 | 1 |      1      |
-
+				A continuación, te proporciono algunos ejemplos de tablas de verdad para diferentes tipos de expresiones:
+					Ejemplo 1: Conjunción "(P ∧ Q)"
+						| P | Q | P ∧ Q |
+						|---|---|-------|
+						| 0 | 0 |   0   |
+						| 0 | 1 |   0   |
+						| 1 | 0 |   0   |
+						| 1 | 1 |   1   |
+					Ejemplo 2: Disyunción "(P ∨ Q)"
+						| P | Q | P ∨ Q |
+						|---|---|-------|
+						| 0 | 0 |   0   |
+						| 0 | 1 |   1   |
+						| 1 | 0 |   1   |
+						| 1 | 1 |   1   |
+					Ejemplo 3: Negación "(¬P)"
+						| P | ¬P |
+						|---|----|
+						| 0 |  1 |
+						| 1 |  0 |
+					Ejemplo 4: Implicación "(P → Q)"
+						| P | Q | P → Q |
+						|---|---|-------|
+						| 0 | 0 |   1   |
+						| 0 | 1 |   1   |
+						| 1 | 0 |   0   |
+						| 1 | 1 |   1   |
+					Ejemplo 5: Equivalencia "(P ↔ Q)"
+						| P | Q | P ↔ Q |
+						|---|---|-------|
+						| 0 | 0 |   1   |
+						| 0 | 1 |   0   |
+						| 1 | 0 |   0   |
+						| 1 | 1 |   1   |
+					Ejemplo 6: Expresión Compuesta "((P ∧ Q) ∨ ¬R)"
+						| P | Q | R | (P ∧ Q) ∨ ¬R |
+						|---|---|---|---------------|
+						| 0 | 0 | 0 |       1       |
+						| 0 | 0 | 1 |       0       |
+						| 0 | 1 | 0 |       1       |
+						| 0 | 1 | 1 |       0       |
+						| 1 | 0 | 0 |       1       |
+						| 1 | 0 | 1 |       0       |
+						| 1 | 1 | 0 |       1       |
+						| 1 | 1 | 1 |       1       |
+					Ejemplo 7: Expresión Compuesta "(P ∧ Q) → R"
+						| P | Q | R | (P ∧ Q) → R |
+						|---|---|---|-------------|
+						| 0 | 0 | 0 |      1      |
+						| 0 | 0 | 1 |      1      |
+						| 0 | 1 | 0 |      1      |
+						| 0 | 1 | 1 |      1      |
+						| 1 | 0 | 0 |      1      |
+						| 1 | 0 | 1 |      1      |
+						| 1 | 1 | 0 |      0      |
+						| 1 | 1 | 1 |      1      |
 					Estos son solo ejemplos simples para ilustrar cómo se construyen las tablas de verdad. Puedes aplicar el mismo proceso para expresiones más complejas que involucren más proposiciones y conectores lógicos. Recuerda que las tablas de verdad son una herramienta valiosa para determinar la validez de expresiones lógicas en diferentes contextos.
+				Ahora la tabla de verdad, para el caso que se vio en los "Símbolos y conectores lógicos":
+					Con variables:
+						Lógica Formal:
+							"∀x(P(x)→Q(x))∧∃y¬R(y)"
+						Versión en Español:
+							`Para todo 'x', si "P(x)" entonces "Q(x)", y existe al menos un 'y' tal que no es el caso que "R(y)".`
+					Con proposiciones:
+						Lógica Formal:
+							"∀x(Hombre(x)→Mortal(x))∧∃y¬Rico(y)"
+						Versión en Español:
+							"Para todo 'x', si 'x' es un hombre, entonces 'x' es mortal, y existe al menos un 'y' tal que 'y' no es rico."
+					La proposición dada es:
+						"∀x(Hombre(x)→Mortal(x))∧∃y¬Rico(y)"
+
+					===============================
+					Analicemos la expresión original "∀x(Hombre(x)→Mortal(x))∧∃y¬Rico(y)" paso a paso y construyamos la tabla de verdad más detalladamente. Supongamos que el dominio de 'x' e 'y' son todas las personas en el mundo.
+
+					Expresión Original:
+						"∀x(Hombre(x)→Mortal(x))∧∃y¬Rico(y)"
+
+					Tabla de Verdad:
+						| "Hombre(x)" | "Mortal(x)" | "Rico(y)" | "¬Rico(y)" | "Hombre(x)→Mortal(x)" | "∃y¬Rico(y)" | "∀x(Hombre(x)→Mortal(x))∧∃y¬Rico(y)" |
+						|-------------|-------------|-----------|------------|-----------------------|--------------|---------------------------------------|
+						|      1      |      1      |     1     |      0     |           1           |       0      |                   0                   |
+						|      1      |      1      |     0     |      1     |           1           |       1      |                   1                   |
+						|      1      |      0      |     1     |      0     |           0           |       0      |                   0                   |
+						|      1      |      0      |     0     |      1     |           0           |       1      |                   0                   |
+						|      0      |    NULL     |     1     |      0     |         NULL          |       1      |                 NULL                  |
+						|      0      |    NULL     |     0     |      1     |         NULL          |       1      |                 NULL                  |
+
+					Detalles de la Evaluación:
+						1. Para cada valor de 'x', evaluamos la proposición compuesta "Hombre(x)→Mortal(x)".
+							* Si "Hombre(x)" es Verdadero (1) y "Mortal(x)" es Verdadero (1), entonces "Hombre(x)→Mortal(x)" es Verdadero (1).
+							* Si "Hombre(x)" es Verdadero (1) y "Mortal(x)" es Falso (0), entonces "Hombre(x)→Mortal(x)" es Falso (0).
+							* Para 'x' donde "Hombre(x)" es Falso (0), la evaluación es indeterminada "NULL".
+						2. Luego, evaluamos "∃y¬Rico(y)", que es Verdadero (1) si hay al menos un 'y' tal que no es rico, y Falso (0) en caso contrario.
+							* En el caso de la tercera fila, "∃y¬Rico(y)" es Falso (0) porque no hay ningún 'y' que no sea rico.
+						3. Finalmente, evaluamos la conjunción de las dos proposiciones anteriores.
+							* La expresión completa es Verdadera (1) solo cuando ambas proposiciones son Verdaderas (1).
+					===============================
+
 		2.3. Proposiciones y razonamiento válido:
 			* Proposiciones simples y compuestas.
 				En lógica formal, las proposiciones son afirmaciones que pueden ser evaluadas como verdaderas o falsas. Estas proposiciones pueden clasificarse en dos tipos: simples y compuestas.
@@ -200,48 +268,79 @@ Nivel Básico:
 					Las leyes lógicas son principios o reglas que establecen relaciones fundamentales entre proposiciones y operadores lógicos. Estas leyes son verdaderas en cualquier contexto y no dependen de la interpretación específica de las proposiciones. Algunas de las leyes lógicas más comunes son:
 						1. Ley de Identidad (Idempotencia):
 							La Ley de Identidad, también conocida como la Ley de Idempotencia, establece que una proposición que se conjuga (mediante 'y' o '∧') con sí misma, o se disyunta (mediante 'o' o '∨') consigo misma, siempre tiene el mismo valor de verdad que la proposición original.
-							* Para la Conjunción (P ∧ P ≡ P):
-								Esta ley nos dice que si tomamos una proposición P y la conjuntamos consigo misma, el resultado siempre será P. En otras palabras, si algo es verdadero, entonces es verdadero; si algo es falso, entonces es falso.
+							* Para la Conjunción (P∧P≡P):
+								Esta ley nos dice que si tomamos una proposición 'P' y la conjuntamos consigo misma, el resultado siempre será 'P'. En otras palabras, si algo es verdadero, entonces es verdadero; si algo es falso, entonces es falso.
 								Ejemplo:
-									Si P representa la afirmación "El sol es una estrella", entonces P ∧ P significa "El sol es una estrella y el sol es una estrella", lo cual es lógicamente equivalente a simplemente decir "El sol es una estrella".
-							* Para la Disyunción (P ∨ P ≡ P):
-								Esta ley nos dice que si tomamos una proposición P y la disyuntamos consigo misma, el resultado siempre será P. Esto significa que si algo es verdadero, entonces es verdadero; si algo es falso, entonces es falso.
+									Si 'P' representa la afirmación "El sol es una estrella", entonces "P∧P" significa "El sol es una estrella y el sol es una estrella", lo cual es lógicamente equivalente a simplemente decir "El sol es una estrella".
+							* Para la Disyunción (P∨P≡P):
+								Esta ley nos dice que si tomamos una proposición 'P' y la disyuntamos consigo misma, el resultado siempre será 'P'. Esto significa que si algo es verdadero, entonces es verdadero; si algo es falso, entonces es falso.
 								Ejemplo:
-									Si P representa la afirmación "El agua hierve a 100 grados Celsius", entonces P ∨ P significa "El agua hierve a 100 grados Celsius o el agua hierve a 100 grados Celsius", lo cual es lógicamente equivalente a simplemente decir "El agua hierve a 100 grados Celsius".
+									Si 'P' representa la afirmación "El agua hierve a 100 grados Celsius", entonces "P∨P" significa "El agua hierve a 100 grados Celsius o el agua hierve a 100 grados Celsius", lo cual es lógicamente equivalente a simplemente decir "El agua hierve a 100 grados Celsius".
 							En resumen, la Ley de Identidad (Idempotencia) nos dice que cuando combinamos una proposición con ella misma mediante conjunción o disyunción, el resultado siempre es simplemente la proposición original.
 						2. Ley de Dominio (Identidad Anulativa):
 							La Ley de Dominio, también conocida como la Ley de Identidad Anulativa, establece que si una proposición se conjunta (mediante 'y' o '∧') con la proposición verdadera 1 o se disjunta (mediante 'o' o '∨') con la proposición falsa 0, el resultado siempre será la proposición original.
-							* Para la Conjunción (P ∧ 1 ≡ P):
-								Esta ley nos dice que si tomamos una proposición P y la conjuntamos con la proposición verdadera 1, el resultado siempre será P. Esto significa que si algo es verdadero y algo más es verdadero (lo cual siempre es el caso para la proposición verdadera 1), entonces la primera proposición sigue siendo verdadera.
+							* Para la Conjunción (P∧1≡P):
+								Esta ley nos dice que si tomamos una proposición 'P' y la conjuntamos con la proposición verdadera 1, el resultado siempre será 'P'. Esto significa que si algo es verdadero y algo más es verdadero (lo cual siempre es el caso para la proposición verdadera 1), entonces la primera proposición sigue siendo verdadera.
 								Ejemplo:
-									Si P representa la afirmación "El sol es una estrella", entonces P ∧ 1 significa "El sol es una estrella y algo es verdadero" lo cual es lógicamente equivalente a simplemente decir "El sol es una estrella".
-							* Para la Disyunción (P ∨ 0 ≡ P):
-								Esta ley nos dice que si tomamos una proposición P y la disjuntamos con la proposición falsa 0, el resultado siempre será P. Esto significa que si algo es verdadero o algo más es falso (lo cual siempre es el caso para la proposición falsa 0), entonces la primera proposición sigue siendo verdadera.
+									Si 'P' representa la afirmación "El sol es una estrella", entonces "P∧1" significa "El sol es una estrella y algo es verdadero" lo cual es lógicamente equivalente a simplemente decir "El sol es una estrella".
+							* Para la Disyunción (P∨0≡P):
+								Esta ley nos dice que si tomamos una proposición 'P' y la disjuntamos con la proposición falsa 0, el resultado siempre será 'P'. Esto significa que si algo es verdadero o algo más es falso (lo cual siempre es el caso para la proposición falsa 0), entonces la primera proposición sigue siendo verdadera.
 								Ejemplo:
-									Si P representa la afirmación "El agua hierve a 100 grados Celsius", entonces P ∨ 0 significa "El agua hierve a 100 grados Celsius o algo es falso", lo cual es lógicamente equivalente a simplemente decir "El agua hierve a 100 grados Celsius".
+									Si 'P' representa la afirmación "El agua hierve a 100 grados Celsius", entonces "P∨0" significa "El agua hierve a 100 grados Celsius o algo es falso", lo cual es lógicamente equivalente a simplemente decir "El agua hierve a 100 grados Celsius".
 							En resumen, la Ley de Dominio (Identidad Anulativa) nos dice que cuando combinamos una proposición con la proposición verdadera 1 mediante conjunción, o con la proposición falsa 0 mediante disyunción, el resultado siempre es simplemente la proposición original.
 						3. Ley de Complemento (Termino Absoluto):
-							La Ley de Complemento, también conocida como Ley del Termino Absoluto, establece que si tomamos una proposición P y su negación ¬ P, y luego las conjuntamos (mediante 'y' o '∧') o las disjuntamos (mediante 'o' o '∨'), el resultado siempre será la proposición falsa 0 en el caso de la conjunción, o la proposición verdadera 1 en el caso de la disyunción.
-							* Para la Conjunción (P ∧ ¬P ≡ 0):
-								Esta ley nos dice que si tomamos una proposición P y su negación ¬ P, y luego las conjuntamos, el resultado siempre será la proposición falsa 0. Esto significa que no puede ser el caso que una afirmación y su negación sean ambas verdaderas al mismo tiempo.
+							La Ley de Complemento, también conocida como Ley del Termino Absoluto, establece que si tomamos una proposición 'P' y su negación "¬P", y luego las conjuntamos (mediante 'y' o '∧') o las disjuntamos (mediante 'o' o '∨'), el resultado siempre será la proposición falsa 0 en el caso de la conjunción, o la proposición verdadera 1 en el caso de la disyunción.
+							* Para la Conjunción (P∧¬P≡0):
+								Esta ley nos dice que si tomamos una proposición 'P' y su negación "¬P", y luego las conjuntamos, el resultado siempre será la proposición falsa 0. Esto significa que no puede ser el caso que una afirmación y su negación sean ambas verdaderas al mismo tiempo.
 								Ejemplo:
-									Si P representa la afirmación "El sol es una estrella", entonces P ∧ ¬ P significa "El sol es una estrella y el sol no es una estrella", lo cual es lógicamente equivalente a simplemente decir "Es falso que el sol sea una estrella".
-							* Para la Disyunción (P ∨ ¬P ≡ 1):
-								Esta ley nos dice que si tomamos una proposición P y su negación ¬ P, y luego las disjuntamos, el resultado siempre será la proposición verdadera 1. Esto significa que siempre es el caso que una afirmación o su negación sean verdaderas.
+									Si 'P' representa la afirmación "El sol es una estrella", entonces "P∧¬P" significa "El sol es una estrella y el sol no es una estrella", lo cual es lógicamente equivalente a simplemente decir "Es falso que el sol sea una estrella".
+							* Para la Disyunción (P∨¬P≡1):
+								Esta ley nos dice que si tomamos una proposición 'P' y su negación "¬P", y luego las disjuntamos, el resultado siempre será la proposición verdadera 1. Esto significa que siempre es el caso que una afirmación o su negación sean verdaderas.
 								Ejemplo:
-									Si P representa la afirmación "El agua hierve a 100 grados Celsius", entonces P ∨ ¬ P significa "El agua hierve a 100 grados Celsius o el agua no hierve a 100 grados Celsius", lo cual es lógicamente equivalente a simplemente decir "Es cierto que el agua hierve a 100 grados Celsius o es cierto que no hierve a 100 grados Celsius".
+									Si 'P' representa la afirmación "El agua hierve a 100 grados Celsius", entonces "P∨¬P" significa "El agua hierve a 100 grados Celsius o el agua no hierve a 100 grados Celsius", lo cual es lógicamente equivalente a simplemente decir "Es cierto que el agua hierve a 100 grados Celsius o es cierto que no hierve a 100 grados Celsius".
 							En resumen, la Ley de Complemento nos dice que cuando tomamos una proposición y su negación, y luego las conjuntamos o las disjuntamos, el resultado siempre será la proposición falsa 0 en el caso de la conjunción, o la proposición verdadera 1 en el caso de la disyunción.
 						4. Ley de Idempotencia:
-							* P ∧ P ∧ P ≡ P
-							* P ∨ P ∨ P ≡ P
+							La ley de idempotencia en lógica formal se refiere a la propiedad de algunas operaciones lógicas de mantener su valor cuando se aplican múltiples veces a la misma proposición. Aquí están las leyes de idempotencia para las operaciones lógicas de conjunción (∧) y disyunción (∨):
+								* Para la Conjunción (P∧P∧P≡P):
+									Esto significa que la conjunción de una proposición consigo misma varias veces es equivalente a la proposición original.
+									Ejemplo:
+										Supongamos que 'P' representa la proposición "El sol es una estrella". Aplicando la ley de idempotencia para la conjunción, tenemos:
+											"El sol es una estrella"∧"El sol es una estrella"∧"El sol es una estrella"≡"El sol es una estrella"
+											En este caso, la repetición de la conjunción no cambia el hecho de que "El sol es una estrella".
+								* Para la Disyunción (P∨P∨P≡P):
+									En este caso, la disyunción de una proposición consigo misma varias veces es equivalente a la proposición original.
+									Ejemplo:
+										Supongamos que 'P' representa la proposición "El agua es esencial para la vida". Aplicando la ley de idempotencia para la disyunción, tenemos:
+											"El agua es esencial para la vida"∨"El agua es esencial para la vida"∨"El agua es esencial para la vida"≡"El agua es esencial para la vida"
+											En este caso, la repetición de la disyunción no cambia el hecho de que "El agua es esencial para la vida".
+								Estas leyes reflejan el hecho de que repetir la operación lógica no cambia el resultado cuando se aplica a la misma proposición. Es importante destacar que estas leyes son específicas para la conjunción y la disyunción en el contexto de la lógica formal.
 						5. Ley de Contradicción:
-							* P ∧ ¬ P ≡ 0
-							* P ∨ ¬ P ≡ 1
+							La ley de contradicción en lógica formal establece que la conjunción de una proposición 'P' y su negación "¬P" siempre resulta en la proposición falsa (0), mientras que la disyunción de 'P' y "¬P" siempre resulta en la proposición verdadera (1). Aquí están las leyes de contradicción:
+								* Para la Conjunción (P∧¬P≡0):
+									Ejemplo:
+										Supongamos que 'P' representa la proposición "Hoy es lunes". Aplicando la ley de contradicción para la conjunción, tenemos:
+											"Hoy es lunes"∧"Hoy no es lunes"≡0
+											Esta expresión es siempre falsa, ya que no puede ser simultáneamente lunes y no lunes.
+								* Para la Disyunción (P∨¬P≡1):
+									Ejemplo:
+										Supongamos que 'P' representa la proposición "El cielo es azul". Aplicando la ley de contradicción para la disyunción, tenemos:
+											"El cielo es azul"∨"El cielo no es azul"≡1
+											Esta expresión es siempre verdadera, ya que el cielo siempre es azul o no es azul.
+								Estas leyes reflejan la idea de que una proposición y su negación son mutuamente excluyentes, y su combinación resulta en una contradicción o en una tautología, dependiendo de la operación lógica utilizada.
 						6. Ley de Doble Negación:
-							* ¬ ¬ P ≡ P
+							La ley de doble negación en lógica formal establece que la doble negación de una proposición 'P' es equivalente a la proposición original. Aquí está la ley de doble negación:
+								¬¬P≡P
+								Ejemplo:
+									Supongamos que 'P' representa la proposición "El sol es una estrella". Aplicando la ley de doble negación, tenemos:
+										¬¬"El sol es una estrella"≡"El sol es una estrella"
+									En este caso, la doble negación de la afirmación "El sol es una estrella" es lógicamente equivalente a la afirmación original.
+								La ley de doble negación refleja la idea de que dos negaciones sucesivas se cancelan entre sí, dejando la proposición original sin negación.
 						7. Ley de De Morgan:
-							* ¬ (P ∧ Q) ≡ (¬ P) ∨ (¬ Q)
-							* ¬ (P ∨ Q) ≡ (¬ P) ∧ (¬ Q)
+							La ley de De Morgan en lógica formal describe cómo negar una conjunción y una disyunción. Aquí están las leyes de De Morgan:
+								* Ley de De Morgan para la Negación de la Conjunción:
+									¬(P∧Q)≡(¬P)∨(¬Q)¬ (P ∧ Q) ≡ (¬ P) ∨ (¬ Q)
+								* Ley de De Morgan para la Negación de la Disyunción:
+									¬(P∨Q)≡(¬P)∧(¬Q)
 						8. Leyes de la Conmutatividad:
 							* Conmutatividad de la Conjunción: P ∧ Q ≡ Q ∧ P
 							* Conmutatividad de la Disyunción: P ∨ Q ≡ Q ∨ P
@@ -267,7 +366,7 @@ Nivel Básico:
 				Tautologías:
 					Una tautología es una expresión lógica compuesta que es verdadera para cualquier asignación de valores de verdad a sus proposiciones simples. En otras palabras, es una afirmación que es siempre verdadera, independientemente de los valores de verdad de sus componentes.
 
-					Por ejemplo, la expresión P ∨ ¬ P es una tautología, ya que siempre será verdadera, sin importar si P es verdadero o falso. Esto se debe a la Ley de Contradicción, que establece que P ∨ ¬ P ≡ 1 en cualquier caso.
+					Por ejemplo, la expresión "P∨¬P" es una tautología, ya que siempre será verdadera, sin importar si 'P' es verdadero o falso. Esto se debe a la Ley de Contradicción, que establece que "P∨¬P≡1" en cualquier caso.
 
 					El reconocimiento de tautologías es importante en la lógica, ya que son fundamentales para demostrar la validez de argumentos y la consistencia de teorías lógicas. También juegan un papel crucial en la inferencia y la demostración formal.
 		2.4. Argumentos y falacias:
