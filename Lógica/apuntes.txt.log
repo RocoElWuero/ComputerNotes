@@ -278,27 +278,27 @@ Nivel Básico:
 									Si 'P' representa la afirmación "El agua hierve a 100 grados Celsius", entonces "P∨P" significa "El agua hierve a 100 grados Celsius o el agua hierve a 100 grados Celsius", lo cual es lógicamente equivalente a simplemente decir "El agua hierve a 100 grados Celsius".
 							En resumen, la Ley de Identidad (Idempotencia) nos dice que cuando combinamos una proposición con ella misma mediante conjunción o disyunción, el resultado siempre es simplemente la proposición original.
 						2. Ley de Dominio (Identidad Anulativa):
-							La Ley de Dominio, también conocida como la Ley de Identidad Anulativa, establece que si una proposición se conjunta (mediante 'y' o '∧') con la proposición verdadera 1 o se disjunta (mediante 'o' o '∨') con la proposición falsa 0, el resultado siempre será la proposición original.
+							La Ley de Dominio, también conocida como la Ley de Identidad Anulativa, establece que si una proposición se conjunta (mediante 'y' o '∧') con la proposición verdadera (1) o se disjunta (mediante 'o' o '∨') con la proposición falsa (0), el resultado siempre será la proposición original.
 							* Para la Conjunción (P∧1≡P):
-								Esta ley nos dice que si tomamos una proposición 'P' y la conjuntamos con la proposición verdadera 1, el resultado siempre será 'P'. Esto significa que si algo es verdadero y algo más es verdadero (lo cual siempre es el caso para la proposición verdadera 1), entonces la primera proposición sigue siendo verdadera.
+								Esta ley nos dice que si tomamos una proposición 'P' y la conjuntamos con la proposición verdadera (1), el resultado siempre será 'P'. Esto significa que si algo es verdadero y algo más es verdadero (lo cual siempre es el caso para la proposición verdadera (1)), entonces la primera proposición sigue siendo verdadera.
 								Ejemplo:
 									Si 'P' representa la afirmación "El sol es una estrella", entonces "P∧1" significa "El sol es una estrella y algo es verdadero" lo cual es lógicamente equivalente a simplemente decir "El sol es una estrella".
 							* Para la Disyunción (P∨0≡P):
-								Esta ley nos dice que si tomamos una proposición 'P' y la disjuntamos con la proposición falsa 0, el resultado siempre será 'P'. Esto significa que si algo es verdadero o algo más es falso (lo cual siempre es el caso para la proposición falsa 0), entonces la primera proposición sigue siendo verdadera.
+								Esta ley nos dice que si tomamos una proposición 'P' y la disjuntamos con la proposición falsa (0), el resultado siempre será 'P'. Esto significa que si algo es verdadero o algo más es falso (lo cual siempre es el caso para la proposición falsa (0)), entonces la primera proposición sigue siendo verdadera.
 								Ejemplo:
 									Si 'P' representa la afirmación "El agua hierve a 100 grados Celsius", entonces "P∨0" significa "El agua hierve a 100 grados Celsius o algo es falso", lo cual es lógicamente equivalente a simplemente decir "El agua hierve a 100 grados Celsius".
-							En resumen, la Ley de Dominio (Identidad Anulativa) nos dice que cuando combinamos una proposición con la proposición verdadera 1 mediante conjunción, o con la proposición falsa 0 mediante disyunción, el resultado siempre es simplemente la proposición original.
+							En resumen, la Ley de Dominio (Identidad Anulativa) nos dice que cuando combinamos una proposición con la proposición verdadera (1) mediante conjunción, o con la proposición falsa (0) mediante disyunción, el resultado siempre es simplemente la proposición original.
 						3. Ley de Complemento (Termino Absoluto):
-							La Ley de Complemento, también conocida como Ley del Termino Absoluto, establece que si tomamos una proposición 'P' y su negación "¬P", y luego las conjuntamos (mediante 'y' o '∧') o las disjuntamos (mediante 'o' o '∨'), el resultado siempre será la proposición falsa 0 en el caso de la conjunción, o la proposición verdadera 1 en el caso de la disyunción.
+							La Ley de Complemento, también conocida como Ley del Termino Absoluto, establece que si tomamos una proposición 'P' y su negación "¬P", y luego las conjuntamos (mediante 'y' o '∧') o las disjuntamos (mediante 'o' o '∨'), el resultado siempre será la proposición falsa (0) en el caso de la conjunción, o la proposición verdadera (1) en el caso de la disyunción.
 							* Para la Conjunción (P∧¬P≡0):
-								Esta ley nos dice que si tomamos una proposición 'P' y su negación "¬P", y luego las conjuntamos, el resultado siempre será la proposición falsa 0. Esto significa que no puede ser el caso que una afirmación y su negación sean ambas verdaderas al mismo tiempo.
+								Esta ley nos dice que si tomamos una proposición 'P' y su negación "¬P", y luego las conjuntamos, el resultado siempre será la proposición falsa (0). Esto significa que no puede ser el caso que una afirmación y su negación sean ambas verdaderas al mismo tiempo.
 								Ejemplo:
 									Si 'P' representa la afirmación "El sol es una estrella", entonces "P∧¬P" significa "El sol es una estrella y el sol no es una estrella", lo cual es lógicamente equivalente a simplemente decir "Es falso que el sol sea una estrella".
 							* Para la Disyunción (P∨¬P≡1):
-								Esta ley nos dice que si tomamos una proposición 'P' y su negación "¬P", y luego las disjuntamos, el resultado siempre será la proposición verdadera 1. Esto significa que siempre es el caso que una afirmación o su negación sean verdaderas.
+								Esta ley nos dice que si tomamos una proposición 'P' y su negación "¬P", y luego las disjuntamos, el resultado siempre será la proposición verdadera (1). Esto significa que siempre es el caso que una afirmación o su negación sean verdaderas.
 								Ejemplo:
 									Si 'P' representa la afirmación "El agua hierve a 100 grados Celsius", entonces "P∨¬P" significa "El agua hierve a 100 grados Celsius o el agua no hierve a 100 grados Celsius", lo cual es lógicamente equivalente a simplemente decir "Es cierto que el agua hierve a 100 grados Celsius o es cierto que no hierve a 100 grados Celsius".
-							En resumen, la Ley de Complemento nos dice que cuando tomamos una proposición y su negación, y luego las conjuntamos o las disjuntamos, el resultado siempre será la proposición falsa 0 en el caso de la conjunción, o la proposición verdadera 1 en el caso de la disyunción.
+							En resumen, la Ley de Complemento nos dice que cuando tomamos una proposición y su negación, y luego las conjuntamos o las disjuntamos, el resultado siempre será la proposición falsa (0) en el caso de la conjunción, o la proposición verdadera (1) en el caso de la disyunción.
 						4. Ley de Idempotencia:
 							La ley de idempotencia en lógica formal se refiere a la propiedad de algunas operaciones lógicas de mantener su valor cuando se aplican múltiples veces a la misma proposición. Aquí están las leyes de idempotencia para las operaciones lógicas de conjunción (∧) y disyunción (∨):
 								* Para la Conjunción (P∧P∧P≡P):
@@ -328,28 +328,58 @@ Nivel Básico:
 											Esta expresión es siempre verdadera, ya que el cielo siempre es azul o no es azul.
 								Estas leyes reflejan la idea de que una proposición y su negación son mutuamente excluyentes, y su combinación resulta en una contradicción o en una tautología, dependiendo de la operación lógica utilizada.
 						6. Ley de Doble Negación:
-							La ley de doble negación en lógica formal establece que la doble negación de una proposición 'P' es equivalente a la proposición original. Aquí está la ley de doble negación:
-								¬¬P≡P
-								Ejemplo:
-									Supongamos que 'P' representa la proposición "El sol es una estrella". Aplicando la ley de doble negación, tenemos:
-										¬¬"El sol es una estrella"≡"El sol es una estrella"
-									En este caso, la doble negación de la afirmación "El sol es una estrella" es lógicamente equivalente a la afirmación original.
-								La ley de doble negación refleja la idea de que dos negaciones sucesivas se cancelan entre sí, dejando la proposición original sin negación.
+							La ley de doble negación en lógica formal establece que la doble negación de una proposición 'P' es equivalente a la proposición original. Aquí está la ley de doble negación: "¬¬P≡P"
+							Ejemplo:
+								Supongamos que 'P' representa la proposición "El sol es una estrella". Aplicando la ley de doble negación, tenemos:
+									¬¬"El sol es una estrella"≡"El sol es una estrella"
+								En este caso, la doble negación de la afirmación "El sol es una estrella" es lógicamente equivalente a la afirmación original.
+							La ley de doble negación refleja la idea de que dos negaciones sucesivas se cancelan entre sí, dejando la proposición original sin negación.
 						7. Ley de De Morgan:
 							La ley de De Morgan en lógica formal describe cómo negar una conjunción y una disyunción. Aquí están las leyes de De Morgan:
-								* Ley de De Morgan para la Negación de la Conjunción:
-									¬(P∧Q)≡(¬P)∨(¬Q)¬ (P ∧ Q) ≡ (¬ P) ∨ (¬ Q)
-								* Ley de De Morgan para la Negación de la Disyunción:
-									¬(P∨Q)≡(¬P)∧(¬Q)
+								* Para la Negación de la Conjunción ( ¬(P∧Q)≡(¬P)∨(¬Q) ):
+									Ejemplo:
+										Supongamos que 'P' representa la proposición "Hoy es lunes" y 'Q' representa la proposición "Estoy trabajando". Aplicando la ley de De Morgan, tenemos:
+											¬("Hoy es lunes"∧"Estoy trabajando")≡(¬"Hoy es lunes")∨(¬"Estoy trabajando")
+											Esto se puede interpretar como "No es cierto que hoy es lunes y estoy trabajando" es equivalente a "Hoy no es lunes o no estoy trabajando".
+								* Para la Negación de la Disyunción ( ¬(P∨Q)≡(¬P)∧(¬Q) ):
+									Ejemplo:
+										Supongamos que 'P' representa la proposición "Tengo un perro" y 'Q' representa la proposición "Tengo un gato". Aplicando la ley de De Morgan, tenemos:
+											¬("Tengo un perro"∨"Tengo un gato")≡(¬"Tengo un perro")∧(¬"Tengo un gato")
+											Esto se puede interpretar como "No es cierto que tengo un perro o tengo un gato" es equivalente a "No tengo un perro y no tengo un gato".
+								Las leyes de De Morgan son útiles para simplificar expresiones lógicas complejas negando partes de la proposición compuesta.
 						8. Leyes de la Conmutatividad:
-							* Conmutatividad de la Conjunción: P ∧ Q ≡ Q ∧ P
-							* Conmutatividad de la Disyunción: P ∨ Q ≡ Q ∨ P
+							Las leyes de conmutatividad son principios lógicos que aplican a las operaciones de conjunción (AND) y disyunción (OR). Aquí te explico cada una de estas leyes:
+								* Para la Conjunción (P∧Q≡Q∧P):
+									La ley de conmutatividad de la conjunción establece que el orden de las proposiciones conectadas por el operador lógico AND no afecta el resultado de la operación.
+									Ejemplo:
+										Esto significa que si afirmamos que "es de día (P) y hace calor (Q)," es lo mismo que afirmar "hace calor (Q) y es de día (P)."
+								* Para la Disyunción (P∨Q≡Q∨P): 
+									La ley de conmutatividad de la disyunción establece que el orden de las proposiciones conectadas por el operador lógico OR no afecta el resultado de la operación.
+									Ejemplo:
+										Esto significa que si afirmamos que "es verano (P) o es fin de semana (Q)," es lo mismo que afirmar "es fin de semana (Q) o es verano (P)."
+								Estas leyes son fundamentales en la lógica proposicional y son aplicables en situaciones donde el orden de las proposiciones no altera el significado de la afirmación.
 						9. Leyes de la Asociatividad:
-							* Asociatividad de la Conjunción: (P ∧ Q) ∧ R ≡ P ∧ (Q ∧ R)
-							* Asociatividad de la Disyunción: (P ∨ Q) ∨ R ≡ P ∨ (Q ∨ R)
+							Las leyes de la asociatividad son principios lógicos que se aplican a las operaciones de conjunción (AND) y disyunción (OR) cuando se tienen tres proposiciones conectadas. Aquí te explico cada una de estas leyes:
+								* Para la Conjunción ( (P∧Q)∧R≡P∧(Q∧R) ):
+									La ley de asociatividad de la conjunción establece que el resultado de la operación "AND" entre tres proposiciones no depende de cómo se agrupen. Es decir, el orden en el que se agrupen no afecta el resultado.
+									Ejemplo:
+										Esto significa que si afirmamos "es de día (P) y hace calor (Q) y estoy trabajando (R)," es lo mismo que afirmar "estoy trabajando (R) y es de día (P) y hace calor (Q)."
+								* Para la Disyunción ( (P∨Q)∨R≡P∨(Q∨R) ):
+									La ley de asociatividad de la disyunción establece que el resultado de la operación "OR" entre tres proposiciones no depende de cómo se agrupen. Es decir, el orden en el que se agrupen no afecta el resultado.
+									Ejemplo:
+										Esto significa que si afirmamos "es verano (P) o es fin de semana (Q) o estoy de vacaciones (R)," es lo mismo que afirmar "estoy de vacaciones (R) o es verano (P) o es fin de semana (Q)."
+								Estas leyes son fundamentales en la lógica proposicional y son aplicables cuando se tienen tres proposiciones conectadas por los operadores lógicos "AND" o "OR".
 						10. Leyes de Distribución:
-							* Distribución de la Conjunción sobre la Disyunción: P ∧ (Q ∨ R) ≡ (P ∧ Q) ∨ (P ∧ R)
-							* Distribución de la Disyunción sobre la Conjunción: P ∨ (Q ∧ R) ≡ (P ∨ Q) ∧ (P ∨ R)
+							Las leyes de distribución son principios lógicos que describen cómo se comportan los operadores lógicos de conjunción (AND) y disyunción (OR) en relación con el otro operador. Aquí te explico cada una de estas leyes:
+								* Para la Conjunción sobre la Disyunción ( P∧(Q∨R)≡(P∧Q)∨(P∧R) ):
+									La ley de distribución de la conjunción sobre la disyunción establece que la conjunción de una proposición (P) con la disyunción de otras dos proposiciones (Q y R) es equivalente a la disyunción de dos conjunciones: la conjunción de "P∧Q", y la conjunción de "P∧R".
+									Ejemplo:
+										Si afirmamos "es de día (P) y está lloviendo o hace calor (Q o R)," es lo mismo que afirmar "es de día (P) y está lloviendo (P y Q) o es de día (P) y hace calor (P y R)."
+								* Para la Disyunción sobre la Conjunción ( P∨(Q∧R)≡(P∨Q)∧(P∨R) ):
+									La ley de distribución de la disyunción sobre la conjunción establece que la disyunción de una proposición (P) con la conjunción de otras dos proposiciones (Q y R) es equivalente a la conjunción de dos disyunciones: la disyunción de "P∨Q", y la disyunción de "P∨R".
+									Ejemplo:
+										Si afirmamos "es verano (P) o está lloviendo y hace frío (Q y R)," es lo mismo que afirmar "es verano (P) o está lloviendo (P o Q) y es verano (P) o hace frío (P o R)."
+								Estas leyes son fundamentales en la lógica proposicional y son aplicables cuando se tienen combinaciones de conjunciones y disyunciones en proposiciones más complejas.
 						11. Leyes de la Implicación:
 							* Ley de Simplificación (Modus Ponens): (P → Q) ∧ P ≡ Q
 							* Ley de Exportación: P → (Q → P) ≡ 1
