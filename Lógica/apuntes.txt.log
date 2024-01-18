@@ -59,34 +59,41 @@ Nivel Básico:
 			* Conceptos básicos: proposiciones, premisas, conclusiones.
 				Estos conceptos son fundamentales en lógica y razonamiento. Aquí te explico cada uno:
 					1. Proposición:
-						* Una proposición es una afirmación o enunciado que puede ser verdadero o falso, pero no ambas cosas al mismo tiempo. Por ejemplo, "El sol es una estrella" es una proposición porque puede ser evaluada como verdadera o falsa.
+						* Una proposición es el significado de una afirmación o enunciado que puede ser verdadero o falso, pero no ambas cosas al mismo tiempo. Por ejemplo, "El sol es una estrella" es una proposición porque puede ser evaluada como verdadera o falsa.
+						* Una misma proposición puede ser expresada por distintas oraciones. Ejemplo:
+							(P) "Juan golpeó a Pedro" o	(Q) "Pedro fue golpeado por Juan", expresan la misma proposición.
+							(P) "Está lloviendo" o (Q) "It's raining", expresan la misma proposición.
 						* Las proposiciones pueden ser simples (como el ejemplo anterior) o compuestas, lo que significa que están formadas por una combinación de proposiciones simples utilizando conectivos lógicos (como 'y', 'o', "no", "si...entonces", etc.).
 					2. Premisas:
 						* Las premisas son proposiciones que se presentan como evidencia o información inicial en un argumento. Son las afirmaciones que se utilizan para respaldar o justificar una conclusión. En un argumento, las premisas se utilizan para llegar a una conclusión.
 					3. Conclusión:
-						* La conclusión es la proposición que se deriva a partir de las premisas en un argumento. Es la afirmación que se hace en base a la información proporcionada por las premisas.
+						* La conclusión es la proposición que se deriva a partir de las premisas en un argumento. Es la afirmación que se hace con base en la información proporcionada por las premisas.
 				Veamos un ejemplo sencillo para entender cómo estos elementos se relacionan en un argumento:
 					Premisas:
-						- P1: Si llovió, entonces las calles estarán mojadas. (P1 es una proposición compuesta)
-						- P2: Están mojadas las calles. (P2 es una proposición simple)
+						- P1: Si llovió, entonces las calles estarán mojadas. (P1 es una proposición compuesta) (A→B)
+						- P2: Llovió en algún momento pasado. (P2 es una proposición simple) (A)
 					Conclusión:
-						- C: Por lo tanto, llovió en algún momento pasado. (C es una proposición simple)
+						- C: Por lo tanto, están mojadas las calles. (C es una proposición simple) (B)
 				En este ejemplo, P1 y P2 son las premisas, que proporcionan la información inicial. La conclusión C es la proposición que se deriva a partir de las premisas.
+				Nota. El argumento del ejemplo es logicamente valido (es un Modus Ponens).
 
 				Es importante destacar que un argumento puede tener una o varias premisas, y a partir de ellas se infiere una conclusión. La lógica se ocupa de evaluar la validez del razonamiento, es decir, determinar si las premisas realmente respaldan la conclusión de manera lógica y válida.
 		2.2. Lenguaje de la Lógica Formal:
 			* Símbolos y conectores lógicos (negación, conjunción, disyunción, implicación, etc.).
-				El lenguaje de la lógica formal se basa en el uso de símbolos y conectores lógicos para representar relaciones y estructuras lógicas de proposiciones. Aquí te presento los símbolos y conectores lógicos más comunes:
+				El lenguaje de la lógica formal se basa en el uso de símbolos y conectores lógicos para representar relaciones y estructuras lógicas de proposiciones. Aquí te presento los símbolos y conectores lógicos de logica proposicional:
 					1. Negación (¬):
 						* Representa la negación o la inversión de una proposición. Por ejemplo, "¬P" representa "no P", lo cual significa que la proposición 'P' es falsa.
-					2. Conjunción (∧):
-						* Representa la unión lógica de dos proposiciones. Por ejemplo, "P ∧ Q" representa "P y Q", lo cual es verdadero solo si ambas proposiciones 'P' y 'Q' son verdaderas.
+					2. Conjunción (∧ & .):
+						* Representa la interseccion lógica de dos proposiciones. Por ejemplo, "P ∧ Q" representa "P y Q", lo cual es verdadero si y solo si ambas proposiciones 'P' y 'Q' son verdaderas.
 					3. Disyunción (∨):
-						* Representa la disyunción o la alternativa entre dos proposiciones. Por ejemplo, "P ∨ Q" representa "P o Q", lo cual es verdadero si al menos una de las proposiciones 'P' o 'Q' es verdadera.
+						* Representa la disyunción o la alternativa inclusiva entre dos proposiciones. Por ejemplo, "P ∨ Q" representa "P o Q", lo cual es verdadero si al menos una (o bien, las dos) de las proposiciones 'P' o 'Q' es verdadera.
 					4. Implicación (→):
-						* Representa la relación de implicación entre dos proposiciones. Por ejemplo, "P → Q" representa "Si P, entonces Q", lo cual es verdadero a menos que 'P' sea verdadero y 'Q' sea falso.
-					5. Doble Implicación (↔):
-						* Representa la equivalencia lógica entre dos proposiciones. Por ejemplo, "P ↔ Q" representa "P si y solo si Q", lo cual es verdadero si ambas proposiciones tienen el mismo valor de verdad.
+						* Representa la relación de implicación entre dos proposiciones. Por ejemplo, "P → Q" representa "Si P, entonces Q" (es decir, que P basta para Q, y que Q se requiere para P), lo cual es verdadero a menos que 'P' sea verdadero y 'Q' sea falso.
+					5. Doble Implicación (↔ ≡):
+						* Representa la equivalencia material entre dos proposiciones (es decir, que tienen el mismo valor de verdad: es decir, o bien las dos son falsas, o bien las dos son verdaderas).
+						* Por ejemplo, "P ↔ Q" representa "P si y solo si Q", lo cual es verdadero si ambas proposiciones tienen el mismo valor de verdad.
+						* (Me titulo) si y solamente si, (apruebo todas las materias y hago trabajo de titulacion y apruebo el examen de idioma y termino todos los tramites)
+				En logica cuantificacional se añaden:
 					6. Cuantificadores:
 						* ∃ (Existencial): Representa "existe al menos uno".
 							El cuantificador existencial (∃) se lee como "existe al menos un" o "hay algún". Cuando usamos el cuantificador existencial, estamos afirmando que hay al menos un elemento en el dominio que satisface cierta propiedad.
@@ -97,13 +104,24 @@ Nivel Básico:
 							Ejemplo:
 								* "∀xP(x)" se lee como "Para todo x, P(x)". Esto afirma que la propiedad "P(x)" es verdadera para todos los elementos 'x' en el dominio.
 					7. Variables y Constantes:
-						* Las letras (por ejemplo, 'P', 'Q', 'R') se utilizan para representar proposiciones o variables.
-					8. Paréntesis ( ):
+						# Las letras (por ejemplo, 'P', 'Q', 'R') se utilizan para representar proposiciones o variables.
+						* Variables individuales: que pueden denotar cualquier individuo del dominio de cuantificacion: x, y , z...
+						* Constantes individuales: que denotan cada una un individuo del dominio de cuantificacion: a, b, c...
+						* Esquemas:
+							- Proposicionales: que pueden denotar cualquier proposicion: p, q, r,...
+							- De predicado: que pueden denotar cualquier predicado o relacion: P, Q, R,...
+									* De un lugar: caracteristica de una sola cosa (ser rojo, ser redondo, ser pesado, ser politico...).
+									* De dos lugares: relaciones entre dos cosas (estar arriba de, ser primo de, ser maestro de...).
+									* De tres lugares: relaciones entre tres cosas (estar en medio de - y de -).
+									* De 'n' lugares (para cualquier entero positivo 'n').
+					8. Paréntesis ( ) y corchetes [ ]:
 						* Se utilizan para agrupar proposiciones y definir el orden de evaluación.
 					9. Puntuación:
 						* Se utilizan comas, puntos y comas, y otros signos de puntuación para separar proposiciones o elementos en expresiones más complejas.
 					10. Igualdad (=):
 						* Representa la igualdad entre términos o expresiones.
+					11. Por lo tanto (∴):
+						* Representa la inferencia en un argumento.
 				Estos símbolos y conectores lógicos permiten construir expresiones y fórmulas que representan relaciones y estructuras lógicas de manera precisa y formal. Al aprender a utilizarlos, se pueden construir argumentos y demostraciones de manera rigurosa en lógica formal.
 				Aquí tienes un ejemplo utilizando símbolos y conectores lógicos en el lenguaje de la lógica formal, junto con su versión en español:
 					Con variables:
@@ -128,6 +146,7 @@ Nivel Básico:
 							* "Mortal(x)" representa la proposición "x es mortal".
 							* "Rico(y)" representa la proposición "y es rico".
 						Entonces, la afirmación lógica en español ahora se lee como: "Para todo 'x', si 'x' es un hombre, entonces 'x' es mortal, y existe al menos un 'y' tal que 'y' no es rico."
+							Todo hombre es mortal, y hay algunas cosas que no son ricas
 			* Construcción de tablas de verdad.
 				La construcción de tablas de verdad es una herramienta fundamental en la lógica formal que permite analizar y evaluar la validez de proposiciones compuestas o argumentos. Consiste en listar todas las posibles combinaciones de valores de verdad de las proposiciones simples involucradas y determinar el valor de verdad de la proposición compuesta en cada caso.
 
@@ -143,40 +162,40 @@ Nivel Básico:
 					Paso 5: Determinar los Valores de Verdad
 						* Para cada fila, evalúa el valor de verdad de la expresión lógica según las combinaciones de verdad y falsedad de las proposiciones simples. Puedes usar las reglas de evaluación de operadores lógicos.
 				A continuación, te proporciono algunos ejemplos de tablas de verdad para diferentes tipos de expresiones:
-					Ejemplo 1: Conjunción "(P ∧ Q)"
+					Regla 1: Conjunción "(P ∧ Q)"
 						| P | Q | P ∧ Q |
 						|---|---|-------|
 						| 0 | 0 |   0   |
 						| 0 | 1 |   0   |
 						| 1 | 0 |   0   |
 						| 1 | 1 |   1   |
-					Ejemplo 2: Disyunción "(P ∨ Q)"
+					Regla 2: Disyunción "(P ∨ Q)"
 						| P | Q | P ∨ Q |
 						|---|---|-------|
 						| 0 | 0 |   0   |
 						| 0 | 1 |   1   |
 						| 1 | 0 |   1   |
 						| 1 | 1 |   1   |
-					Ejemplo 3: Negación "(¬P)"
+					Regla 3: Negación "(¬P)"
 						| P | ¬P |
 						|---|----|
 						| 0 |  1 |
 						| 1 |  0 |
-					Ejemplo 4: Implicación "(P → Q)"
+					Regla 4: Implicación "(P → Q)"
 						| P | Q | P → Q |
 						|---|---|-------|
 						| 0 | 0 |   1   |
 						| 0 | 1 |   1   |
 						| 1 | 0 |   0   |
 						| 1 | 1 |   1   |
-					Ejemplo 5: Equivalencia "(P ↔ Q)"
+					Regla 5: Equivalencia "(P ↔ Q)"
 						| P | Q | P ↔ Q |
 						|---|---|-------|
 						| 0 | 0 |   1   |
 						| 0 | 1 |   0   |
 						| 1 | 0 |   0   |
 						| 1 | 1 |   1   |
-					Ejemplo 6: Expresión Compuesta "((P ∧ Q) ∨ ¬R)"
+					Ejemplo 1: Expresión Compuesta "((P ∧ Q) ∨ ¬R)"
 						| P | Q | R | (P ∧ Q) ∨ ¬R |
 						|---|---|---|---------------|
 						| 0 | 0 | 0 |       1       |
@@ -187,7 +206,7 @@ Nivel Básico:
 						| 1 | 0 | 1 |       0       |
 						| 1 | 1 | 0 |       1       |
 						| 1 | 1 | 1 |       1       |
-					Ejemplo 7: Expresión Compuesta "(P ∧ Q) → R"
+					Ejemplo 2: Expresión Compuesta "(P ∧ Q) → R"
 						| P | Q | R | (P ∧ Q) → R |
 						|---|---|---|-------------|
 						| 0 | 0 | 0 |      1      |
@@ -198,7 +217,7 @@ Nivel Básico:
 						| 1 | 0 | 1 |      1      |
 						| 1 | 1 | 0 |      0      |
 						| 1 | 1 | 1 |      1      |
-					Estos son solo ejemplos simples para ilustrar cómo se construyen las tablas de verdad. Puedes aplicar el mismo proceso para expresiones más complejas que involucren más proposiciones y conectores lógicos. Recuerda que las tablas de verdad son una herramienta valiosa para determinar la validez de expresiones lógicas en diferentes contextos.
+					Estos son solo ejemplos simples para ilustrar cómo se construyen las tablas de verdad. Puedes aplicar el mismo proceso para expresiones más complejas que involucren más proposiciones y conectores lógicos. Recuerda que las tablas de verdad son una herramienta valiosa para determinar el valor de verdad de expresiones lógicas en diferentes contextos.
 				Ahora la tabla de verdad, para el caso que se vio en los "Símbolos y conectores lógicos":
 					Con variables:
 						Lógica Formal:
@@ -219,6 +238,9 @@ Nivel Básico:
 					Expresión Original:
 						"∀x(Hombre(x)→Mortal(x))∧∃y¬Rico(y)"
 
+
+						LO SIGUIENTE ESTA MAL>
+
 					Tabla de Verdad:
 						| "Hombre(x)" | "Mortal(x)" | "Rico(y)" | "¬Rico(y)" | "Hombre(x)→Mortal(x)" | "∃y¬Rico(y)" | "∀x(Hombre(x)→Mortal(x))∧∃y¬Rico(y)" |
 						|-------------|-------------|-----------|------------|-----------------------|--------------|---------------------------------------|
@@ -228,6 +250,9 @@ Nivel Básico:
 						|      1      |      0      |     0     |      1     |           0           |       1      |                   0                   |
 						|      0      |    NULL     |     1     |      0     |         NULL          |       1      |                 NULL                  |
 						|      0      |    NULL     |     0     |      1     |         NULL          |       1      |                 NULL                  |
+
+					ESTA MAL PORQUE LAS TABLAS DE VERDAD NO PERMITEN (en general) EVALUAR FORMULAS CON CUANTIFICADORES.
+					PARA ESTO SE REQUIERE LA TEORIA DE MODELOS
 
 					Detalles de la Evaluación:
 						1. Para cada valor de 'x', evaluamos la proposición compuesta "Hombre(x)→Mortal(x)".
@@ -381,11 +406,11 @@ Nivel Básico:
 										Si afirmamos "es verano (P) o está lloviendo y hace frío (Q y R)," es lo mismo que afirmar "es verano (P) o está lloviendo (P o Q) y es verano (P) o hace frío (P o R)."
 								Estas leyes son fundamentales en la lógica proposicional y son aplicables cuando se tienen combinaciones de conjunciones y disyunciones en proposiciones más complejas.
 						11. Leyes de la Implicación:
-							* Ley de Simplificación (Modus Ponens): (P → Q) ∧ P ≡ Q
+							* Ley de Simplificación (Modus Ponens): (P → Q) ∧ P ∴ Q
 							* Ley de Exportación: P → (Q → P) ≡ 1
 						12. Leyes de la Doble Implicación:
 							* Ley de la Bicondicionalidad: P ↔ Q ≡ (P → Q) ∧ (Q → P)
-						13. Leyes de la Negaicón:
+						13. Leyes de la Negación:
 							* Doble Negación: ¬ (¬ P) ≡ P
 							* Ley de Contraposición: P → Q ≡ ¬ Q → ¬ P
 						14. Leyes de la Absorción:
