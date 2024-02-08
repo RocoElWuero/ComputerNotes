@@ -468,6 +468,281 @@ Nivel Básico:
 		* ADBMS:
 			* La contracción comúnmente utilizada para "analytic database management" es "ADBMS", que significa "Analytic Database Management System". Esta sigla se refiere a sistemas de gestión de bases de datos diseñados específicamente para admitir operaciones analíticas y consultas complejas en grandes volúmenes de datos. Un ejemplo de ADBMS es Vertica, que mencionamos anteriormente.
 			* Vertica está diseñado principalmente para cargas de trabajo analíticas y consultas complejas en grandes volúmenes de datos. Aunque mantiene algunos conceptos de bases de datos relacionales, su enfoque es más analítico y orientado al rendimiento.
+		* Eon Mode:
+			* Opciones de desarrollo:
+				* Cuando Vertica se lanzó por primera vez en 2005, fue diseñado y construido para funcionar con hardware de productos básicos en las instalaciones. Este modo de operación sigue una arquitectura de "nada compartido", donde cada nodo en un clúster es independiente y autosuficiente, y no hay un solo punto de discusión. Más específicamente, ninguno de los nodos de memoria o almacenamiento en disco. En ese momento, Vertica fue la base de datos SQL de análisis avanzado de arquitectura abierta más rápida en hardware de productos básicos.
+				* Poco después, los clientes querían ejecutar las bases de datos Vertica en la nube. Una forma de hacer que Vertica esté disponible en las nubes, inicialmente con los servicios de Amazon Web (AWS), seguido en breve por la plataforma Google Cloud y Microsoft Azure. Esto significaba que Vertica era la base de datos SQL de análisis avanzado de arquitectura abierta más rápida en las nubes.
+				* Solo estar en la nube no significa que estábamos cumpliendo la promesa de la nube; a saber, la capacidad de escalar rápidamente hacia arriba y hacia abajo para satisfacer las cargas de trabajo en constante cambio de una organización. Para abordar esto, Hemos introducido Vertica en el "Eon Mode", inicialmente disponible en AWS. A diferencia del modo Enterprise, El modo Eon separa el cómputo del almacenamiento, esto ahora nos da la base de datos SQL de análisis avanzado de arquitectura abierta más rápida en la nube, capaz de escalar rápidamente para mantener el ritmo de sus cargas de trabajo.
+				* Donde los clientes desean aprovechar el modo Eon, pero no quiero desplegar en la nube, ahora tenemos Vertica en modo Eon con Pure Storage FlashBlades, por lo tanto, ahora nos brinda la única base de datos SQL de análisis avanzado del mundo que separa la computación del almacenamiento en centros de datos locales.
+				* Cabe señalar que las arquitecturas posteriores no reemplazan a las anteriores; más bien, los complementan. Vertica es un producto que se puede implementar en múltiples nubes y en centros de datos locales en los modos Enterprise y Eon, lo que le da al cliente la más amplia opción de opciones de implementación de cualquier base de datos SQL de análisis avanzado.
+
+				  Vertica en Enterprise Mode    Vertica en Enterprise Mode        Vertica en Eon Mode                 Vertica en Eon Mode
+				         On-Premises                   en las nubes                  en las nubes              con almacenamiento puro FlashBlades
+				┌───────┐ ┌───────┐ ┌───────┐    ┌─────┐ ┌─────┐ ┌─────┐     ┌───────┐┌───────┐┌───────┐          ┌───────┐┌───────┐┌───────┐
+				│ ───── │ │ ───── │ │ ───── │    │ EC2 │ │ EC2 │ │ EC2 │     │  EC2  ││  EC2  ││  EC2  │          │Compute││Compute││Compute│
+				│ ───── │ │ ───── │ │ ───── │    └─────┘ └─────┘ └─────┘     │  with ││  with ││  with │          │  Node ││  Node ││  Node │
+				│ ───── │ │ ───── │ │ ───── │      🡡       🡡      🡡        │storage││storage││storage│          └───────┘└───────┘└───────┘
+				│       │ │       │ │       │      🡣       🡣      🡣        └───────┘└───────┘└───────┘              🡡       🡡        🡡
+				│  ┌─┐  │ │  ┌─┐  │ │  ┌─┐  │    ┌─────┐ ┌─────┐ ┌─────┐        🡡       🡡        🡡                  └→⛁     └→⛁      └→⛁
+				│  └─┘  │ │  └─┘  │ │  └─┘  │    │ EBS │ │ EBS │ │ EBS │        └→⛁     └→⛁      └→⛁                  🡡       🡡        🡡
+				│       │ │       │ │       │    │ ⛁  │ │ ⛁  │ │ ⛁   │          🡡       🡡        🡡                  └────────┼─────────┘
+				└───────┘ └───────┘ └───────┘    └─────┘ └─────┘ └─────┘           └───────┼─────────┘                           │
+				    🡡        🡡        🡡                                                  │                                ───────────
+				    🡣        🡣        🡣                                             ───────────                           \    S3   /
+				    ⛁        ⛁        ⛁                                             \   S3   /                             ────────
+				    ⛁        ⛁        ⛁                                              ────────
+				    ⛁        ⛁        ⛁
+				La arquitectura más rápida y     La arquitectura más rápida y     La arquitectura más rápida y    La única base de datos SQL de
+				abierta, análisis avanzado       abierta, análisis avanzado       abierta, análisis avanzado      análisis más avanzada del mundo,
+				de la base de datos SQL en       de la base de datos SQL en       de la base de datos SQL,        que separa la computación del
+				hardware de productos básicos.   la nube.                         capaz de escalar rápidamente    almacenamiento en centros de
+				                                                                  para seguir el ritmo de su      datos locales.
+				                                                                  carga de trabajo cambiante.
+			* Cómo aprovisionar el clúster de Eon Mode:
+				* Todo lo que necesita para comenzar es un grupo de nodos informáticos con algo de almacenamiento (más sobre este momento) y un depósito S3 en el que se almacenarán sus datos. En AWS, los nodos de computación normalmente serían instancias EC2; Estoy a favor de las configuraciones de Pure Storage FlashBlade. Hardware informático con recursos similares. Tanto en las soluciones de AWS como en Pure Storage, el depósito S3 lo proporcionan los respectivos proveedores.
+				┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute│
+				│  Node ││  Node ││  Node │
+				│  with ││  with ││  with │
+				│storage││storage││storage│
+				└───────┘└───────┘└───────┘
+				    🡡       🡡        🡡
+				    └→⛁     └→⛁      └→⛁
+				      🡡       🡡        🡡
+				      └────────┼─────────┘
+				               │
+				          ───────────
+				          \S3 Bucket/
+				           ─────────
+			* Cómo funciona Eon Mode:
+				* Eon Mode obtiene su durabilidad del almacenamiento de objetos S3 con sus 911 de confiabilidad. Eso equivale, en promedio, a perder un objeto cada 10.000 años por cada 10 millones de objetos almacenados en S3.
+				* Es S3 donde Eon Mode almacena sus copias duraderas de la base de datos y, por lo tanto, satisface la 'D' de cumplimiento "ACID".
+				* Aunque es muy duradero, S3 normalmente no tiene buen rendimiento, ciertamente no, mientras que Vertica puede entregar datos rápidamente. Para obtener el rendimiento requerido por Vertica, proporcionamos almacenamiento adjunto localmente en cada una de los nodos informáticas. Este almacenamiento local almacena fragmentos de datos (llamados "shards") del depósito de S3 para que Vertica pueda acceder a estos datos más rápidamente que recuperándolos cada vez desde S3.
+				* Compartir en Eon Mode es lo mismo que un segmento en modo Enterprise; el mismo concepto. La diferencia es que al expandir un clúster en modo Enterprise, la base de datos se vuelve a segmentar; mientras que en el modo el fragmento permanece igual y los nodos de computación adicionales aplican servicios adicionales a los fragmentos existentes. Esta capa de almacenamiento en caché se llama depósito.
+				┌───────┐┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute││Compute│
+				│  Node ││  Node ││  Node ││  Node │  Se aprovisionan nodos con almacenamiento de instancias
+				│  with ││  with ││  with ││  with │
+				│storage││storage││storage││storage│
+				└───────┘└───────┘└───────┘└───────┘
+				    🡡       🡡        🡡       🡡
+				    🡣       🡣        🡣       🡣
+				  ┌───┐    ┌───┐    ┌───┐    ┌───┐ Cada nodo almacena en caché un fragmento de la base de datos de S3
+				  │ ▲ │    │ ► │    │ ▼ │    │ ◄ │ en su almacenamiento local desde donde puede atender consultas con 
+				  └───┘    └───┘    └───┘    └───┘ el increíble rendimiento que espera de Vertica.
+				    🡡       🡡        🡡       🡡
+				    └────────┴────┬───┴────────┘
+				                  │
+				             ───────────
+				             \S3 Bucket/ ￩ Tus datos estan almacenados en S3 con 911 de confiabilidad.
+				              \ ▲►▼◄  /
+				               ───────
+			* Carga de datos:
+				* Dado que los datos de la base de datos residen en S3, una pregunta frecuente es si Vertica es un motor de consultas. Aunque Vertica se puede utilizar como motor de consultas accediendo a datos remotos a través de sus capacidades de tablas externas, Eon Mode no es en sí mismo un motor de consultas. Es una verdadera base de datos relacional y usted carga sus datos en su base de datos de la misma manera que lo haría si estuviera en modo Empresarial. Una vez que los datos se cargan en la base de datos, se almacenan exactamente como en modo Enterprise, en formato ROS, aunque en el depósito S3.
+				┌───────┐┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute││Compute│
+				│  Node ││  Node ││  Node ││  Node │
+				│  with ││  with ││  with ││  with │ ⇦===========┐
+				│storage││storage││storage││storage│              |
+				└───────┘└───────┘└───────┘└───────┘              |       Los datos se cargan en Vertica en Eon Mode
+				    🡡       🡡        🡡       🡡                 |        de la misma manera que se cargan en Vertica
+				    🡣       🡣        🡣       🡣                 |        en modo Enterprise.
+				    ⛁       ⛁       ⛁       ⛁                 |
+				    🡡       🡡        🡡       🡡            ────────────
+				    └────────┴────┬───┴────────┘             \S3 Bucket/
+				                  │                           \ ░ ▒ ▓ /
+				            ─────────────                      ───────
+				             \S3 Bucket/                Datos cargados desde
+				              \ ▲►▼◄  /                 S3 o cualquier otro.
+				               ───────
+			* Dimensionado del depósito:
+				* El depósito tiene una capacidad finita, tal como se definió cuando se construyeron los nodos del clúster. La imagen del centro en el depósito de S3 ilustra que es posible que no tenga todos los datos de un fragmento cargados actualmente en el depósito. Este es un punto importante, y uno por el cual desea duplicar el tamaño de su depósito para que coincida con su conjunto de datos de trabajo activo típico. Por ejemplo, si sus consultas típicas se refieren a los 30 días anteriores o a los últimos 30 minutos, debe dimensionar su depósito en consecuencia.
+				┌───────┐┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute││Compute│
+				│  Node ││  Node ││  Node ││  Node │
+				│  with ││  with ││  with ││  with │
+				│storage││storage││storage││storage│
+				└───────┘└───────┘└───────┘└───────┘
+				    🡡       🡡        🡡       🡡
+				    🡣       🡣        🡣       🡣
+				  ┌───┐    ┌───┐    ┌───┐    ┌───┐
+				  │ ▲ │    │ ► │    │ ▼ │    │ ◄ │ ⇦ Un nodo no puede almacenar todo el fragmento en su depósito.
+				  └───┘    └───┘    └───┘    └───┘   Cuando una consulta no se puede satisfacer a partir de datos
+				    🡡       🡡        🡡       🡡     que ya están en el Depósito, el nodo ejecutará la consulta
+				    └────────┴────┬───┴────────┘     directamente en S3 y actualizará el depósito para uso futuro.
+				                  │
+				      ─────────────────────────
+				      \       S3 Bucket       /
+				       \       ┌──────┐      /
+				        \      │ ○◌●◘ │     /
+				         \     │ ┌────┤    /
+				          \    │ │▲►▼◄│   /
+				           \   └─┴────┘  /
+				            ─────────────
+			* La escala rápida:
+				* La escalabilidad es de lo que se trata Eon Mode y el caso de uso principal por el que se creó.
+				* Cuando desee escalar su base de datos, simplemente agregue más nodos. En este ejemplo, estamos duplicando el tamaño del clúster de los 4 nodos originales a 8 nodos.
+				* Al agregar más nodos, ¿qué intentamos lograr? Lo que veremos es una ganancia de rendimiento en términos de concurrencia adicional. Esto no significa que sus consultas se ejecutarán más rápido, sino que puede ejecutar más consultas simultáneamente.
+				* Si observa más de cerca este grupo ampliado, podrá ver que el nodo 5 de la izquierda está recogiendo el mismo fragmento de datos en el nodo 1; nodo6 lo mismo que nodo2, y así sucesivamente.
+				* Entonces, cuando tenga una mayor demanda en su carga de trabajo, puede aumentar el tamaño de su clúster en consecuencia. Cuando la carga de trabajo vuelva a disminuir, la reducirá.
+				┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute││Compute││Compute││Compute││Compute││Compute│
+				│  Node ││  Node ││  Node ││  Node ││  Node ││  Node ││  Node ││  Node │
+				│  with ││  with ││  with ││  with ││  with ││  with ││  with ││  with │
+				│storage││storage││storage││storage││storage││storage││storage││storage│
+				└───────┘└───────┘└───────┘└───────┘└───────┘└───────┘└───────┘└───────┘
+				    🡡       🡡        🡡       🡡        🡡       🡡        🡡       🡡
+				    🡣       🡣        🡣       🡣        🡣       🡣        🡣       🡣
+				  ┌───┐    ┌───┐    ┌───┐    ┌───┐     ┌───┐    ┌───┐    ┌───┐    ┌───┐
+				  │ ▲ │    │ ► │    │ ▼ │    │ ◄ │     │ ▲ │    │ ► │    │ ▼ │    │ ◄ │
+				  └───┘    └───┘    └───┘    └───┘     └───┘    └───┘    └───┘    └───┘
+				    🡡       🡡        🡡       🡡        🡡       🡡        🡡       🡡
+				    └────────┴────┬───┴────────┘         └────────┴────┬───┴────────┘
+				                  ├────────────────────────────────────┘
+				      ─────────────────────────                            🡡
+				      \       S3 Bucket       /         Puede activar rápidamente nodos adicionales
+				       \       ┌──────┐      /          para mantener el rendimiento cuando necesite ejecutar:
+				        \      │ ○◌●◘ │     /           	* Más consultas simultáneas
+				         \     │ ┌────┤    /            	* Más cargas simultáneas
+				          \    │ │▲►▼◄│   /             Quizás a fin de mes o al final del día.
+				           \   └─┴────┘  /
+				            ─────────────
+			* El uso de subgrupos para segregar las cargas de trabajo:
+				* Debido a que Eon Mode separa la computación del almacenamiento, puede crear fácilmente subclústeres dentro de su clúster para aislar el trabajo.
+				* Por ejemplo, es posible que desee dedicar un subclúster para respaldar un Dashboard; otro para informes mensuales; el 3ero para que los científicos de datos hagan su trabajo. Todos los subclústeres comparten los mismos datos del depósito S3, pero cada subclúster es independiente y tiene sus propios nodos y depósitos. Esto garantiza que el trabajo que se realiza en un subclúster no afecte el trabajo de otro.
+				 Dashboard                    Monthly Reports              Data Science
+				┌───────────────────────────┐┌───────────────────────────┐┌────────────────────────────────────┐
+				│┌───────┐┌───────┐┌───────┐││┌───────┐┌───────┐┌───────┐││┌───────┐┌───────┐┌───────┐┌───────┐│
+				││Compute││Compute││Compute││││Compute││Compute││Compute││││Compute││Compute││Compute││Compute││
+				││  Node ││  Node ││  Node ││││  Node ││  Node ││  Node ││││  Node ││  Node ││  Node ││  Node ││
+				││  with ││  with ││  with ││││  with ││  with ││  with ││││  with ││  with ││  with ││  with ││
+				││storage││storage││storage││││storage││storage││storage││││storage││storage││storage││storage││
+				│└───────┘└───────┘└───────┘││└───────┘└───────┘└───────┘││└───────┘└───────┘└───────┘└───────┘│
+				│    🡡       🡡        🡡   ││    🡡       🡡        🡡   ││    🡡       🡡        🡡       🡡    │
+				│    🡣       🡣        🡣   ││    🡣       🡣        🡣   ││    🡣       🡣        🡣       🡣    │
+				│  ┌───┐    ┌───┐    ┌───┐  ││  ┌───┐    ┌───┐    ┌───┐  ││  ┌───┐    ┌───┐    ┌───┐    ┌───┐  │
+				│  │ ▲ │    │ ► │    │ ▼ │  ││  │ ▲ │    │ ► │    │ ▼ │  ││  │ ▲ │    │ ► │    │ ▼ │    │ ◄ │  │
+				│  └───┘    └───┘    └───┘  ││  └───┘    └───┘    └───┘  ││  └───┘    └───┘    └───┘    └───┘  │
+				│    🡡       🡡        🡡   ││    🡡       🡡        🡡   ││    🡡       🡡        🡡       🡡    │
+				└────│────────│────────│────┘└────│────────│────────│────┘└────│────────│─────────│───────│────┘
+				     └────────┴────┬───┘          └────────┴────┬───┘          └────────┴────┬────┴───────┘
+				                   └────────────────────────────┼────────────────────────────┘
+				                                    ─────────────────────────
+				                                    \       S3 Bucket       /
+				                                     \       ┌──────┐      /
+				                                      \      │ ○◌●◘ │     /
+				                                       \     │ ┌────┤    /
+				                                        \    │ │▲►▼◄│   /
+				                                         \   └─┴────┘  /
+				                                          ─────────────
+			* La alta disponibilidad:
+				* Otra caracteristica de Eon Mode es la alta disponibilidad y la rápida recuperación que se puede lograr.
+				* En Eon Mode, cada nodo no solo se suscribe a uno o más fragmentos primarios, sino que también se suscribe a fragmentos secundarios. Si el nodo falla, puede intentar reiniciarlo. Si no se reinicia, simplemente finalícelo, abra un nuevo nodo y únalo al clúster. El nuevo nodo tomará el relevo rápidamente.
+				* Mientras el nodo está inactivo, otro nodo en el clúster que cubre el fragmento asume la responsabilidad hasta que se restablece el modo perdido. Esto es similar a K-safety en el modo Vertica Enterprise.
+
+				⇨⇨⇨⇨⇨⇨⇨⇨⇨ De esto ⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨ A esto ⇨⇨⇨⇨⇨⇨⇨⇨⇨
+				┌───────┐┌───────┐┌───────┐┌───────┐                   ┌───────┐┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute││  EC2  │                   │Compute││Compute││Compute││  EC2  │
+				│  Node ││  Node ││  Node ││       │                   │  Node ││  Node ││  Node ││       │
+				│  with ││  with ││  with ││  with │                   │  with ││  with ││  with ││  with │
+				│storage││storage││storage││storage│                   │storage││storage││storage││storage│
+				└───────┘└───────┘└───────┘└───────┘                   └───────┘└───────┘└───────┘└───────┘
+				    🡡       🡡        🡡       🡡                          🡡       🡡        🡡       🡡
+				    🡣       🡣        🡣       🡣                          🡣       🡣        🡣       🡣
+				  ┌───┐    ┌───┐    ┌───┐    ┌───┐  Cada nodo es         ┌───┐    ┌───┐    ┌───┐    ┌───┐
+				  │ A │    │ B │    │ C │    │ D │  responsable de ⇨ ⇨  │AD │    │BA │    │CB │    │DC │
+				  └───┘    └───┘    └───┘    └───┘  múltiples fragmentos.└───┘    └───┘    └───┘    └───┘
+				    🡡       🡡        🡡       🡡                          🡡       🡡        🡡       🡡
+				    └────────┴────┬───┴────────┘                           └────────┴────┬───┴────────┘
+				                  │                                                      │
+				      ─────────────────────────                              ─────────────────────────
+				      \       S3 Bucket       /                              \       S3 Bucket       /
+				       \       ┌──────┐      /                                \       ┌──────┐      /
+				        \      │ ○◌●◘ │     /                                  \      │ ○◌●◘ │     /
+				         \     │ ┌────┤    /                                    \     │ ┌────┤    /
+				          \    │ │ABCD│   /                                      \    │ │ABCD│   /
+				           \   └─┴────┘  /                                        \   └─┴────┘  /
+				            ─────────────                                          ─────────────
+
+				⇨⇨⇨⇨⇨⇨ Luego del anterior ⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨ A esto ⇨⇨⇨⇨⇨⇨⇨⇨⇨
+				┌───────┐┌───────┐┌───────┐┌───────┐                    ┌───────┐┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute││  EC2  │                    │Compute││Compute││Compute││  EC2  │
+				│  Node ││  Node ││  Node ││       │                    │  Node ││  Node ││  Node ││       │
+				│  with ││  with ││  with ││  with │                    │  with ││  with ││  with ││  with │
+				│storage││storage││storage││storage│                    │storage││storage││storage││storage│
+				└───────┘└───────┘└───────┘└───────┘                    └───────┘└───────┘└───────┘└───────┘
+				    🡡       🡡        🡡       🡡                           🡡       🡡        🡡       ❌
+				    🡣       🡣        🡣       🡣                           🡣       🡣        🡣       ❌
+				  ┌───┐    ┌───┐    ┌───┐    ┌───┐ Cuando un nodo deja    ┌───┐    ┌───┐    ┌───┐    ┌───┐
+				  │AD │    │BA │    │CB │    │DC │ de funcionar, ⇨ ⇨ ⇨ ⇨│AD │    │BA │    │CB │    │DC │
+				  └───┘    └───┘    └───┘    └───┘ las consultas continúan└───┘    └───┘    └───┘    └───┘
+				    🡡       🡡        🡡       🡡   siendo satisfechas por  🡡       🡡        🡡       ❌
+				    └────────┴────┬───┴────────┘   nodos alternativos       └────────┴────┬───┘
+				                  │                responsables del                       │
+				      ─────────────────────────    fragmento que se perdió.   ─────────────────────────
+				      \       S3 Bucket       /                               \       S3 Bucket       /
+				       \       ┌──────┐      /                                 \       ┌──────┐      /
+				        \      │ ○◌●◘ │     /                                   \      │ ○◌●◘ │     /
+				         \     │ ┌────┤    /                                     \     │ ┌────┤    /
+				          \    │ │ABCD│   /                                       \    │ │ABCD│   /
+				           \   └─┴────┘  /                                         \   └─┴────┘  /
+				            ─────────────                                           ─────────────
+
+				⇨⇨⇨⇨⇨⇨ Luego del anterior ⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨ A esto ⇨⇨⇨⇨⇨⇨⇨⇨⇨
+				┌───────┐┌───────┐┌───────┐┌───────┐                    ┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute││  EC2  │                    │Compute││Compute││Compute││Compute││  EC2  │
+				│  Node ││  Node ││  Node ││       │                    │  Node ││  Node ││  Node ││  Node ││       │
+				│  with ││  with ││  with ││  with │                    │  with ││  with ││  with ││  with ││  with │
+				│storage││storage││storage││storage│                    │storage││storage││storage││storage││storage│
+				└───────┘└───────┘└───────┘└───────┘                    └───────┘└───────┘└───────┘└───────┘└───────┘
+				    🡡       🡡        🡡      ❌                           🡡       🡡        🡡       🡡       ❌
+				    🡣       🡣        🡣      ❌                           🡣       🡣        🡣       🡣       ❌
+				  ┌───┐    ┌───┐    ┌───┐    ┌───┐ Un nodo fallido se     ┌───┐    ┌───┐    ┌───┐    ┌───┐    ┌───┐
+				  │AD │    │BA │    │CB │    │DC │ puede restaurar o  ⇨ ⇨│AD │    │BA │    │CB │    │   │    │DC │
+				  └───┘    └───┘    └───┘    └───┘ reemplazar rápidamente └───┘    └───┘    └───┘    └───┘    └───┘
+				    🡡       🡡        🡡      ❌   con un nodo nuevo.      🡡       🡡        🡡       🡡       ❌
+				    └────────┴────┬───┘                                     └────────┴────┬───┴────────┘
+				                  │                                                       │
+				      ─────────────────────────                               ─────────────────────────
+				      \       S3 Bucket       /                               \       S3 Bucket       /
+				       \       ┌──────┐      /                                 \       ┌──────┐      /
+				        \      │ ○◌●◘ │     /                                   \      │ ○◌●◘ │     /
+				         \     │ ┌────┤    /                                     \     │ ┌────┤    /
+				          \    │ │ABCD│   /                                       \    │ │ABCD│   /
+				           \   └─┴────┘  /                                         \   └─┴────┘  /
+				            ─────────────                                           ─────────────
+
+				⇨⇨⇨⇨⇨⇨ Luego del anterior ⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨⇨ A esto ⇨⇨⇨⇨⇨⇨⇨⇨⇨
+				┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐     ┌───────┐┌───────┐┌───────┐┌───────┐┌───────┐
+				│Compute││Compute││Compute││Compute││  EC2  │     │Compute││Compute││Compute││Compute││  EC2  │
+				│  Node ││  Node ││  Node ││  Node ││       │     │  Node ││  Node ││  Node ││  Node ││       │
+				│  with ││  with ││  with ││  with ││  with │     │  with ││  with ││  with ││  with ││  with │
+				│storage││storage││storage││storage││storage│     │storage││storage││storage││storage││storage│
+				└───────┘└───────┘└───────┘└───────┘└───────┘     └───────┘└───────┘└───────┘└───────┘└───────┘
+				    🡡       🡡        🡡       🡡       ❌           🡡       🡡        🡡       🡡       ❌
+				    🡣       🡣        🡣       🡣       ❌           🡣       🡣        🡣       🡣       ❌
+				  ┌───┐    ┌───┐    ┌───┐    ┌───┐    ┌───┐        ┌───┐    ┌───┐    ┌───┐    ┌───┐    ┌───┐
+				  │AD │    │BA │    │CB │    │   │    │DC │        │AD │    │BA │    │CB │    │DC │<=┐ │DC │
+				  └───┘    └───┘    └───┘    └───┘    └───┘        └───┘    └───┘    └───┘    └───┘  │ └───┘
+				   🡡       🡡        🡡        🡡       ❌           🡡       🡡        🡡       🡡   ││  ❌
+				   └────────┴─────┬──┴─────────┘                     └────────┴────┬───┴────────┘    │
+				                  │                                                │                 └El nuevo nodo se inicia rápidamente 
+				      ─────────────────────────                        ─────────────────────────      llenando su caché desde nodos pares
+				      \       S3 Bucket       /                        \       S3 Bucket       /      o directamente desde S3.
+				       \       ┌──────┐      /                          \       ┌──────┐      /       Esto es similar a K-safety en el modo
+				        \      │ ○◌●◘ │     /                            \      │ ○◌●◘ │     /        Vertica Enterprise.
+				         \     │ ┌────┤    /                              \     │ ┌────┤    /
+				          \    │ │ABCD│   /                                \    │ │ABCD│   /
+				           \   └─┴────┘  /                                  \   └─┴────┘  /
+				            ─────────────                                    ─────────────
+			* La hibernación (por ejemplo, para reducir costos):
+				* Si puede escalar su clúster hacia arriba y hacia abajo para cumplir con las demandas esperadas, una pregunta que a menudo se hace es si puede hibernar su base de datos; es decir, reducir a cero nodos. La respuesta es absolutamente.
+				* Si no necesita su base de datos por un período de tiempo, ¿por qué continuar pagando el costo de ejecutar nodos de cómputo?, ¿o tal vez le gustaría usar sus nodos de cómputo para poner alguna otra carga de trabajo cuando no sea necesario para atender las consultas de Vertica?, sus datos son de seguridad almacenados en S3, así que simplemente apague todo el clúster.
+				* Luego, cuando necesite acceder a la base de datos nuevamente, simplemente encienda un nuevo clúster de nodos de cómputo con la misma definición que el que cerró y reviva la base de datos.
+				* Cuando revive una base de datos en Eon Mode, el único requisito es que el número de nodos en el clúster sea el mismo. El tipo de instancias puede ser diferente, lo que le permite revivir la base de datos en un clúster con más o menos recursos. El tamaño del depósito puede ser diferente, lo que permite que se cultive o reduzca. Y puede revivir la base de datos en una versión más nueva de Vertica que proporcione una ruta simple para aplicar una actualización de Vertica.
+			* La hibernación (por ejemplo, para reducir costos):
+			* La replicación:
+		￩→
 		* Desnormalización Controlada:
 			* A diferencia de la normalización extensiva en las bases de datos relacionales, Vertica a menudo favorece la desnormalización controlada para optimizar el rendimiento analítico. Esto puede incluir redundancias controladas en la estructura de la base de datos para mejorar la eficiencia de las consultas.
 		* Alto Rendimiento:
@@ -530,6 +805,21 @@ Nivel Básico:
 				* La arquitectura columnar facilita la escalabilidad horizontal mediante la adición de nodos al clúster. Esto permite manejar grandes cargas de trabajo y volúmenes de datos a medida que la demanda crece.
 			3. Mejora en el Tiempo de Respuesta:
 				* Debido a la organización eficiente de los datos en columnas, Vertica puede proporcionar tiempos de respuesta más rápidos en comparación con los modelos de datos basados en filas en entornos analíticos.
+	* Tipos de archivos que maneja Vertica:
+		Vertica maneja varios tipos de archivos en su funcionamiento, ya que es un sistema de gestión de bases de datos que gestiona datos en un entorno distribuido y columnar. Aquí hay algunos de los tipos de archivos que son relevantes para Vertica:
+			1. Archivos de Datos:
+				* Los archivos de datos contienen los datos almacenados en Vertica. Estos archivos están organizados de manera columnar para facilitar el acceso eficiente a los datos durante las consultas. El formato de almacenamiento y la compresión utilizados por Vertica son características importantes de estos archivos.
+			2. Archivos de Proyección:
+				* Vertica organiza los datos en proyecciones, que son vistas virtuales de los datos físicamente almacenados en las tablas. Los archivos de proyección son parte integral de la estructura de almacenamiento de Vertica y contribuyen a la optimización del rendimiento de las consultas.
+			3. Archivos de Catálogo:
+				* Los archivos de catálogo almacenan información sobre la estructura de la base de datos, esquemas, tablas, índices, usuarios y otros metadatos necesarios para la administración de la base de datos.
+			4. Archivos de Registro:
+				* Vertica utiliza archivos de registro para mantener un registro de las transacciones y cambios en la base de datos. Estos archivos son importantes para la recuperación en caso de fallos y para garantizar la consistencia de los datos.
+			5. Archivos de Configuración:
+				* Estos archivos contienen la configuración y ajustes específicos del sistema para Vertica. Incluyen parámetros de configuración que afectan el rendimiento, la seguridad y otros aspectos del sistema.
+			6. Archivos de Respaldo (Backup):
+				* Cuando se realiza una copia de seguridad de la base de datos, Vertica genera archivos de respaldo que contienen una copia de los datos en ese momento. Estos archivos se utilizan para restaurar la base de datos en caso de pérdida de datos o fallos.
+			Estos son solo algunos ejemplos de los tipos de archivos que Vertica maneja internamente. La gestión eficiente de estos archivos es crucial para garantizar el rendimiento y la confiabilidad del sistema.
 
 3. Instalación y Configuración
 	* Requisitos del sistema.
@@ -559,7 +849,7 @@ Nivel Básico:
 	Una vez que hayas creado la base de datos y las tablas, puedes comenzar a cargar datos, realizar consultas y realizar otras operaciones según tus requisitos específicos.
 
 5. Carga de Datos
-	* Métodos de carga de datos: COPY, INSERT, etc.
+	* Métodos de carga de datos: COPY, INSERT, etc.:
 		* Vertica ofrece varios métodos para cargar datos en sus tablas, y los dos métodos principales son "COPY" e "INSERT". Aquí se explica cada uno de ellos:
 			1. Método "COPY":
 				* El método "COPY" es el enfoque preferido para cargar grandes volúmenes de datos de manera eficiente en Vertica. Utiliza archivos de datos externos para realizar la carga en paralelo.
@@ -731,6 +1021,7 @@ Nivel Intermedio:
 					WHERE fecha BETWEEN '2022-01-01' AND '2022-01-31'
 					GROUP BY fecha;
 					Esta consulta selecciona columnas específicas, filtra datos eficientemente y utiliza una función de agregación para calcular el total de ventas por fecha. Ajusta estas estrategias según las necesidades específicas de tu aplicación y las características de tu base de datos en Vertica.
+	* Conversiones de Datos: Utilizando CAST para transformar tipos de datos.
 
 7. Gestión de Usuarios y Permisos
 	* Crear y gestionar usuarios.
@@ -749,6 +1040,8 @@ Nivel Avanzado:
 10. Particionamiento y Segmentación
 	* Optimización avanzada de la estructura de las tablas.
 	* Uso de particiones y segmentos.
+	* Archivar Segmentos y Eliminar Segmentos en Vertica:
+		* Estrategias para archivar y eliminar segmentos en Vertica.
 
 11. Integración con Herramientas de BI
 	* Conectar Vertica con herramientas de Business Intelligence.
@@ -757,6 +1050,7 @@ Nivel Avanzado:
 12. Gestión de Carga de Trabajo
 	* Gestión avanzada de la carga de trabajo.
 	* Configuración de recursos para optimizar la ejecución de consultas.
+	* Conversiones Avanzadas: Exploración detallada del uso de CAST en escenarios complejos.
 
 13. Seguridad Avanzada
 	* Configuración de SSL y autenticación avanzada.
@@ -769,5 +1063,66 @@ Nivel Avanzado:
 15. Integración con Big Data
 	* Conectar Vertica con entornos de Big Data.
 	* Estrategias para trabajar con datos distribuidos.
+
+Temas Adicionales:
+
+16. Stored Procedures en Vertica
+	* Creación y uso de Stored Procedures en Vertica.
+		* "EXECUTE" VS "PERFORM":
+			En Vertica, tanto "EXECUTE" como "PERFORM" son comandos que se utilizan en bloques PL/pgSQL para ejecutar instrucciones SQL dinámicamente. Sin embargo, hay diferencias clave entre ellos:
+				1. Retorno de Resultados:
+					* "EXECUTE": Se utiliza para ejecutar dinámicamente una instrucción SQL, pero no devuelve el resultado de la consulta. Puede ser útil para ejecutar comandos que no generan un conjunto de resultados, como sentencias "INSERT", "UPDATE" o "DELETE".
+					* "PERFORM": Similar a "EXECUTE", pero se usa principalmente con consultas que no generan un conjunto de resultados. "PERFORM" se utiliza cuando estás interesado en si la consulta se ejecutó correctamente, pero no necesitas los resultados.
+				2. Manejo de Resultados:
+					* "EXECUTE": Puedes capturar los resultados en variables definidas en el bloque PL/pgSQL, pero debes especificar un tipo de registro si estás manejando un conjunto de resultados.
+					* "PERFORM": Similar a "EXECUTE", pero generalmente se utiliza cuando no necesitas los resultados de la consulta.
+				3. Ejecución Dinámica:
+					* "EXECUTE": Permite la ejecución dinámica de instrucciones SQL construidas dinámicamente, lo que significa que puedes construir y ejecutar consultas de forma dinámica.
+					* "PERFORM": Se puede usar para ejecutar dinámicamente instrucciones SQL, pero se prefiere cuando estás interesado en si la consulta se ejecutó correctamente.
+				Ejemplo de "EXECUTE":
+					EXECUTE 'INSERT INTO tabla VALUES ($1, $2)' USING valor1, valor2;
+				Ejemplo de "PERFORM":
+					PERFORM my_function(param1, param2);
+				En resumen, "EXECUTE" se utiliza cuando necesitas ejecutar dinámicamente instrucciones SQL y, opcionalmente, capturar los resultados, mientras que "PERFORM" se utiliza cuando estás interesado en si la consulta se ejecutó correctamente, pero no necesitas los resultados. Ambos comandos son herramientas poderosas en PL/pgSQL y se eligen según los requisitos específicos del código que estás escribiendo.
+				--NOTA: En Vertica, cuando se ejecuta una consulta mediante "EXECUTE", el resultado se almacena como texto "VARCHAR" en la variable, independientemente del tipo de datos real de la columna seleccionada. --No se si esto esta mal.
+	* Procedures anónimos:
+		* Ejecutar procedimientos almacenados sin guardarlos:
+			DO [ LANGUAGE 'language-name' ] $$
+				source
+			$$;
+		* Ejemplo:
+			DO LANGUAGE PLvSQL $$
+			DECLARE
+				x int := 3;
+				y varchar := 'some string';
+			BEGIN
+				RAISE NOTICE 'x = %', x;
+				RAISE NOTICE 'y = %', y;
+			END;
+			$$;
+			NOTICE 2005:  x = 3
+			NOTICE 2005:  y = some string
+		* Referencia: https://docs.vertica.com/24.1.x/en/sql-reference/statements/do/
+
+17. Herencia de Objetos en Vertica
+	* Concepto y aplicación de la herencia en la modelización de datos.
+
+18. Tablas de Sistema en Vertica
+	* Exploración y comprensión de las tablas de sistema de Vertica.
+
+19. Tuple Mover en Vertica
+	* Función y uso del Tuple Mover en la gestión de datos en Vertica.
+
+20. ROS (Read Optimized Storage) en Vertica
+	* Entendimiento y gestión del formato ROS en Vertica.
+
+21. Query Plans y Query Profiles en Vertica
+	* Análisis y optimización de los planes de consulta y perfiles de consulta.
+
+22. Épocas (Closed Epochs) en Vertica
+	* Comprensión del concepto de Épocas y su aplicación en Vertica.
+
+23. Database Designer (DBD) en Vertica
+	* Uso y optimización del Database Designer en Vertica.
 
 Recuerda que Vertica es una plataforma robusta y compleja, por lo que es recomendable combinar la teoría con la práctica, realizando ejercicios y proyectos para obtener una comprensión profunda de sus capacidades. Además, consulta siempre la documentación oficial de Vertica para obtener información actualizada y detallada.
