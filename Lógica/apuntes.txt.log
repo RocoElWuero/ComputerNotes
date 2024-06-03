@@ -264,7 +264,6 @@ Nivel Básico:
 						3. Finalmente, evaluamos la conjunción de las dos proposiciones anteriores.
 							* La expresión completa es Verdadera (1) solo cuando ambas proposiciones son Verdaderas (1).
 					===============================
-
 		2.3. Proposiciones y razonamiento válido:
 			* Proposiciones simples y compuestas.
 				En lógica formal, las proposiciones son afirmaciones que pueden ser evaluadas como verdaderas o falsas. Estas proposiciones pueden clasificarse en dos tipos: simples y compuestas.
@@ -406,8 +405,12 @@ Nivel Básico:
 										Si afirmamos "es verano (P) o está lloviendo y hace frío (Q y R)," es lo mismo que afirmar "es verano (P) o está lloviendo (P o Q) y es verano (P) o hace frío (P o R)."
 								Estas leyes son fundamentales en la lógica proposicional y son aplicables cuando se tienen combinaciones de conjunciones y disyunciones en proposiciones más complejas.
 						11. Leyes de la Implicación:
-							* Ley de Simplificación (Modus Ponens): (P → Q) ∧ P ∴ Q
-							* Ley de Exportación: P → (Q → P) ≡ 1
+							Las leyes de distribución son principios lógicos que describen cómo se relacionan las operaciones lógicas de conjunción (y) y disyunción (o) cuando interactúan con cada una de ellas. Estas leyes son aplicables en el ámbito de la lógica proposicional y se utilizan para simplificar expresiones lógicas y establecer equivalencias lógicas.
+								1. Ley de Simplificación (Modus Ponens), (P → Q) ∧ P ∴ Q):
+									* Explicación: Si sabemos que (P → Q) es verdadero y también sabemos que (P) es verdadero, entonces podemos concluir que (Q) es verdadero. En otras palabras, si la implicación es cierta y la antecedente es cierta, entonces la consecuente también es cierta.
+								2. Ley de Exportación, (P → (Q → P) ≡ 1) (equivale a verdad):
+									* Explicación: Esta ley establece que la implicación (P → (Q → P)) es siempre verdadera, independientemente de los valores de verdad de (P) y (Q). Esto refleja el hecho de que si asumimos (P) como verdadero, entonces no importa lo que sea (Q) (ya sea verdadero o falso), la implicación es cierta.
+								En resumen, ambas leyes están relacionadas con la implicación, donde la primera implica que si se cumple la condición inicial y la antecedente, entonces la consecuente es verdadera. La segunda ley señala que la implicación de (P) en (Q → P) es siempre cierta, independientemente de los valores de verdad de (P) y (Q).
 						12. Leyes de la Doble Implicación:
 							* Ley de la Bicondicionalidad: P ↔ Q ≡ (P → Q) ∧ (Q → P)
 						13. Leyes de la Negación:

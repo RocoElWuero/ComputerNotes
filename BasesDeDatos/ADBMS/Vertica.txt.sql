@@ -740,7 +740,6 @@ Nivel Básico:
 				* Si no necesita su base de datos por un período de tiempo, ¿por qué continuar pagando el costo de ejecutar nodos de cómputo?, ¿o tal vez le gustaría usar sus nodos de cómputo para poner alguna otra carga de trabajo cuando no sea necesario para atender las consultas de Vertica?, sus datos son de seguridad almacenados en S3, así que simplemente apague todo el clúster.
 				* Luego, cuando necesite acceder a la base de datos nuevamente, simplemente encienda un nuevo clúster de nodos de cómputo con la misma definición que el que cerró y reviva la base de datos.
 				* Cuando revive una base de datos en Eon Mode, el único requisito es que el número de nodos en el clúster sea el mismo. El tipo de instancias puede ser diferente, lo que le permite revivir la base de datos en un clúster con más o menos recursos. El tamaño del depósito puede ser diferente, lo que permite que se cultive o reduzca. Y puede revivir la base de datos en una versión más nueva de Vertica que proporcione una ruta simple para aplicar una actualización de Vertica.
-			* La hibernación (por ejemplo, para reducir costos):
 			* La replicación:
 		￩→
 		* Desnormalización Controlada:
