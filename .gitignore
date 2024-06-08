@@ -13,3 +13,5 @@ Pentesting/2HackNow/bin
 Pentesting/2HackNow/lib
 Pentesting/2HackNow/lib64
 Pentesting/2HackNow/pyvenv.cfg
+Pentesting/2HackNow/*.pem
+
